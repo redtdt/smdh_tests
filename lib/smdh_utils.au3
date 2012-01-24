@@ -11,13 +11,6 @@
 
 Global $smdh_pid
 
-Global Const $ADMIN = "Admin"
-Global Const $SIN_RESTRICCIONES = "Sin restricciones"
-Global Const $CAPTURA_CONSULTA_REPORTES = "Captura, consulta y reportes"
-Global Const $REPORTES_CONSULTA= "Reportes y consulta"
-Global Const $SOLO_LECTURA = "Solo lectura"
-Global Const $SIN_ACCESO = "Sin acceso"
-
 ; Run SMDH
 Func SMDH_Run($dir = "C:\smdh2")
 	UTLogInitTest( "SMDH_Run", $dir );
@@ -50,109 +43,6 @@ EndFunc
 
 Func SMDH_Terminate_No_Asserts()
 	ProcessClose($smdh_pid)
-EndFunc
-
-; Login as admin
-Func SMDH_Login($user, $passwd, $level)
-	UTLogInitTest( "SMDH_Login", $user & ", " & $passwd & ", " & $level);
-	UTAssert( WinActive("Menú general") )
-	UTAssert( ControlSend("Menú general", "", "[CLASS:Edit; INSTANCE:1]", $user) )
-	UTAssert( ControlSend("Menú general", "", "[CLASS:Edit; INSTANCE:2]", $passwd) )
-	UTAssert( ControlClick("Menú general", "", "[CLASS:Button; INSTANCE:5]") )
-	If ($level == $ADMIN) Then
-		UTAssert( WinWaitActive("Menú general", "Administración de usuari@s", 5) )
-	ElseIf ($level == $SIN_RESTRICCIONES) Then
-		UTAssert( WinWaitActive("Menú general", "Manejo de Casos.", 5) ) ; TODO: Check
-	ElseIf ($level == $CAPTURA_CONSULTA_REPORTES) Then
-		UTAssert( WinWaitActive("Menú general", "Manejo de Casos.", 5) ) ; TODO: Check
-	ElseIf ($level == $REPORTES_CONSULTA) Then
-		UTAssert( WinWaitActive("Menú general", "Manejo de Casos.", 5) ) ; TODO: Check
-	ElseIf ($level == $SOLO_LECTURA) Then
-		UTAssert( WinWaitActive("Menú general", "Manejo de Casos.", 5) ) ; TODO: Check
-	ElseIf ($level == $SIN_ACCESO) Then
-		UTAssert( WinWaitActive("Menú general", "Manejo de Casos.", 5) ) ; TODO: Check
-	EndIf
-	UTLogEndTestOK()
-EndFunc
-
-; Create user
-Func SMDH_UserCreate($user, $passwd)
-	UTLogInitTest( "SMDH_UserCreate", $user & ", " & $passwd );
-	UTAssert( WinActive("Menú general") )
-	UTAssert( ControlClick("Menú general", "Administración de usuari@s", "[CLASS:Button; INSTANCE:6]") )
-	UTAssert( WinWaitActive("Usuarias y usuarios", "", 5) )
-	UTAssert( ControlClick("Usuarias y usuarios", "Nuev@ usuari@", "[CLASS:Button; INSTANCE:1]") )
-	UTAssert( WinWaitActive("Nombre de la persona", "", 5) )
-	UTAssert( ControlSend("Nombre de la persona", "", "[CLASS:Edit; INSTANCE:1]", $user) )
-	UTAssert( ControlClick("Nombre de la persona", "Seleccionar", "[CLASS:Button; INSTANCE:1]") )
-	UTAssert( WinWaitActive("Contraseña", "", 5) )
-	UTAssert( ControlSend("Contraseña", "", "[CLASS:Edit; INSTANCE:1]", $passwd) )
-	UTAssert( ControlClick("Contraseña", "Seleccionar", "[CLASS:Button; INSTANCE:1]") )
-	UTAssert( WinWaitActive("Usuarias y usuarios", "", 5) )
-	Local $hUserList = ControlGetHandle("Usuarias y usuarios","","[CLASS:ListBox; INSTANCE:1]")
-	UTAssert( _GUICtrlListBox_FindString($hUserList, $user, True) >= 0)
-	UTAssert( Winclose("Usuarias y usuarios", "") )
-	Sleep(1000);
-	UTLogEndTestOK()
-EndFunc
-
-; Delete user
-Func SMDH_UserDelete($user)
-	UTLogInitTest( "SMDH_UserDelete", $user );
-	UTAssert( WinActive("Menú general") )
-	UTAssert( ControlClick("Menú general", "Administración de usuari@s", "[CLASS:Button; INSTANCE:6]") )
-	UTAssert( WinWaitActive("Usuarias y usuarios", "", 5) )
-	Local $hUserList = ControlGetHandle("Usuarias y usuarios","","[CLASS:ListBox; INSTANCE:1]")
-	Local $user_idx = _GUICtrlListBox_FindString($hUserList, $user, True)
-	UTAssert( $user_idx >= 0)
-	_GUICtrlListBox_ClickItem($hUserList, $user_idx, "left", False, 2)
-	UTAssert( ControlClick("Usuarias y usuarios", "Baja de usuari@", "[CLASS:Button; INSTANCE:2]") )
-	UTAssert( WinWaitActive("Alerta", "", 5) )
-	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
-	UTAssert( _GUICtrlListBox_FindString($hUserList, $user, True) < 0)
-	UTAssert( Winclose("Usuarias y usuarios", "") )
-	Sleep(1000);
-	UTLogEndTestOK()
-EndFunc
-
-; Create user
-Func SMDH_UserSetAccessLevel($user, $level)
-	UTLogInitTest( "SMDH_UserSetAccessLevel", $user & ", " & $level );
-	UTAssert( WinActive("Menú general") )
-	UTAssert( ControlClick("Menú general", "Administración de usuari@s", "[CLASS:Button; INSTANCE:6]") )
-	UTAssert( WinWaitActive("Usuarias y usuarios", "", 5) )
-	Local $hUserList = ControlGetHandle("Usuarias y usuarios","","[CLASS:ListBox; INSTANCE:1]")
-	Local $user_idx = _GUICtrlListBox_FindString($hUserList, $user, True)
-	UTAssert( $user_idx >= 0)
-	_GUICtrlListBox_ClickItem($hUserList, $user_idx, "left", False, 2)
-	Local $hLevelCombo = ControlGetHandle("Usuarias y usuarios","","[CLASS:ComboBox; INSTANCE:1]")
-	Local $level_idx = _GUICtrlComboBox_FindStringExact($hLevelCombo, $level);
-	UTAssert( $level_idx >= 0)
-	UTAssert( _GUICtrlComboBox_SetCurSel($hLevelCombo, $level_idx)>=0 )
-	ControlCommand("Usuarias y usuarios","Cambiar nivel de acceso","ComboBox1","SelectString",$level)
-	UTAssert( ControlClick("Usuarias y usuarios", "Cerrar", "[CLASS:Button; INSTANCE:3]") )
-	Sleep(1000);
-	UTLogEndTestOK()
-EndFunc
-
-; Create user
-Func SMDH_UserCheckAccessLevel($user, $level)
-	UTLogInitTest( "SMDH_UserCheckAccessLevel", $user & ", " & $level );
-	UTAssert( WinActive("Menú general") )
-	UTAssert( ControlClick("Menú general", "Administración de usuari@s", "[CLASS:Button; INSTANCE:6]") )
-	UTAssert( WinWaitActive("Usuarias y usuarios", "", 5) )
-	Local $hUserList = ControlGetHandle("Usuarias y usuarios","","[CLASS:ListBox; INSTANCE:1]")
-	Local $user_idx = _GUICtrlListBox_FindString($hUserList, $user, True)
-	UTAssert( $user_idx >= 0)
-	_GUICtrlListBox_ClickItem($hUserList, $user_idx, "left", False, 2)
-	Local $hLevelCombo = ControlGetHandle("Usuarias y usuarios","","[CLASS:ComboBox; INSTANCE:1]")
-	Local $level_idx = _GUICtrlComboBox_GetCurSel($hLevelCombo)
-	UTAssert( $level_idx >= 0)
-	Local $level_str
-	UTAssert( _GUICtrlComboBox_GetLBText($hLevelCombo, $level_idx, $level_str) >=0 )
-	UTAssert( ControlClick("Usuarias y usuarios", "Cerrar", "[CLASS:Button; INSTANCE:3]") )
-	Sleep(1000);
-	UTLogEndTestOK()
 EndFunc
 
 Func SMDH_ManejoDeCasos_Open()
