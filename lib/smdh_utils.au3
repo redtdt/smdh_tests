@@ -34,6 +34,10 @@ Func SMDH_Close()
 	UTLogEndTestOK()
 EndFunc
 
+Func SMDH_Close_NoAssert()
+	Winclose("Menú general", "")
+EndFunc
+
 Func SMDH_TerminateOnExit()
 	OnAutoItExitRegister("SMDH_Terminate")
 EndFunc
@@ -42,6 +46,10 @@ Func SMDH_Terminate()
 	UTLogInitTest( "SMDH_Terminate" );
 	UTAssert( ProcessClose($smdh_pid) )
 	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Terminate_No_Asserts()
+	ProcessClose($smdh_pid)
 EndFunc
 
 ; Login as admin

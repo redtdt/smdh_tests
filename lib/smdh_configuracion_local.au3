@@ -24,7 +24,7 @@ Func SMDH_ConfiguracionLocal_SetServidorLocal()
 EndFunc
 
 Func SMDH_ConfiguracionLocal_SetServidorRemoto($server)
-	UTLogInitTest( "SMDH_ConfiguracionLocal_SetServidorRemoto");
+	UTLogInitTest( "SMDH_ConfiguracionLocal_SetServidorRemoto", $server);
 	UTAssert( WinActive("Opciones") )
 	; uncheck the box
 	If ( GUI_Is_CheckBox_Checked("Opciones","","[CLASS:Button; INSTANCE:4]") ) Then
@@ -43,7 +43,7 @@ Func SMDH_ConfiguracionLocal_IsServidorLocal()
 EndFunc
 
 Func SMDH_ConfiguracionLocal_IsServidorRemoto($server)
-	UTLogInitTest( "SMDH_ConfiguracionLocal_IsServidorRemoto");
+	UTLogInitTest( "SMDH_ConfiguracionLocal_IsServidorRemoto", $server);
 	UTAssert( WinActive("Opciones") )
 	UTAssert( not GUI_Is_CheckBox_Checked("Opciones","","[CLASS:Button; INSTANCE:4]") )
 	UTAssert( ControlGetText("Opciones","","[CLASS:Edit; INSTANCE:1]") == $server )

@@ -8,44 +8,51 @@
 
 ; 1.2.1 Que guarde correctamente el host
 
+Local $host = "www.redtdt.org.mx"
+
+
+Func TearDown()
+	SMDH_Terminate_No_Asserts()
+	; Be sure to leave a local server
+	SMDH_Run()
+	SMDH_ConfiguracionLocal_Open()
+	SMDH_ConfiguracionLocal_SetServidorLocal()
+	SMDH_ConfiguracionLocal_Aceptar()
+
+	SMDH_Run()
+	SMDH_ConfiguracionLocal_Open()
+	SMDH_ConfiguracionLocal_IsServidorLocal()
+	SMDH_ConfiguracionLocal_Aceptar()
+EndFunc
+
+OnAutoItExitRegister("TearDown")
+
 SMDH_Run()
-SMDH_TerminateOnExit()
 SMDH_ConfiguracionLocal_Open()
 SMDH_ConfiguracionLocal_SetServidorLocal()
 SMDH_ConfiguracionLocal_Aceptar()
-OnAutoItExitUnregister("SMDH_Terminate")
 
 SMDH_Run()
-SMDH_TerminateOnExit()
 SMDH_ConfiguracionLocal_Open()
 SMDH_ConfiguracionLocal_IsServidorLocal()
 SMDH_ConfiguracionLocal_Aceptar()
-OnAutoItExitUnregister("SMDH_Terminate")
 
 SMDH_Run()
-SMDH_TerminateOnExit()
 SMDH_ConfiguracionLocal_Open()
-SMDH_ConfiguracionLocal_SetServidorRemoto("www.google.com")
+SMDH_ConfiguracionLocal_SetServidorRemoto($host)
 SMDH_ConfiguracionLocal_Aceptar()
-OnAutoItExitUnregister("SMDH_Terminate")
 
 SMDH_Run()
-SMDH_TerminateOnExit()
 SMDH_ConfiguracionLocal_Open()
-SMDH_ConfiguracionLocal_IsServidorRemoto("www.google.com")
+SMDH_ConfiguracionLocal_IsServidorRemoto($host)
 SMDH_ConfiguracionLocal_Aceptar()
-OnAutoItExitUnregister("SMDH_Terminate")
 
 SMDH_Run()
-SMDH_TerminateOnExit()
 SMDH_ConfiguracionLocal_Open()
 SMDH_ConfiguracionLocal_SetServidorLocal()
 SMDH_ConfiguracionLocal_Aceptar()
-OnAutoItExitUnregister("SMDH_Terminate")
 
 SMDH_Run()
-SMDH_TerminateOnExit()
 SMDH_ConfiguracionLocal_Open()
 SMDH_ConfiguracionLocal_IsServidorLocal()
 SMDH_ConfiguracionLocal_Aceptar()
-OnAutoItExitUnregister("SMDH_Terminate")
