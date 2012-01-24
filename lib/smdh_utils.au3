@@ -1,3 +1,4 @@
+#include-once
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_Compile_Both=y
 #AutoIt3Wrapper_UseX64=y
@@ -5,10 +6,8 @@
 
 #include <SendMessage.au3>
 #include <WindowsConstants.au3>
-#include <GuiButton.au3>
-#include <GuiListBox.au3>
-#include <GuiComboBox.au3>
 #include "unit_test.au3"
+#include "smdh_gui_utils.au3"
 
 Global $smdh_pid
 
@@ -145,54 +144,6 @@ Func SMDH_UserCheckAccessLevel($user, $level)
 	UTAssert( _GUICtrlComboBox_GetLBText($hLevelCombo, $level_idx, $level_str) >=0 )
 	UTAssert( ControlClick("Usuarias y usuarios", "Cerrar", "[CLASS:Button; INSTANCE:3]") )
 	Sleep(1000);
-	UTLogEndTestOK()
-EndFunc
-
-Func SMDH_ConfiguracionLocal_Open()
-	UTLogInitTest( "SMDH_ManejoDeCasos_Open");
-	UTAssert( WinActive("Menú general") )
-	UTAssert( ControlClick("Menú general", "", "Configuración local") )
-	UTAssert( WinWaitActive("Opciones", "", 5) )
-	UTLogEndTestOK()
-EndFunc
-
-Func GUI_Is_CheckBox_Checked($title, $text, $controlID)
-	Local $hCheck = ControlGetHandle($title, $text, $controlID)
-	UTAssert( $hCheck <> "" )
-	Local $checked = _GUICtrlButton_GetCheck($hCheck)
-	If ( $checked <> $GUI_CHECKED ) Then
-		return True
-	EndIf
-	return False
-EndFunc
-
-Func SMDH_ConfiguracionLocal_SetServidorLocal()
-	UTLogInitTest( "SMDH_ConfiguracionLocal_SetServidorLocal");
-	UTAssert( WinActive("Opciones") )
-	Local $hCheck = ControlGetHandle("Opciones","","[CLASS:Button; INSTANCE:4]")
-	UTAssert( $hCheck <> "" )
-	Local $checked = _GUICtrlButton_GetCheck($hCheck)
-	If ( $checked <> $GUI_CHECKED ) Then
-		UTAssert( ControlClick("Opciones", "", "[CLASS:Button; INSTANCE:4]") )
-	EndIf
-	UTLogEndTestOK()
-EndFunc
-
-Func SMDH_ConfiguracionLocal_IsServidorLocal()
-	UTLogInitTest( "SMDH_ConfiguracionLocal_IsServidorLocal");
-	UTAssert( WinActive("Opciones") )
-	Local $hCheck = ControlGetHandle("Opciones","","[CLASS:Button; INSTANCE:4]")
-	Local $checked = _GUICtrlButton_GetCheck($hCheck)
-	UTAssert( $checked = $GUI_CHECKED )
-	UTLogEndTestOK()
-EndFunc
-
-Func SMDH_ConfiguracionLocal_Aceptar()
-	UTLogInitTest( "SMDH_ConfiguracionLocal_Aceptar");
-	UTAssert( WinActive("Opciones") )
-	UTAssert( ControlClick("Opciones", "", "Aceptar") )
-	UTAssert( WinWaitActive("Alerta", "", 10) )
-	UTAssert( ControlClick("Alerta", "", "Aceptar") )
 	UTLogEndTestOK()
 EndFunc
 

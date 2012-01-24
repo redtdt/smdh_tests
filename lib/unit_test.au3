@@ -1,8 +1,8 @@
+#include-once
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_Compile_Both=y
 #AutoIt3Wrapper_UseX64=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
-
 Func UTAssert($bool, $msg="Assert Failure", $erl=@ScriptLineNumber)
     If NOT $bool Then
 		UTLogEndTestFAIL($msg, $erl)
