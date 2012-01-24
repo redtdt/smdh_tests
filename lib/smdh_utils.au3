@@ -89,7 +89,7 @@ Func SMDH_ManejoDeCasos_Personas_Open()
 	UTLogInitTest( "SMDH_ManejoDeCasos_Personas_Open")
 	UTAssert( WinActive("Manejo de Casos") )
 	UTAssert( ControlClick("Manejo de Casos","","wxWindowClassNR2", "primary", 1, 283, 14) )
-	UTAssert( WinWaitActive("Manejo de Casos", "personas registradas", 10) )
+	UTAssert( WinWaitActive("Manejo de Casos", "NBPersonas", 10) )
 	UTLogEndTestOK()
 EndFunc
 
