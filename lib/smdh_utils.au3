@@ -49,7 +49,47 @@ Func SMDH_ManejoDeCasos_Open()
 	UTLogInitTest( "SMDH_ManejoDeCasos_Open");
 	UTAssert( WinActive("Menú general") )
 	UTAssert( ControlClick("Menú general", "Manejo de Casos.", "[CLASS:Button; INSTANCE:1]") )
-	UTAssert( WinWaitActive("Manejo de Casos", "", 5) )
+	UTAssert( WinWaitActive("Manejo de Casos", "", 10) )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Open()
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Open")
+	UTAssert( WinActive("Manejo de Casos") )
+	UTAssert( ControlClick("Manejo de Casos","","wxWindowClassNR2", "primary", 1, 26, 14) )
+	UTAssert( WinWaitActive("Manejo de Casos", "casos registrados", 10) )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Open()
+	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Open")
+	UTAssert( WinActive("Manejo de Casos") )
+	UTAssert( ControlClick("Manejo de Casos","","wxWindowClassNR2", "primary", 1, 74, 14) )
+	UTAssert( WinWaitActive("Manejo de Casos", "Actos registrados", 10) )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Intervenciones_Open()
+	UTLogInitTest( "SMDH_ManejoDeCasos_Intervenciones_Open")
+	UTAssert( WinActive("Manejo de Casos") )
+	UTAssert( ControlClick("Manejo de Casos","","wxWindowClassNR2", "primary", 1, 144, 14) )
+	UTAssert( WinWaitActive("Manejo de Casos", "Tipo de intervenci", 10) )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Open()
+	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Open")
+	UTAssert( WinActive("Manejo de Casos") )
+	UTAssert( ControlClick("Manejo de Casos","","wxWindowClassNR2", "primary", 1, 222, 14) )
+	UTAssert( WinWaitActive("Manejo de Casos", "fuente personal", 10) )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Personas_Open()
+	UTLogInitTest( "SMDH_ManejoDeCasos_Personas_Open")
+	UTAssert( WinActive("Manejo de Casos") )
+	UTAssert( ControlClick("Manejo de Casos","","wxWindowClassNR2", "primary", 1, 283, 14) )
+	UTAssert( WinWaitActive("Manejo de Casos", "personas registradas", 10) )
 	UTLogEndTestOK()
 EndFunc
 
