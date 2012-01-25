@@ -187,7 +187,12 @@ Func SMDH_Personas_Individual_Set_Sexo($nombre, $apellido, $sexo)
 	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "Guardar") )
 	; verify
 	SMDH_Personas_Individual_Select($nombre, $apellido)
-	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) == $idx )
+	$hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:12]")
+	If ($sexo == $PERSONA_SEXO_EMPTY) Then
+		UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) == $idx or _GUICtrlComboBoxEx_GetCurSel($hCombo) == 4294967295)
+	Else
+		UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) == $idx )
+	EndIf
 	UTLogEndTestOK()
 EndFunc
 
