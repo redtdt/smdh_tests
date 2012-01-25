@@ -5,6 +5,9 @@
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 #include "smdh_gui_utils.au3"
 
+Global Const $PERSONA_INDIVIDUAL = "Individual"
+Global Const $PERSONA_COLECTIVA = "Colectiva"
+
 Func SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 	UTLogInitTest( "SMDH_ManejoDeCasos_Personas_DatosGenerales_Open")
 	UTAssert( WinActive("Manejo de Casos", "NBPersonas") )
@@ -34,6 +37,88 @@ Func SMDH_ManejoDeCasos_Personas_DatosBiograficos_Open()
 	UTAssert( WinActive("Manejo de Casos", "NBPersonas") )
 	UTAssert( ControlClick("Manejo de Casos","","wxWindowClassNR17", "primary", 1, 390, 14) )
 	UTAssert( WinWaitActive("Manejo de Casos", "ato biogr", 10) )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Individual_Nueva($nombre, $apellido)
+	UTLogInitTest( "SMDH_Personas_Individual_Nueva", $nombre & ", " & $apellido )
+	UTAssert( WinActive("Manejo de Casos", "NBPersonas") )
+	UTAssert( ControlClick("Manejo de Casos","","Nueva persona") )
+	UTAssert( WinWaitActive("Datos de una persona", "", 10) )
+	UTAssert( ControlSend("Datos de una persona", "", "[CLASS:Edit; INSTANCE:2]", $nombre) )
+	UTAssert( ControlSend("Datos de una persona", "", "[CLASS:Edit; INSTANCE:1]", $apellido) )
+	UTAssert( ControlClick("Datos de una persona", "", $PERSONA_INDIVIDUAL) )
+	UTAssert( ControlClick("Datos de una persona", "", "Seleccionar") )
+	UTAssert( not WinExists("Alerta", "existe una persona") )
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	Local $hList = ControlGetHandle("Manejo de Casos","","[CLASS:ListBox; INSTANCE:13]")
+	Local $str = $apellido & ", " & $nombre
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $str, True)
+	UTAssert( $item_idx >= 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Nueva($nombre, $sigla = "")
+	UTLogInitTest( "SMDH_Personas_Colectiva_Nueva", $nombre & ", " & $sigla )
+	UTAssert( WinActive("Manejo de Casos", "NBPersonas") )
+	UTAssert( ControlClick("Manejo de Casos","","Nueva persona") )
+	UTAssert( WinWaitActive("Datos de una persona", "", 10) )
+	UTAssert( ControlSend("Datos de una persona", "", "[CLASS:Edit; INSTANCE:1]", $nombre) )
+	UTAssert( ControlSend("Datos de una persona", "", "[CLASS:Edit; INSTANCE:2]", $sigla) )
+	UTAssert( ControlClick("Datos de una persona", "", $PERSONA_COLECTIVA) )
+	UTAssert( ControlClick("Datos de una persona", "", "Seleccionar") )
+	UTAssert( not WinExists("Alerta", "existe una persona") )
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	Local $hList = ControlGetHandle("Manejo de Casos","","[CLASS:ListBox; INSTANCE:13]")
+	Local $str = $nombre
+	If ($sigla <> "") Then
+		$str = $str & " (" & $sigla & ")"
+	EndIf
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $str, True)
+	UTAssert( $item_idx >= 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Individual_Borrar($nombre, $apellido, $assert = True)
+	UTLogInitTest( "SMDH_Personas_Individual_Borrar", $nombre & ", " & $apellido );
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	Local $hList = ControlGetHandle("Manejo de Casos","","[CLASS:ListBox; INSTANCE:13]")
+	Local $str = $apellido & ", " & $nombre
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $str, True)
+	If ($assert) Then
+		UTAssert( $item_idx >= 0)
+	ElseIf ($item_idx < 0) Then
+		UTLogEndTestOK()
+		Return
+	EndIf
+	_GUICtrlListBox_ClickItem($hList, $item_idx, "left", False, 2)
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "Borrar persona") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	UTAssert( _GUICtrlListBox_FindString($hList, $str, True) < 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Borrar($nombre, $sigla = "", $assert = True)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Borrar", $nombre & ", " & $sigla );
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	Local $hList = ControlGetHandle("Manejo de Casos","","[CLASS:ListBox; INSTANCE:13]")
+	Local $str = $nombre
+	If ($sigla <> "") Then
+		$str = $str & " (" & $sigla & ")"
+	EndIf
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $str, True)
+	If ($assert) Then
+		UTAssert( $item_idx >= 0)
+	ElseIf ($item_idx < 0) Then
+		UTLogEndTestOK()
+		Return
+	EndIf
+	_GUICtrlListBox_ClickItem($hList, $item_idx, "left", False, 2)
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "Borrar persona") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	UTAssert( _GUICtrlListBox_FindString($hList, $str, True) < 0)
 	UTLogEndTestOK()
 EndFunc
 
