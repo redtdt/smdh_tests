@@ -37,6 +37,6 @@ SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 SMDH_Personas_Individual_Nueva($nombre, $apellido)
 SMDH_Personas_Individual_Set_Sexo($nombre, $apellido, $PERSONA_SEXO_MUJER)
 SMDH_Personas_Individual_Set_Sexo($nombre, $apellido, $PERSONA_SEXO_HOMBRE)
-SMDH_Personas_Individual_Set_Sexo($nombre, $apellido, $PERSONA_SEXO_EMPTY)
+SMDH_Personas_Individual_Set_Sexo($nombre, $apellido, $PERSONA_SEXO_VACIO)
 SMDH_Personas_Individual_Borrar($nombre, $apellido)
 

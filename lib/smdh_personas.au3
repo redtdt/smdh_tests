@@ -7,9 +7,14 @@
 
 Global Const $PERSONA_INDIVIDUAL = "Individual"
 Global Const $PERSONA_COLECTIVA = "Colectiva"
+Global Const $PERSONA_SEXO_VACIO = ""
 Global Const $PERSONA_SEXO_MUJER = "Mujer"
 Global Const $PERSONA_SEXO_HOMBRE = "Hombre"
-Global Const $PERSONA_SEXO_EMPTY = ""
+Global Const $FECHA_TIPO_VACIO = ""
+Global Const $FECHA_TIPO_EXACTA = "Fecha exacta"
+Global Const $FECHA_TIPO_APROX = "Fecha aproximada"
+Global Const $FECHA_TIPO_NO_DIA = "Se desconoce el día"
+Global Const $FECHA_TIPO_NO_MES = "Se desconoce el día y el mes"
 
 Func SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 	UTLogInitTest( "SMDH_ManejoDeCasos_Personas_DatosGenerales_Open")
@@ -177,7 +182,7 @@ Func SMDH_Personas_Individual_Set_Sexo($nombre, $apellido, $sexo)
 
 	Local $hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:12]")
 	Local $idx = 0;
-	If ($sexo == $PERSONA_SEXO_EMPTY) Then
+	If ($sexo == $PERSONA_SEXO_VACIO) Then
 		$idx = -1
 	Else
 		$idx = _GUICtrlComboBoxEx_FindStringExact($hCombo, $sexo);
@@ -188,10 +193,221 @@ Func SMDH_Personas_Individual_Set_Sexo($nombre, $apellido, $sexo)
 	; verify
 	SMDH_Personas_Individual_Select($nombre, $apellido)
 	$hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:12]")
-	If ($sexo == $PERSONA_SEXO_EMPTY) Then
+	If ($sexo == $PERSONA_SEXO_VACIO) Then
 		UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) == $idx or _GUICtrlComboBoxEx_GetCurSel($hCombo) == 4294967295)
 	Else
 		UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) == $idx )
+	EndIf
+	UTLogEndTestOK()
+EndFunc
+
+
+Func SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $tipo, $anio, $mes = 0, $dia = 0,	$expect_failure_anio = False, $expect_failure_mes= False, $expect_failure_dia = False, $expect_failure_saving = False)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_FechaNacimiento", $nombre & ", " & $apellido & ", " & $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia);
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:15]")
+	Local $idx = 0;
+	If ($tipo == $FECHA_TIPO_VACIO) Then
+		$idx = -1
+	Else
+		$idx = _GUICtrlComboBoxEx_FindStringExact($hCombo, $tipo);
+		UTAssert( $idx >= 0)
+	EndIf
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	ControlCommand("Manejo de Casos","personas registradas","[CLASS:ComboBox; INSTANCE:15]","SelectString",$tipo)
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_DIA and $tipo<>$FECHA_TIPO_NO_MES and $dia<>0) Then
+		UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:46]", "") )
+		UTAssert( ControlSend("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:46]", $dia) )
+		If ($expect_failure_dia = False) Then
+			UTAssert( not WinExists("Alerta", "fuera de rango") )
+		Else
+			UTAssert( WinWaitActive("Alerta", "fuera de rango", 10) )
+			UTAssert( ControlClick("Alerta", "", "Aceptar") )
+			; Set a valid one to avoid problems
+			UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:46]", "") )
+			UTAssert( ControlSend("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:46]", 1) )
+			UTLogEndTestOK()
+			return
+		EndIf
+	EndIf
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_MES and $mes<>0) Then
+		UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:47]", "") )
+		UTAssert( ControlSend("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:47]", $mes) )
+		If ($expect_failure_mes = False) Then
+			UTAssert( not WinExists("Alerta", "fuera de rango") )
+		Else
+			UTAssert( WinWaitActive("Alerta", "fuera de rango", 10) )
+			UTAssert( ControlClick("Alerta", "", "Aceptar") )
+			; Set a valid one to avoid problems
+			UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:47]", "") )
+			UTAssert( ControlSend("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:47]", 1) )
+			UTLogEndTestOK()
+			return
+		EndIf
+	EndIf
+	If ($tipo<>$FECHA_TIPO_VACIO) Then
+		UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:48]", "") )
+		UTAssert( ControlSend("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:48]", $anio) )
+		If ($expect_failure_anio = False) Then
+			UTAssert( not WinExists("Alerta", "fuera de rango") )
+		Else
+			UTAssert( WinExists("Alerta", "") )
+			UTAssert( WinWaitActive("Alerta", "", 3) )
+			UTAssert( ControlClick("Alerta", "", "Aceptar") )
+			; a veces sale 2 veces
+			If( WinWaitActive("Alerta", "no es", 1) ) Then
+				UTAssert( ControlClick("Alerta", "", "Aceptar") )
+			EndIf
+			; a veces sale 3 veces
+			If( WinWaitActive("Alerta", "no es", 1) ) Then
+				UTAssert( ControlClick("Alerta", "", "Aceptar") )
+			EndIf
+			; Set a valid one to avoid problems
+			UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:48]", "") )
+			UTAssert( ControlSend("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:48]", 2000) )
+			UTLogEndTestOK()
+			return
+		EndIf
+	EndIf
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "[CLASS:Button; INSTANCE:88]") )
+	If ($expect_failure_saving = False) Then
+		UTAssert( not WinExists("Alerta", "no es") )
+	Else
+		UTAssert( WinWaitActive("Alerta", "no es", 1) )
+		UTAssert( ControlClick("Alerta", "", "Aceptar") )
+		; sale 2 veces
+		UTAssert( WinWaitActive("Alerta", "no es", 1) )
+		UTAssert( ControlClick("Alerta", "", "Aceptar") )
+		; a veces sale 3 veces
+		If( WinWaitActive("Alerta", "no es", 1) ) Then
+			UTAssert( ControlClick("Alerta", "", "Aceptar") )
+		EndIf
+		UTLogEndTestOK()
+		return
+	EndIf
+	; verify
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	$hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:15]")
+	If ($tipo == $FECHA_TIPO_VACIO) Then
+		UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) == $idx or _GUICtrlComboBoxEx_GetCurSel($hCombo) == 4294967295)
+	Else
+		UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) == $idx )
+	EndIf
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_DIA and $tipo<>$FECHA_TIPO_NO_MES and $dia<>0) Then
+		UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:46]") == $dia )
+	EndIf
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_MES and $mes<>0) Then
+		UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:47]") == $mes )
+	EndIf
+	If ($tipo<>$FECHA_TIPO_VACIO) Then
+		UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:48]") == $anio )
+	EndIf
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Set_FechaCreacion($nombre, $sigla, $tipo, $anio, $mes = 0, $dia = 0, $expect_failure_anio = False, $expect_failure_mes= False, $expect_failure_dia = False, $expect_failure_saving = False)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Set_FechaCreacion", $nombre & ", " & $sigla & ", " & $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia);
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:15]")
+	Local $idx = 0;
+	If ($tipo == $FECHA_TIPO_VACIO) Then
+		$idx = -1
+	Else
+		$idx = _GUICtrlComboBoxEx_FindStringExact($hCombo, $tipo);
+		UTAssert( $idx >= 0)
+	EndIf
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	ControlCommand("Manejo de Casos","personas registradas","[CLASS:ComboBox; INSTANCE:15]","SelectString",$tipo)
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_DIA and $tipo<>$FECHA_TIPO_NO_MES and $dia<>0) Then
+		UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:46]", "") )
+		UTAssert( ControlSend("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:46]", $dia) )
+		If ($expect_failure_dia = False) Then
+			UTAssert( not WinExists("Alerta", "fuera de rango") )
+		Else
+			UTAssert( WinWaitActive("Alerta", "fuera de rango", 10) )
+			UTAssert( ControlClick("Alerta", "", "Aceptar") )
+			; Set a valid one to avoid problems
+			UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:46]", "") )
+			UTAssert( ControlSend("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:46]", 1) )
+			UTLogEndTestOK()
+			return
+		EndIf
+	EndIf
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_MES and $mes<>0) Then
+		UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:47]", "") )
+		UTAssert( ControlSend("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:47]", $mes) )
+		If ($expect_failure_mes = False) Then
+			UTAssert( not WinExists("Alerta", "fuera de rango") )
+		Else
+			UTAssert( WinWaitActive("Alerta", "fuera de rango", 10) )
+			UTAssert( ControlClick("Alerta", "", "Aceptar") )
+			; Set a valid one to avoid problems
+			UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:47]", "") )
+			UTAssert( ControlSend("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:47]", 1) )
+			UTLogEndTestOK()
+			return
+		EndIf
+	EndIf
+	If ($tipo<>$FECHA_TIPO_VACIO) Then
+		UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:48]", "") )
+		UTAssert( ControlSend("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:48]", $anio) )
+		If ($expect_failure_anio = False) Then
+			UTAssert( not WinExists("Alerta", "fuera de rango") )
+		Else
+			UTAssert( WinExists("Alerta", "") )
+			UTAssert( WinWaitActive("Alerta", "", 3) )
+			UTAssert( ControlClick("Alerta", "", "Aceptar") )
+			; a veces sale 2 veces
+			If( WinWaitActive("Alerta", "", 1) ) Then
+				UTAssert( ControlClick("Alerta", "", "Aceptar") )
+			EndIf
+			; a veces sale 3 veces
+			If( WinWaitActive("Alerta", "", 1) ) Then
+				UTAssert( ControlClick("Alerta", "", "Aceptar") )
+			EndIf
+			; Set a valid one to avoid problems
+			UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:48]", "") )
+			UTAssert( ControlSend("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:48]", 2000) )
+			UTLogEndTestOK()
+			return
+		EndIf
+	EndIf
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "[CLASS:Button; INSTANCE:88]") )
+	If ($expect_failure_saving = False) Then
+		UTAssert( not WinExists("Alerta", "no es") )
+	Else
+		UTAssert( WinWaitActive("Alerta", "no es", 1) )
+		UTAssert( ControlClick("Alerta", "", "Aceptar") )
+		; sale 2 veces
+		UTAssert( WinWaitActive("Alerta", "no es", 1) )
+		UTAssert( ControlClick("Alerta", "", "Aceptar") )
+		; a veces sale 3 veces
+		If( WinWaitActive("Alerta", "no es", 1) ) Then
+			UTAssert( ControlClick("Alerta", "", "Aceptar") )
+		EndIf
+		UTLogEndTestOK()
+		return
+	EndIf
+	; verify
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	$hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:15]")
+	If ($tipo == $FECHA_TIPO_VACIO) Then
+		UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) == $idx or _GUICtrlComboBoxEx_GetCurSel($hCombo) == 4294967295)
+	Else
+		UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) == $idx )
+	EndIf
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_DIA and $tipo<>$FECHA_TIPO_NO_MES and $dia<>0) Then
+		UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:46]") == $dia )
+	EndIf
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_MES and $mes<>0) Then
+		UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:47]") == $mes )
+	EndIf
+	If ($tipo<>$FECHA_TIPO_VACIO) Then
+		UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:48]") == $anio )
 	EndIf
 	UTLogEndTestOK()
 EndFunc
