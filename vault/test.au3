@@ -38,3 +38,12 @@ ConsoleWrite( "OK" & @CRLF )
 _GUICtrlListBox_ClickItem($hUserList, 0, "left", False, 2)
 
 UTAssert( Winclose("Menú general", "") )
+
+; recorrer combobox
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:12]")
+	Local $hCnt = _GUICtrlComboBox_GetCount($hCombo);
+	For $i =0 To $hCnt Step 1
+		Local $str
+		_GUICtrlComboBoxEx_GetItemText($hCombo, $i, $str)
+		MsgBox(0, $i, "A" & $str & "A")
+	Next

@@ -7,6 +7,9 @@
 
 Global Const $PERSONA_INDIVIDUAL = "Individual"
 Global Const $PERSONA_COLECTIVA = "Colectiva"
+Global Const $PERSONA_SEXO_MUJER = "Mujer"
+Global Const $PERSONA_SEXO_HOMBRE = "Hombre"
+Global Const $PERSONA_SEXO_EMPTY = ""
 
 Func SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 	UTLogInitTest( "SMDH_ManejoDeCasos_Personas_DatosGenerales_Open")
@@ -144,7 +147,7 @@ Func SMDH_Personas_Colectiva_Select($nombre, $sigla)
 EndFunc
 
 Func SMDH_Personas_Individual_Set_OtroNombre($nombre, $apellido, $otro)
-	UTLogInitTest( "SMDH_Personas_Individual_Set_OtroNombre", $nombre & ", " & $apellido );
+	UTLogInitTest( "SMDH_Personas_Individual_Set_OtroNombre", $nombre & ", " & $apellido & ", " & $otro );
 	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
 	SMDH_Personas_Individual_Select($nombre, $apellido)
 	UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:45]", $otro) )
@@ -156,7 +159,7 @@ Func SMDH_Personas_Individual_Set_OtroNombre($nombre, $apellido, $otro)
 EndFunc
 
 Func SMDH_Personas_Colectiva_Set_OtroNombre($nombre, $sigla, $otro)
-	UTLogInitTest( "SMDH_Personas_Colectiva_Set_OtroNombre", $nombre & ", " & $sigla );
+	UTLogInitTest( "SMDH_Personas_Colectiva_Set_OtroNombre", $nombre & ", " & $sigla & ", " & $otro );
 	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
 	SMDH_Personas_Colectiva_Select($nombre, $sigla)
 	UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:45]", $otro) )
@@ -164,6 +167,27 @@ Func SMDH_Personas_Colectiva_Set_OtroNombre($nombre, $sigla, $otro)
 	; verify
 	SMDH_Personas_Colectiva_Select($nombre, $sigla)
 	UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:45]") == $otro )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Individual_Set_Sexo($nombre, $apellido, $sexo)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_Sexo", $nombre & ", " & $apellido & ", " & $sexo );
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:12]")
+	Local $idx = 0;
+	If ($sexo == $PERSONA_SEXO_EMPTY) Then
+		$idx = -1
+	Else
+		$idx = _GUICtrlComboBoxEx_FindStringExact($hCombo, $sexo);
+		UTAssert( $idx >= 0)
+	EndIf
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "Guardar") )
+	; verify
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) == $idx )
 	UTLogEndTestOK()
 EndFunc
 

@@ -7,6 +7,7 @@
 #include <GuiButton.au3>
 #include <GuiListBox.au3>
 #include <GuiComboBox.au3>
+#include <GuiComboBoxEx.au3>
 #include "unit_test.au3"
 
 Func GUI_Is_CheckBox_Checked($title, $text, $controlID)
