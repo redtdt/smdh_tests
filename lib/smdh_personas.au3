@@ -122,3 +122,48 @@ Func SMDH_Personas_Colectiva_Borrar($nombre, $sigla = "", $assert = True)
 	UTLogEndTestOK()
 EndFunc
 
+Func SMDH_Personas_Individual_Select($nombre, $apellido)
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	Local $hList = ControlGetHandle("Manejo de Casos","","[CLASS:ListBox; INSTANCE:13]")
+	Local $str = $apellido & ", " & $nombre
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $str, True)
+	UTAssert( $item_idx >= 0)
+	_GUICtrlListBox_ClickItem($hList, $item_idx, "left", False, 2)
+EndFunc
+
+Func SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	Local $hList = ControlGetHandle("Manejo de Casos","","[CLASS:ListBox; INSTANCE:13]")
+	Local $str = $nombre
+	If ($sigla <> "") Then
+		$str = $str & " (" & $sigla & ")"
+	EndIf
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $str, True)
+	UTAssert( $item_idx >= 0)
+	_GUICtrlListBox_ClickItem($hList, $item_idx, "left", False, 2)
+EndFunc
+
+Func SMDH_Personas_Individual_Set_OtroNombre($nombre, $apellido, $otro)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_OtroNombre", $nombre & ", " & $apellido );
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:45]", $otro) )
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "Guardar") )
+	; verify
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:45]") == $otro )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Set_OtroNombre($nombre, $sigla, $otro)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Set_OtroNombre", $nombre & ", " & $sigla );
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:45]", $otro) )
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "Guardar") )
+	; verify
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:45]") == $otro )
+	UTLogEndTestOK()
+EndFunc
+
