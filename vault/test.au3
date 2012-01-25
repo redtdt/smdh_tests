@@ -13,8 +13,8 @@ ConsoleWrite( "OK" & @CRLF )
 
 ; Login as admin
 ConsoleWrite( "[TEST:LOGIN_ADMIN] " );
-UTAssert( ControlSend("Menú general", "", "[CLASS:Edit; INSTANCE:1]", "admin") )
-UTAssert( ControlSend("Menú general", "", "[CLASS:Edit; INSTANCE:2]", "gfh325gm") )
+UTAssert( ControlSetText("Menú general", "", "[CLASS:Edit; INSTANCE:1]", "admin") )
+UTAssert( ControlSetText("Menú general", "", "[CLASS:Edit; INSTANCE:2]", "gfh325gm") )
 UTAssert( ControlClick("Menú general", "", "[CLASS:Button; INSTANCE:5]") )
 UTAssert( WinWaitActive("Menú general", "Administración de usuari@s", 5) )
 ConsoleWrite( "OK" & @CRLF )
@@ -25,10 +25,10 @@ UTAssert( ControlClick("Menú general", "Administración de usuari@s", "[CLASS:But
 UTAssert( WinWaitActive("Usuarias y usuarios", "", 5) )
 UTAssert( ControlClick("Usuarias y usuarios", "Nuev@ usuari@", "[CLASS:Button; INSTANCE:1]") )
 UTAssert( WinWaitActive("Nombre de la persona", "", 5) )
-UTAssert( ControlSend("Nombre de la persona", "", "[CLASS:Edit; INSTANCE:1]", "usuario001") )
+UTAssert( ControlSetText("Nombre de la persona", "", "[CLASS:Edit; INSTANCE:1]", "usuario001") )
 UTAssert( ControlClick("Nombre de la persona", "Seleccionar", "[CLASS:Button; INSTANCE:1]") )
 UTAssert( WinWaitActive("Contraseña", "", 5) )
-UTAssert( ControlSend("Contraseña", "", "[CLASS:Edit; INSTANCE:1]", "password001") )
+UTAssert( ControlSetText("Contraseña", "", "[CLASS:Edit; INSTANCE:1]", "password001") )
 UTAssert( ControlClick("Contraseña", "Seleccionar", "[CLASS:Button; INSTANCE:1]") )
 UTAssert( WinWaitActive("Usuarias y usuarios", "", 5) )
 Local $hUserList = ControlGetHandle("Usuarias y usuarios","","[CLASS:ListBox; INSTANCE:1]")

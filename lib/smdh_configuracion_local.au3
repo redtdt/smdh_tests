@@ -31,7 +31,7 @@ Func SMDH_ConfiguracionLocal_SetServidorRemoto($server)
 		UTAssert( ControlClick("Opciones", "", "[CLASS:Button; INSTANCE:4]") )
 	EndIf
 	UTAssert( ControlSetText("Opciones","","[CLASS:Edit; INSTANCE:1]", "") )
-	UTAssert( ControlSend("Opciones", "", "[CLASS:Edit; INSTANCE:1]", $server) )
+	UTAssert( ControlSetText("Opciones", "", "[CLASS:Edit; INSTANCE:1]", $server) )
 	UTLogEndTestOK()
 EndFunc
 

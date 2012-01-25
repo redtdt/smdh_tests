@@ -4,6 +4,7 @@
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 
 #include "../lib/smdh_utils.au3"
+#include "../lib/smdh_users.au3"
 
 SMDH_Run()
 SMDH_TerminateOnExit()
@@ -17,9 +18,9 @@ SMDH_UserCreate("usernorestrictions", "passwdnorestrictions")
 SMDH_UserSetAccessLevel("usernorestrictions", $SIN_RESTRICCIONES)
 SMDH_UserCheckAccessLevel("usernorestrictions", $SIN_RESTRICCIONES)
 
-SMDH_UserCreate("usercapture", "passwdcapture")
-SMDH_UserSetAccessLevel("usercapture", $CAPTURA_CONSULTA_REPORTES)
-SMDH_UserCheckAccessLevel("usercapture", $CAPTURA_CONSULTA_REPORTES)
+;SMDH_UserCreate("usercapture", "passwdcapture")
+;SMDH_UserSetAccessLevel("usercapture", $CAPTURA_CONSULTA_REPORTES)
+;SMDH_UserCheckAccessLevel("usercapture", $CAPTURA_CONSULTA_REPORTES)
 
 SMDH_UserCreate("userreports", "passwdreports")
 SMDH_UserSetAccessLevel("userreports", $REPORTES_CONSULTA)

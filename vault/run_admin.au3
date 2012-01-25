@@ -4,6 +4,7 @@
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 
 #include "../lib/smdh_utils.au3"
+#include "../lib/smdh_users.au3"
 
 SMDH_Run()
 SMDH_Login("admin", "gfh325gm", $ADMIN)

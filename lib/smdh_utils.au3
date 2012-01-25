@@ -98,7 +98,7 @@ Func SMDH_ManejoDeCasos_CreateCaso($caso_name)
 	UTAssert( WinActive("Manejo de Casos") )
 	UTAssert( ControlClick("Manejo de Casos", "", "Nuevo caso") )
 	UTAssert( WinWaitActive("Nombre del caso", "", 5) )
-	UTAssert( ControlSend("Nombre del caso", "", "[CLASS:Edit; INSTANCE:1]", $caso_name) )
+	UTAssert( ControlSetText("Nombre del caso", "", "[CLASS:Edit; INSTANCE:1]", $caso_name) )
 	UTAssert( ControlClick("Nombre del caso", "Seleccionar", "[CLASS:Button; INSTANCE:1]") )
 	Sleep(2000)
 	Local $hCasosList = ControlGetHandle("Manejo de Casos","","[CLASS:ListBox; INSTANCE:2]")
@@ -114,7 +114,7 @@ EndFunc
 Func SMDH_ManejoDeCasos_BusquedaRapida($search)
 	UTLogInitTest( "SMDH_ManejoDeCasos_BusquedaRapida");
 	UTAssert( WinActive("Manejo de Casos") )
-	UTAssert( ControlSend("Manejo de Casos", "", "[CLASS:Edit; INSTANCE:10]", $search) )
+	UTAssert( ControlSetText("Manejo de Casos", "", "[CLASS:Edit; INSTANCE:10]", $search) )
 	UTLogEndTestOK()
 EndFunc
 
