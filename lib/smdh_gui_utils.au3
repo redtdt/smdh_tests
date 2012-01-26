@@ -55,3 +55,12 @@ Func GetArrayFromTreeView($hTree, $only_leafs = True, $skip_root = False)
 	WEnd
 	return $items
 EndFunc
+
+Func GetArrayFromComboBox($hCombo)
+	Dim $items
+	Local $tmp = _GUICtrlComboBoxEx_GetListArray($hCombo)
+	For $x = 1 To $tmp[0]
+		_ArrayAddCreate($items, $tmp[$x])
+    Next
+	return $items
+EndFunc

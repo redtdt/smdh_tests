@@ -504,3 +504,122 @@ Func SMDH_Personas_Colectiva_Remove_PaisOrigen($nombre, $sigla)
 	UTLogEndTestOK()
 EndFunc
 
+Func SMDH_Personas_Individual_Get_Estados($nombre, $apellido)
+	UTLogInitTest( "SMDH_Personas_Individual_Get_Estados", $nombre & ", " & $apellido);
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "personas registradas", "[CLASS:ComboBox; INSTANCE:16]")
+	UTAssert( $hCombo )
+	Local $items = GetArrayFromComboBox($hCombo)
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Colectiva_Get_Estados($nombre, $sigla)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Get_Estados", $nombre & ", " & $sigla);
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "personas registradas", "[CLASS:ComboBox; INSTANCE:16]")
+	UTAssert( $hCombo )
+	Local $items = GetArrayFromComboBox($hCombo)
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Individual_Set_Estado_Idx($nombre, $apellido, $estado_idx)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_Estado_Idx", $nombre & ", " & $apellido & ", " & $estado_idx );
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	If $estado_idx = 0 Then
+		$idx = -1
+	Else
+		$idx = $estado_idx
+	EndIf
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:16]")
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "Guardar") )
+	; verify
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	$hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:16]")
+	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Set_Estado_Idx($nombre, $sigla, $estado_idx)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Set_Estado_Idx", $nombre & ", " & $sigla & ", " & $estado_idx );
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	If $estado_idx = 0 Then
+		$idx = -1
+	Else
+		$idx = $estado_idx
+	EndIf
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:16]")
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "Guardar") )
+	; verify
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	$hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:16]")
+	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Individual_Get_Municipios($nombre, $apellido)
+	UTLogInitTest( "SMDH_Personas_Individual_Get_Municipios", $nombre & ", " & $apellido);
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "personas registradas", "[CLASS:ComboBox; INSTANCE:13]")
+	UTAssert( $hCombo )
+	Local $items = GetArrayFromComboBox($hCombo)
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Colectiva_Get_Municipios($nombre, $sigla)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Get_Municipios", $nombre & ", " & $sigla);
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "personas registradas", "[CLASS:ComboBox; INSTANCE:13]")
+	UTAssert( $hCombo )
+	Local $items = GetArrayFromComboBox($hCombo)
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Individual_Set_Municipio_Idx($nombre, $apellido, $mpo_idx)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_Municipio_Idx", $nombre & ", " & $apellido & ", " & $mpo_idx );
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	If $mpo_idx = 0 Then
+		$idx = -1
+	Else
+		$idx = $mpo_idx
+	EndIf
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:13]")
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "Guardar") )
+	; verify
+	;SMDH_Personas_Individual_Select($nombre, $apellido)
+	$hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:13]")
+	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Set_Municipio_Idx($nombre, $sigla, $mpo_idx)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Set_Municipio_Idx", $nombre & ", " & $sigla & ", " & $mpo_idx );
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	If $mpo_idx = 0 Then
+		$idx = -1
+	Else
+		$idx = $mpo_idx
+	EndIf
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:13]")
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "Guardar") )
+	; verify
+	;SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	$hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:13]")
+	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
+	UTLogEndTestOK()
+EndFunc
