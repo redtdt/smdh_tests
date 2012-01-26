@@ -217,7 +217,7 @@ Func SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $tipo, $an
 	EndIf
 	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
 	ControlCommand("Manejo de Casos","personas registradas","[CLASS:ComboBox; INSTANCE:15]","SelectString",$tipo)
-	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_DIA and $tipo<>$FECHA_TIPO_NO_MES and $dia<>0) Then
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_DIA and $tipo<>$FECHA_TIPO_NO_MES) Then
 		UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:46]", "") )
 		UTAssert( ControlSend("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:46]", $dia) )
 		If ($expect_failure_dia = False) Then
@@ -232,7 +232,7 @@ Func SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $tipo, $an
 			return
 		EndIf
 	EndIf
-	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_MES and $mes<>0) Then
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_MES) Then
 		UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:47]", "") )
 		UTAssert( ControlSend("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:47]", $mes) )
 		If ($expect_failure_mes = False) Then
@@ -295,10 +295,10 @@ Func SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $tipo, $an
 	Else
 		UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) == $idx )
 	EndIf
-	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_DIA and $tipo<>$FECHA_TIPO_NO_MES and $dia<>0) Then
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_DIA and $tipo<>$FECHA_TIPO_NO_MES) Then
 		UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:46]") == $dia )
 	EndIf
-	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_MES and $mes<>0) Then
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_MES) Then
 		UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:47]") == $mes )
 	EndIf
 	If ($tipo<>$FECHA_TIPO_VACIO) Then
@@ -322,7 +322,7 @@ Func SMDH_Personas_Colectiva_Set_FechaCreacion($nombre, $sigla, $tipo, $anio, $m
 	EndIf
 	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
 	ControlCommand("Manejo de Casos","personas registradas","[CLASS:ComboBox; INSTANCE:15]","SelectString",$tipo)
-	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_DIA and $tipo<>$FECHA_TIPO_NO_MES and $dia<>0) Then
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_DIA and $tipo<>$FECHA_TIPO_NO_MES) Then
 		UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:46]", "") )
 		UTAssert( ControlSend("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:46]", $dia) )
 		If ($expect_failure_dia = False) Then
@@ -337,7 +337,7 @@ Func SMDH_Personas_Colectiva_Set_FechaCreacion($nombre, $sigla, $tipo, $anio, $m
 			return
 		EndIf
 	EndIf
-	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_MES and $mes<>0) Then
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_MES) Then
 		UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:47]", "") )
 		UTAssert( ControlSend("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:47]", $mes) )
 		If ($expect_failure_mes = False) Then
@@ -400,10 +400,10 @@ Func SMDH_Personas_Colectiva_Set_FechaCreacion($nombre, $sigla, $tipo, $anio, $m
 	Else
 		UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) == $idx )
 	EndIf
-	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_DIA and $tipo<>$FECHA_TIPO_NO_MES and $dia<>0) Then
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_DIA and $tipo<>$FECHA_TIPO_NO_MES) Then
 		UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:46]") == $dia )
 	EndIf
-	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_MES and $mes<>0) Then
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_MES) Then
 		UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:47]") == $mes )
 	EndIf
 	If ($tipo<>$FECHA_TIPO_VACIO) Then

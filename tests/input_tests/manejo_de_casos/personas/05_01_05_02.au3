@@ -31,19 +31,19 @@ Func TearDown()
 		SMDH_ManejoDeCasos_Personas_Open()
 		SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 		SMDH_Personas_Individual_Borrar($nombre, $apellido, False)
-		SMDH_Personas_Colectiva_Borrar($colectiva, $sigla. False)
+		SMDH_Personas_Colectiva_Borrar($colectiva, $sigla, False)
 		SMDH_Terminate()
 	EndIf
 EndFunc
 
-SMDH_Run()
-;OnAutoItExitRegister("TearDown")
 
+; Anios individual
+SMDH_Run()
+OnAutoItExitRegister("TearDown")
 SMDH_Login("usercapture", "passwdcapture", $CAPTURA_CONSULTA_REPORTES)
 SMDH_ManejoDeCasos_Open()
 SMDH_ManejoDeCasos_Personas_Open()
 SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
-
 SMDH_Personas_Individual_Nueva($nombre, $apellido)
 SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA,   -1, 1, 1, True)
 SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA,    1, 1, 1, False, False, False, True)
@@ -54,11 +54,15 @@ SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXA
 SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 2050, 1, 1, False, False, False, True)
 SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 2051, 1, 1, True)
 SMDH_Personas_Individual_Borrar($nombre, $apellido)
+SMDH_Terminate()
 
-SMDH_ManejoDeCasos_Casos_Open()
+; Anios colectiva
+SMDH_Run()
+OnAutoItExitRegister("TearDown")
+SMDH_Login("usercapture", "passwdcapture", $CAPTURA_CONSULTA_REPORTES)
+SMDH_ManejoDeCasos_Open()
 SMDH_ManejoDeCasos_Personas_Open()
 SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
-
 SMDH_Personas_Colectiva_Nueva($colectiva, $sigla)
 SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA,   -1, 1, 1, True)
 SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA,    1, 1, 1, False, False, False, True)
@@ -69,4 +73,107 @@ SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA
 SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 2050, 1, 1, False, False, False, True)
 SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 2051, 1, 1, True)
 SMDH_Personas_Colectiva_Borrar($colectiva, $sigla)
+SMDH_Terminate()
+
+; Meses individual
+SMDH_Run()
+OnAutoItExitRegister("TearDown")
+SMDH_Login("usercapture", "passwdcapture", $CAPTURA_CONSULTA_REPORTES)
+SMDH_ManejoDeCasos_Open()
+SMDH_ManejoDeCasos_Personas_Open()
+SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
+SMDH_Personas_Individual_Nueva($nombre, $apellido)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 2000,-1, 1, False, True)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 2000, 0, 1, False, True)
+For $m = 1 To 12 Step 1
+	SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 2000, $m, 1)
+Next
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 2000,13, 1, False, True)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA,    1, 1, 1, False, False, False, True)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 1000, 1, 1, False, False, False, True)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 1879,12, 1, False, False, False, True)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 1880, 1, 1)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 2000, 1, 1)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 2050,12, 1, False, False, False, True)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 2051, 1, 1, True)
+SMDH_Personas_Individual_Borrar($nombre, $apellido)
+SMDH_Terminate()
+
+; Meses colectiva
+SMDH_Run()
+OnAutoItExitRegister("TearDown")
+SMDH_Login("usercapture", "passwdcapture", $CAPTURA_CONSULTA_REPORTES)
+SMDH_ManejoDeCasos_Open()
+SMDH_ManejoDeCasos_Personas_Open()
+SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
+SMDH_Personas_Colectiva_Nueva($colectiva, $sigla)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 2000,-1, 1, False, True)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 2000, 0, 1, False, True)
+For $m = 1 To 12 Step 1
+	SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 2000, $m, 1)
+Next
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 2000,13, 1, False, True)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA,    1, 1, 1, False, False, False, True)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 1000, 1, 1, False, False, False, True)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 1879,12, 1, False, False, False, True)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 1880, 1, 1)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 2000, 1, 1)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 2050,12, 1, False, False, False, True)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 2051, 1, 1, True)
+SMDH_Personas_Colectiva_Borrar($colectiva, $sigla)
+SMDH_Terminate()
+
+; Dias individual
+SMDH_Run()
+OnAutoItExitRegister("TearDown")
+SMDH_Login("usercapture", "passwdcapture", $CAPTURA_CONSULTA_REPORTES)
+SMDH_ManejoDeCasos_Open()
+SMDH_ManejoDeCasos_Personas_Open()
+SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
+SMDH_Personas_Individual_Nueva($nombre, $apellido)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 2000, 1, -1, False, False, True)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 2000, 1,  0, False, False, True)
+For $d = 1 To 5 Step 1
+	SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 2000, 1, $d)
+Next
+For $d = 28 To 31 Step 1
+	SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 2000, 1, $d)
+Next
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 2000, 1,32, False, False, True)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA,    1, 1, 1, False, False, False, True)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 1000, 1, 1, False, False, False, True)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 1879,12,31, False, False, False, True)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 1880, 1, 1)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 2000, 1, 1)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 2050,12,31, False, False, False, True)
+SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, 2051, 1, 1, True)
+SMDH_Personas_Individual_Borrar($nombre, $apellido)
+SMDH_Terminate()
+
+; Dias colectiva
+SMDH_Run()
+OnAutoItExitRegister("TearDown")
+SMDH_Login("usercapture", "passwdcapture", $CAPTURA_CONSULTA_REPORTES)
+SMDH_ManejoDeCasos_Open()
+SMDH_ManejoDeCasos_Personas_Open()
+SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
+SMDH_Personas_Colectiva_Nueva($colectiva, $sigla)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 2000, 1, -1, False, False, True)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 2000, 1,  0, False, False, True)
+For $d = 1 To 5 Step 1
+	SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 2000, 1, $d)
+Next
+For $d = 28 To 31 Step 1
+	SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 2000, 1, $d)
+Next
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 2000, 1,32, False, False, True)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA,    1, 1, 1, False, False, False, True)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 1000, 1, 1, False, False, False, True)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 1879,12,31, False, False, False, True)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 1880, 1, 1)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 2000, 1, 1)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 2050,12,31, False, False, False, True)
+SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, 2051, 1, 1, True)
+SMDH_Personas_Colectiva_Borrar($colectiva, $sigla)
+SMDH_Terminate()
 
