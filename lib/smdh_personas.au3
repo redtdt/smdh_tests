@@ -427,7 +427,7 @@ Func SMDH_Personas_Individual_Get_Paises($nombre, $apellido, $only_countries = T
 EndFunc
 
 Func SMDH_Personas_Colectiva_Get_Paises($nombre, $sigla, $only_countries = True)
-	UTLogInitTest( "SMDH_Personas_Individual_Get_Paises", $nombre & ", " & $sigla);
+	UTLogInitTest( "SMDH_Personas_Colectiva_Get_Paises", $nombre & ", " & $sigla);
 	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
 	SMDH_Personas_Colectiva_Select($nombre, $sigla)
 	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "[CLASS:Button; INSTANCE:92]") )
@@ -460,7 +460,7 @@ Func SMDH_Personas_Individual_Set_PaisOrigen($nombre, $apellido, $pais)
 EndFunc
 
 Func SMDH_Personas_Colectiva_Set_PaisOrigen($nombre, $sigla, $pais)
-	UTLogInitTest( "SMDH_Personas_Individual_Set_PaisOrigen", $nombre & ", " & $sigla & ", " & $pais );
+	UTLogInitTest( "SMDH_Personas_Colectiva_Set_PaisOrigen", $nombre & ", " & $sigla & ", " & $pais );
 	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
 	SMDH_Personas_Colectiva_Select($nombre, $sigla)
 	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "[CLASS:Button; INSTANCE:92]") )
@@ -477,3 +477,30 @@ Func SMDH_Personas_Colectiva_Set_PaisOrigen($nombre, $sigla, $pais)
 	UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Static; INSTANCE:125]") == $pais )
 	UTLogEndTestOK()
 EndFunc
+
+Func SMDH_Personas_Individual_Remove_PaisOrigen($nombre, $apellido)
+	UTLogInitTest( "SMDH_Personas_Individual_Remove_PaisOrigen", $nombre & ", " & $apellido);
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "[CLASS:Button; INSTANCE:95]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Static; INSTANCE:125]") == "" )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Remove_PaisOrigen($nombre, $sigla)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Remove_PaisOrigen", $nombre & ", " & $sigla);
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "[CLASS:Button; INSTANCE:95]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Static; INSTANCE:125]") == "" )
+	UTLogEndTestOK()
+EndFunc
+
