@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 5.1.4.1 Que guarde correctamente la selección (probar todas las opciones)
+; 5.1.5.2 Que acepte solo números en los rangos adecuados
 
 Local $nombre = "Juan"
 Local $apellido = "Perez"

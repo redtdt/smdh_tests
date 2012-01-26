@@ -7,19 +7,13 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 5.1.5.1 Que guarde correctamente la selección (probar todas las opciones)
+; 5.1.6.1 Que guarde correctamente la selección (probar todas las opciones)
 
 Local $nombre = "Juan"
 Local $apellido = "Perez"
-Local $anio = 2010
-Local $mes = 11
-Local $dia = 20
 
 Local $colectiva = "Organismo Colectivo"
 Local $sigla = "redtdt"
-Local $c_anio = 2010
-Local $c_mes = 11
-Local $c_dia = 20
 
 Func TearDown()
 	SMDH_Terminate_No_Asserts()
@@ -45,17 +39,18 @@ SMDH_ManejoDeCasos_Personas_Open()
 SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 
 SMDH_Personas_Individual_Nueva($nombre, $apellido)
-SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_VACIO, $anio, $mes, $dia)
-SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_EXACTA, $anio, $mes, $dia)
-SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_APROX, $anio, $mes, $dia)
-SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_NO_DIA, $anio, $mes, $dia)
-SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $FECHA_TIPO_NO_MES, $anio, $mes, $dia)
+SMDH_Personas_Individual_Select($nombre, $apellido)
+Local $paises = SMDH_Personas_Individual_Get_Paises($nombre, $apellido, False)
+For $pais = 0 To UBound($paises) - 1
+	SMDH_Personas_Individual_Set_PaisOrigen($nombre, $apellido, $paises[$pais])
+Next
 SMDH_Personas_Individual_Borrar($nombre, $apellido)
 
 SMDH_Personas_Colectiva_Nueva($colectiva, $sigla)
-SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_VACIO, $c_anio, $c_mes, $c_dia)
-SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_EXACTA, $c_anio, $c_mes, $c_dia)
-SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_APROX, $c_anio, $c_mes, $c_dia)
-SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_NO_DIA, $c_anio, $c_mes, $c_dia)
-SMDH_Personas_Colectiva_Set_FechaCreacion($colectiva, $sigla, $FECHA_TIPO_NO_MES, $c_anio, $c_mes, $c_dia)
+SMDH_Personas_Colectiva_Select($colectiva, $sigla)
+Local $paises = SMDH_Personas_Colectiva_Get_Paises($colectiva, $sigla, False)
+For $pais = 0 To UBound($paises) - 1
+	SMDH_Personas_Colectiva_Set_PaisOrigen($colectiva, $sigla, $paises[$pais])
+Next
 SMDH_Personas_Colectiva_Borrar($colectiva, $sigla)
+

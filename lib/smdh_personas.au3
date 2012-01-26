@@ -412,3 +412,68 @@ Func SMDH_Personas_Colectiva_Set_FechaCreacion($nombre, $sigla, $tipo, $anio, $m
 	UTLogEndTestOK()
 EndFunc
 
+Func SMDH_Personas_Individual_Get_Paises($nombre, $apellido, $only_countries = True)
+	UTLogInitTest( "SMDH_Personas_Individual_Get_Paises", $nombre & ", " & $apellido);
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "[CLASS:Button; INSTANCE:92]") )
+	UTAssert( WinWaitActive("País de origen o nacimiento", "", 5) )
+	Local $hTree = ControlGetHandle("País de origen o nacimiento", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, $only_countries, True)
+	UTAssert( ControlClick("País de origen o nacimiento", "", "Cancelar") )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Colectiva_Get_Paises($nombre, $sigla, $only_countries = True)
+	UTLogInitTest( "SMDH_Personas_Individual_Get_Paises", $nombre & ", " & $sigla);
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "[CLASS:Button; INSTANCE:92]") )
+	UTAssert( WinWaitActive("País de origen o nacimiento", "", 5) )
+	Local $hTree = ControlGetHandle("País de origen o nacimiento", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, $only_countries, True)
+	UTAssert( ControlClick("País de origen o nacimiento", "", "Cancelar") )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Individual_Set_PaisOrigen($nombre, $apellido, $pais)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_PaisOrigen", $nombre & ", " & $apellido & ", " & $pais );
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "[CLASS:Button; INSTANCE:92]") )
+	UTAssert( WinWaitActive("País de origen o nacimiento", "", 5) )
+	Local $hTree = ControlGetHandle("País de origen o nacimiento", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $pais)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_Expand($hTree, $hItem)
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	UTAssert( ControlClick("País de origen o nacimiento", "", "Seleccionar") )
+	;verify
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Static; INSTANCE:125]") == $pais )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Set_PaisOrigen($nombre, $sigla, $pais)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_PaisOrigen", $nombre & ", " & $sigla & ", " & $pais );
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "[CLASS:Button; INSTANCE:92]") )
+	UTAssert( WinWaitActive("País de origen o nacimiento", "", 5) )
+	Local $hTree = ControlGetHandle("País de origen o nacimiento", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $pais)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_Expand($hTree, $hItem)
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	UTAssert( ControlClick("País de origen o nacimiento", "", "Seleccionar") )
+	;verify
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Static; INSTANCE:125]") == $pais )
+	UTLogEndTestOK()
+EndFunc

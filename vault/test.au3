@@ -47,3 +47,14 @@ UTAssert( Winclose("Menú general", "") )
 		_GUICtrlComboBoxEx_GetItemText($hCombo, $i, $str)
 		MsgBox(0, $i, "A" & $str & "A")
 	Next
+
+; recorrer tree
+	Local $hTree = ControlGetHandle("País de origen o nacimiento", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hCur = _GUICtrlTreeView_GetFirstItem($hTree)
+	While ($hCur <> 0)
+		If (_GUICtrlTreeView_GetFirstChild($hTree, $hCur)=0) Then ; leaf
+			MsgBox(0, _GUICtrlTreeView_GetText($hTree, $hCur), _GUICtrlTreeView_GetChildCount($hTree, $hCur))
+		EndIf
+		$hCur = _GUICtrlTreeView_GetNext($hTree, $hCur)
+	WEnd
