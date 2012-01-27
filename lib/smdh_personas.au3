@@ -1203,3 +1203,153 @@ Func SMDH_Personas_Colectiva_Remove_Etnia($nombre, $sigla, $Etnia)
 	UTAssert( _GUICtrlListBox_FindString($hList, $Etnia, True) < 0)
 	UTLogEndTestOK()
 EndFunc
+
+
+
+
+
+
+Func SMDH_Personas_Individual_Get_Religiones($nombre, $apellido)
+	UTLogInitTest( "SMDH_Personas_Individual_Get_Religiones", $nombre & ", " & $apellido);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "Origen", "[CLASS:ComboBox; INSTANCE:19]")
+	UTAssert( $hCombo )
+	Local $items = GetArrayFromComboBox($hCombo)
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Colectiva_Get_Religiones($nombre, $sigla)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Get_Religiones", $nombre & ", " & $sigla);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "Origen", "[CLASS:ComboBox; INSTANCE:19]")
+	UTAssert( $hCombo )
+	Local $items = GetArrayFromComboBox($hCombo)
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Individual_Set_Religion_Idx($nombre, $apellido, $Religion_idx)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_Religion_Idx", $nombre & ", " & $apellido & ", " & $Religion_idx );
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	If $Religion_idx = 0 Then
+		$idx = -1
+	Else
+		$idx = $Religion_idx
+	EndIf
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ComboBox; INSTANCE:19]")
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "Guardar") )
+	; verify
+	$hCombo = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ComboBox; INSTANCE:19]")
+	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Set_Religion_Idx($nombre, $sigla, $Religion_idx)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Set_Religion_Idx", $nombre & ", " & $sigla & ", " & $Religion_idx );
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	If $Religion_idx = 0 Then
+		$idx = -1
+	Else
+		$idx = $Religion_idx
+	EndIf
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ComboBox; INSTANCE:19]")
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "Guardar") )
+	; verify
+	$hCombo = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ComboBox; INSTANCE:19]")
+	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
+	UTLogEndTestOK()
+EndFunc
+
+
+
+
+
+Func SMDH_Personas_Individual_Get_EstadosCiviles($nombre, $apellido)
+	UTLogInitTest( "SMDH_Personas_Individual_Get_EstadosCiviles", $nombre & ", " & $apellido);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "Origen", "[CLASS:ComboBox; INSTANCE:20]")
+	UTAssert( $hCombo )
+	Local $items = GetArrayFromComboBox($hCombo)
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Colectiva_Get_EstadosCiviles($nombre, $sigla)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Get_EstadosCiviles", $nombre & ", " & $sigla);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "Origen", "[CLASS:ComboBox; INSTANCE:20]")
+	UTAssert( $hCombo )
+	Local $items = GetArrayFromComboBox($hCombo)
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Individual_Set_EstadoCivil_Idx($nombre, $apellido, $EstadoCivil_idx)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_EstadoCivil_Idx", $nombre & ", " & $apellido & ", " & $EstadoCivil_idx );
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	If $EstadoCivil_idx = 0 Then
+		$idx = -1
+	Else
+		$idx = $EstadoCivil_idx
+	EndIf
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ComboBox; INSTANCE:20]")
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "Guardar") )
+	; verify
+	$hCombo = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ComboBox; INSTANCE:20]")
+	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Set_EstadoCivil_Idx($nombre, $sigla, $EstadoCivil_idx)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Set_EstadoCivil_Idx", $nombre & ", " & $sigla & ", " & $EstadoCivil_idx );
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	If $EstadoCivil_idx = 0 Then
+		$idx = -1
+	Else
+		$idx = $EstadoCivil_idx
+	EndIf
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ComboBox; INSTANCE:20]")
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "Guardar") )
+	; verify
+	$hCombo = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ComboBox; INSTANCE:20]")
+	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
+	UTLogEndTestOK()
+EndFunc
+
+
+
+
+Func SMDH_Personas_Individual_Set_NumeroDependientes($nombre, $apellido, $n, $expect_failure = False)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_NumeroDependientes", $nombre & ", " & $apellido & ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlSetText("Manejo de Casos", "Origen", "[CLASS:Edit; INSTANCE:51]", "") )
+	UTAssert( ControlSend("Manejo de Casos", "Origen", "[CLASS:Edit; INSTANCE:51]", String($n)) )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "Guardar") )
+	; verify
+	If ($expect_failure) Then
+		UTAssert( ControlGetText("Manejo de Casos", "Origen", "[CLASS:Edit; INSTANCE:51]") <> $n )
+	Else
+		UTAssert( ControlGetText("Manejo de Casos", "Origen", "[CLASS:Edit; INSTANCE:51]") == $n )
+	EndIf
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Set_NumeroPersonas($nombre, $sigla, $n, $expect_failure = False)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Set_NumeroPersonas", $nombre & ", " & $sigla & ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlSetText("Manejo de Casos", "Origen", "[CLASS:Edit; INSTANCE:51]", "") )
+	UTAssert( ControlSend("Manejo de Casos", "Origen", "[CLASS:Edit; INSTANCE:51]", String($n)) )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "Guardar") )
+	; verify
+	If ($expect_failure) Then
+		UTAssert( ControlGetText("Manejo de Casos", "Origen", "[CLASS:Edit; INSTANCE:51]") <> $n )
+	Else
+		UTAssert( ControlGetText("Manejo de Casos", "Origen", "[CLASS:Edit; INSTANCE:51]") == $n )
+	EndIf
+	UTLogEndTestOK()
+EndFunc
