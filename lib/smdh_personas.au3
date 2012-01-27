@@ -647,3 +647,97 @@ Func SMDH_Personas_Colectiva_Set_Localidad($nombre, $sigla, $loc)
 	UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:43]") == $loc )
 	UTLogEndTestOK()
 EndFunc
+
+
+
+Func SMDH_Personas_Individual_Get_Ciudadanias($nombre, $apellido, $only_countries = True)
+	UTLogInitTest( "SMDH_Personas_Individual_Get_Ciudadanias", $nombre & ", " & $apellido);
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "[CLASS:Button; INSTANCE:93]") )
+	UTAssert( WinWaitActive("Ciudadanía o país sede", "", 5) )
+	Local $hTree = ControlGetHandle("Ciudadanía o país sede", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, $only_countries, True)
+	UTAssert( ControlClick("Ciudadanía o país sede", "", "Cancelar") )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Colectiva_Get_Ciudadanias($nombre, $sigla, $only_countries = True)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Get_Ciudadanias", $nombre & ", " & $sigla);
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "[CLASS:Button; INSTANCE:93]") )
+	UTAssert( WinWaitActive("Ciudadanía o país sede", "", 5) )
+	Local $hTree = ControlGetHandle("Ciudadanía o país sede", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, $only_countries, True)
+	UTAssert( ControlClick("Ciudadanía o país sede", "", "Cancelar") )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Individual_Set_Ciudadania($nombre, $apellido, $pais)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_Ciudadania", $nombre & ", " & $apellido & ", " & $pais );
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "[CLASS:Button; INSTANCE:93]") )
+	UTAssert( WinWaitActive("Ciudadanía o país sede", "", 5) )
+	Local $hTree = ControlGetHandle("Ciudadanía o país sede", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $pais)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_Expand($hTree, $hItem)
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	UTAssert( ControlClick("Ciudadanía o país sede", "", "Seleccionar") )
+	;verify
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Static; INSTANCE:126]") == $pais )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Set_Ciudadania($nombre, $sigla, $pais)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Set_Ciudadania", $nombre & ", " & $sigla & ", " & $pais );
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "[CLASS:Button; INSTANCE:93]") )
+	UTAssert( WinWaitActive("Ciudadanía o país sede", "", 5) )
+	Local $hTree = ControlGetHandle("Ciudadanía o país sede", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $pais)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_Expand($hTree, $hItem)
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	UTAssert( ControlClick("Ciudadanía o país sede", "", "Seleccionar") )
+	;verify
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Static; INSTANCE:126]") == $pais )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Individual_Remove_Ciudadania($nombre, $apellido)
+	UTLogInitTest( "SMDH_Personas_Individual_Remove_Ciudadania", $nombre & ", " & $apellido);
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "[CLASS:Button; INSTANCE:96]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Static; INSTANCE:126]") == "" )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Remove_Ciudadania($nombre, $sigla)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Remove_Ciudadania", $nombre & ", " & $sigla);
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "[CLASS:Button; INSTANCE:96]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Static; INSTANCE:126]") == "" )
+	UTLogEndTestOK()
+EndFunc

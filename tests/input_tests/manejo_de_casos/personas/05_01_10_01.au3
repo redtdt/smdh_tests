@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 5.1.6.1 Que guarde correctamente la selección (probar todas las opciones)
+; 5.1.10.1 Que guarde correctamente la selección (probar todas las opciones)
 
 Local $nombre = "Juan"
 Local $apellido = "Perez"
@@ -39,10 +39,18 @@ SMDH_ManejoDeCasos_Personas_Open()
 SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 
 SMDH_Personas_Individual_Nueva($nombre, $apellido)
-SMDH_Personas_Individual_Remove_Ciudadania($nombre, $apellido)
+SMDH_Personas_Individual_Select($nombre, $apellido)
+Local $paises = SMDH_Personas_Individual_Get_Ciudadanias($nombre, $apellido, False)
+For $pais = 0 To UBound($paises) - 1
+	SMDH_Personas_Individual_Set_Ciudadania($nombre, $apellido, $paises[$pais])
+Next
 SMDH_Personas_Individual_Borrar($nombre, $apellido)
 
 SMDH_Personas_Colectiva_Nueva($colectiva, $sigla)
-SMDH_Personas_Colectiva_Remove_Ciudadania($colectiva, $sigla)
+SMDH_Personas_Colectiva_Select($colectiva, $sigla)
+Local $paises = SMDH_Personas_Colectiva_Get_Ciudadanias($colectiva, $sigla, False)
+For $pais = 0 To UBound($paises) - 1
+	SMDH_Personas_Colectiva_Set_Ciudadania($colectiva, $sigla, $paises[$pais])
+Next
 SMDH_Personas_Colectiva_Borrar($colectiva, $sigla)
 

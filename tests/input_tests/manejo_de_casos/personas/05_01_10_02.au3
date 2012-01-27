@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 5.1.6.1 Que guarde correctamente la selección (probar todas las opciones)
+; 5.1.10.2 Que elimine correctamtente la selección
 
 Local $nombre = "Juan"
 Local $apellido = "Perez"
@@ -39,10 +39,10 @@ SMDH_ManejoDeCasos_Personas_Open()
 SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 
 SMDH_Personas_Individual_Nueva($nombre, $apellido)
-SMDH_Personas_Individual_Remove_Ciudadania($nombre, $apellido)
+SMDH_Personas_Individual_Remove_PaisOrigen($nombre, $apellido)
 SMDH_Personas_Individual_Borrar($nombre, $apellido)
 
 SMDH_Personas_Colectiva_Nueva($colectiva, $sigla)
-SMDH_Personas_Colectiva_Remove_Ciudadania($colectiva, $sigla)
+SMDH_Personas_Colectiva_Remove_PaisOrigen($colectiva, $sigla)
 SMDH_Personas_Colectiva_Borrar($colectiva, $sigla)
 
