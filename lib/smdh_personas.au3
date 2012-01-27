@@ -623,3 +623,27 @@ Func SMDH_Personas_Colectiva_Set_Municipio_Idx($nombre, $sigla, $mpo_idx)
 	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
 	UTLogEndTestOK()
 EndFunc
+
+Func SMDH_Personas_Individual_Set_Localidad($nombre, $apellido, $loc)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_Localidad", $nombre & ", " & $apellido & ", " & $loc );
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:43]", $loc) )
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "Guardar") )
+	; verify
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:43]") == $loc )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Set_Localidad($nombre, $sigla, $loc)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Set_Localidad", $nombre & ", " & $sigla & ", " & $loc );
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	UTAssert( ControlSetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:43]", $loc) )
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "Guardar") )
+	; verify
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Edit; INSTANCE:43]") == $loc )
+	UTLogEndTestOK()
+EndFunc
