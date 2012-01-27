@@ -1353,3 +1353,60 @@ Func SMDH_Personas_Colectiva_Set_NumeroPersonas($nombre, $sigla, $n, $expect_fai
 	EndIf
 	UTLogEndTestOK()
 EndFunc
+
+
+
+
+Func SMDH_Personas_Individual_Get_Monitoreos($nombre, $apellido)
+	UTLogInitTest( "SMDH_Personas_Individual_Get_Monitoreos", $nombre & ", " & $apellido);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "Origen", "[CLASS:ComboBox; INSTANCE:21]")
+	UTAssert( $hCombo )
+	Local $items = GetArrayFromComboBox($hCombo)
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Colectiva_Get_Monitoreos($nombre, $sigla)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Get_Monitoreos", $nombre & ", " & $sigla);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "Origen", "[CLASS:ComboBox; INSTANCE:21]")
+	UTAssert( $hCombo )
+	Local $items = GetArrayFromComboBox($hCombo)
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Individual_Set_Monitoreo_Idx($nombre, $apellido, $Monitoreo_idx)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_Monitoreo_Idx", $nombre & ", " & $apellido & ", " & $Monitoreo_idx );
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	If $Monitoreo_idx = 0 Then
+		$idx = -1
+	Else
+		$idx = $Monitoreo_idx
+	EndIf
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ComboBox; INSTANCE:21]")
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "Guardar") )
+	; verify
+	$hCombo = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ComboBox; INSTANCE:21]")
+	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Set_Monitoreo_Idx($nombre, $sigla, $Monitoreo_idx)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Set_Monitoreo_Idx", $nombre & ", " & $sigla & ", " & $Monitoreo_idx );
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	If $Monitoreo_idx = 0 Then
+		$idx = -1
+	Else
+		$idx = $Monitoreo_idx
+	EndIf
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ComboBox; INSTANCE:21]")
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "Guardar") )
+	; verify
+	$hCombo = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ComboBox; INSTANCE:21]")
+	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
+	UTLogEndTestOK()
+EndFunc
