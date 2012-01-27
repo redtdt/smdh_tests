@@ -991,3 +991,215 @@ Func SMDH_Personas_Colectiva_Remove_Idioma($nombre, $sigla, $idioma)
 	UTLogEndTestOK()
 EndFunc
 
+
+
+
+Func SMDH_Personas_Set_HablaEspaniol($nombre, $apellido, $val)
+	UTLogInitTest( "SMDH_Personas_Set_HablaEspaniol", $nombre & ", " & $apellido & ", " & $val );
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	If ( GUI_Is_CheckBox_Checked("Manejo de Casos", "Origen","[CLASS:Button; INSTANCE:117]") <> $val) Then
+		UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:117]") )
+		UTAssert( ControlClick("Manejo de Casos", "Origen", "Guardar") )
+	EndIf
+	UTAssert( GUI_Is_CheckBox_Checked("Manejo de Casos", "Origen","[CLASS:Button; INSTANCE:117]") = $val)
+	UTLogEndTestOK()
+EndFunc
+
+
+
+
+
+Func SMDH_Personas_Individual_Get_Lenguas($nombre, $apellido)
+	UTLogInitTest( "SMDH_Personas_Individual_Get_Lenguas", $nombre & ", " & $apellido);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:114]") )
+	UTAssert( WinWaitActive("Lengua indígena", "", 5) )
+	Local $hTree = ControlGetHandle("Lengua indígena", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, True, True)
+	UTAssert( ControlClick("Lengua indígena", "", "Cancelar") )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Colectiva_Get_Lenguas($nombre, $sigla)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Get_Lenguas", $nombre & ", " & $sigla);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:114]") )
+	UTAssert( WinWaitActive("Lengua indígena", "", 5) )
+	Local $hTree = ControlGetHandle("Lengua indígena", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, True, True)
+	UTAssert( ControlClick("Lengua indígena", "", "Cancelar") )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Individual_Add_Lengua($nombre, $apellido, $Lengua)
+	UTLogInitTest( "SMDH_Personas_Individual_Add_Lengua", $nombre & ", " & $apellido & ", " & $Lengua );
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:114]") )
+	UTAssert( WinWaitActive("Lengua indígena", "", 5) )
+	Local $hTree = ControlGetHandle("Lengua indígena", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $Lengua)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_Expand($hTree, $hItem)
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	Sleep(300)
+	UTAssert( ControlClick("Lengua indígena", "", "Seleccionar") )
+	;verify
+	Local $hList = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ListBox; INSTANCE:16]")
+	UTAssert( _GUICtrlListBox_FindString($hList, $Lengua, True) >= 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Add_Lengua($nombre, $sigla, $Lengua)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Add_Lengua", $nombre & ", " & $sigla & ", " & $Lengua );
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:114]") )
+	UTAssert( WinWaitActive("Lengua indígena", "", 5) )
+	Local $hTree = ControlGetHandle("Lengua indígena", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $Lengua)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_Expand($hTree, $hItem)
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	Sleep(500)
+	UTAssert( ControlClick("Lengua indígena", "", "Seleccionar") )
+	;verify
+	Local $hList = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ListBox; INSTANCE:16]")
+	UTAssert( _GUICtrlListBox_FindString($hList, $Lengua, True) >= 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Individual_Remove_Lengua($nombre, $apellido, $Lengua)
+	UTLogInitTest( "SMDH_Personas_Individual_Remove_Lengua", $nombre & ", " & $apellido & ", " & $Lengua);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	Local $hList = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ListBox; INSTANCE:16]")
+	UTAssert(_GUICtrlListBox_SelectString($hList, $Lengua)>=0)
+	;Local $hItem = _GUICtrlListBox_FindString($hList, $Lengua, True)
+	;UTAssert(  $hItem >= 0)
+	;_GUICtrlListBox_ClickItem($hList, $hItem)
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:123]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	UTAssert( _GUICtrlListBox_FindString($hList, $Lengua, True) < 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Remove_Lengua($nombre, $sigla, $Lengua)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Remove_Lengua", $nombre & ", " & $sigla & ", " & $Lengua);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	Local $hList = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ListBox; INSTANCE:16]")
+	UTAssert(_GUICtrlListBox_SelectString($hList, $Lengua)>=0)
+	;Local $hItem = _GUICtrlListBox_FindString($hList, $Lengua, True)
+	;UTAssert(  $hItem >= 0)
+	;_GUICtrlListBox_ClickItem($hList, $hItem)
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:123]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	UTAssert( _GUICtrlListBox_FindString($hList, $Lengua, True) < 0)
+	UTLogEndTestOK()
+EndFunc
+
+
+
+
+Func SMDH_Personas_Individual_Get_Etnias($nombre, $apellido)
+	UTLogInitTest( "SMDH_Personas_Individual_Get_Etnias", $nombre & ", " & $apellido);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:113]") )
+	UTAssert( WinWaitActive("Origen etnico", "", 5) )
+	Local $hTree = ControlGetHandle("Origen etnico", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, True, True)
+	UTAssert( ControlClick("Origen etnico", "", "Cancelar") )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Colectiva_Get_Etnias($nombre, $sigla)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Get_Etnias", $nombre & ", " & $sigla);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:113]") )
+	UTAssert( WinWaitActive("Origen etnico", "", 5) )
+	Local $hTree = ControlGetHandle("Origen etnico", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, True, True)
+	UTAssert( ControlClick("Origen etnico", "", "Cancelar") )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Individual_Add_Etnia($nombre, $apellido, $Etnia)
+	UTLogInitTest( "SMDH_Personas_Individual_Add_Etnia", $nombre & ", " & $apellido & ", " & $Etnia );
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:113]") )
+	UTAssert( WinWaitActive("Origen etnico", "", 5) )
+	Local $hTree = ControlGetHandle("Origen etnico", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $Etnia)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_Expand($hTree, $hItem)
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	Sleep(300)
+	UTAssert( ControlClick("Origen etnico", "", "Seleccionar") )
+	;verify
+	Local $hList = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ListBox; INSTANCE:17]")
+	UTAssert( _GUICtrlListBox_FindString($hList, $Etnia, True) >= 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Add_Etnia($nombre, $sigla, $Etnia)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Add_Etnia", $nombre & ", " & $sigla & ", " & $Etnia );
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:113]") )
+	UTAssert( WinWaitActive("Origen etnico", "", 5) )
+	Local $hTree = ControlGetHandle("Origen etnico", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $Etnia)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_Expand($hTree, $hItem)
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	Sleep(500)
+	UTAssert( ControlClick("Origen etnico", "", "Seleccionar") )
+	;verify
+	Local $hList = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ListBox; INSTANCE:17]")
+	UTAssert( _GUICtrlListBox_FindString($hList, $Etnia, True) >= 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Individual_Remove_Etnia($nombre, $apellido, $Etnia)
+	UTLogInitTest( "SMDH_Personas_Individual_Remove_Etnia", $nombre & ", " & $apellido & ", " & $Etnia);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	Local $hList = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ListBox; INSTANCE:17]")
+	UTAssert(_GUICtrlListBox_SelectString($hList, $Etnia)>=0)
+	;Local $hItem = _GUICtrlListBox_FindString($hList, $Etnia, True)
+	;UTAssert(  $hItem >= 0)
+	;_GUICtrlListBox_ClickItem($hList, $hItem)
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:124]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	UTAssert( _GUICtrlListBox_FindString($hList, $Etnia, True) < 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Remove_Etnia($nombre, $sigla, $Etnia)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Remove_Etnia", $nombre & ", " & $sigla & ", " & $Etnia);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	Local $hList = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ListBox; INSTANCE:17]")
+	UTAssert(_GUICtrlListBox_SelectString($hList, $Etnia)>=0)
+	;Local $hItem = _GUICtrlListBox_FindString($hList, $Etnia, True)
+	;UTAssert(  $hItem >= 0)
+	;_GUICtrlListBox_ClickItem($hList, $hItem)
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:124]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	UTAssert( _GUICtrlListBox_FindString($hList, $Etnia, True) < 0)
+	UTLogEndTestOK()
+EndFunc

@@ -41,16 +41,16 @@ SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 SMDH_Personas_Individual_Nueva($nombre, $apellido)
 SMDH_Personas_Individual_Select($nombre, $apellido)
 SMDH_ManejoDeCasos_Personas_Detalles_Open()
-Local $idiomas = SMDH_Personas_Individual_Get_Idiomas($nombre, $apellido)
-For $i = 0 To UBound($idiomas) - 1
-	SMDH_Personas_Individual_Add_Idioma($nombre, $apellido, $idiomas[$i])
-	SMDH_Personas_Individual_Remove_Idioma($nombre, $apellido, $idiomas[$i])
+Local $Lenguas = SMDH_Personas_Individual_Get_Lenguas($nombre, $apellido)
+For $i = 0 To UBound($Lenguas) - 1
+	SMDH_Personas_Individual_Add_Lengua($nombre, $apellido, $Lenguas[$i])
+	SMDH_Personas_Individual_Remove_Lengua($nombre, $apellido, $Lenguas[$i])
 Next
-For $i = 0 To UBound($idiomas) - 1
-	SMDH_Personas_Individual_Add_Idioma($nombre, $apellido, $idiomas[$i])
+For $i = 0 To UBound($Lenguas) - 1
+	SMDH_Personas_Individual_Add_Lengua($nombre, $apellido, $Lenguas[$i])
 Next
-For $i = 0 To UBound($idiomas) - 1
-	SMDH_Personas_Individual_Remove_Idioma($nombre, $apellido, $idiomas[$i])
+For $i = 0 To UBound($Lenguas) - 1
+	SMDH_Personas_Individual_Remove_Lengua($nombre, $apellido, $Lenguas[$i])
 Next
 SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 SMDH_Personas_Individual_Borrar($nombre, $apellido)
@@ -58,16 +58,16 @@ SMDH_Personas_Individual_Borrar($nombre, $apellido)
 SMDH_Personas_Colectiva_Nueva($colectiva, $sigla)
 SMDH_Personas_Colectiva_Select($colectiva, $sigla)
 SMDH_ManejoDeCasos_Personas_Detalles_Open()
-Local $idiomas = SMDH_Personas_Colectiva_Get_Idiomas($colectiva, $sigla)
-For $i = 0 To UBound($idiomas) - 1
-	SMDH_Personas_Colectiva_Add_Idioma($colectiva, $sigla, $idiomas[$i])
-	SMDH_Personas_Colectiva_Remove_Idioma($colectiva, $sigla, $idiomas[$i])
+Local $Lenguas = SMDH_Personas_Colectiva_Get_Lenguas($colectiva, $sigla)
+For $i = 0 To UBound($Lenguas) - 1
+	SMDH_Personas_Colectiva_Add_Lengua($colectiva, $sigla, $Lenguas[$i])
+	SMDH_Personas_Colectiva_Remove_Lengua($colectiva, $sigla, $Lenguas[$i])
 Next
-For $i = 0 To UBound($idiomas) - 1
-	SMDH_Personas_Colectiva_Add_Idioma($colectiva, $sigla, $idiomas[$i])
+For $i = 0 To UBound($Lenguas) - 1
+	SMDH_Personas_Colectiva_Add_Lengua($colectiva, $sigla, $Lenguas[$i])
 Next
-For $i = 0 To UBound($idiomas) - 1
-	SMDH_Personas_Colectiva_Remove_Idioma($colectiva, $sigla, $idiomas[$i])
+For $i = 0 To UBound($Lenguas) - 1
+	SMDH_Personas_Colectiva_Remove_Lengua($colectiva, $sigla, $Lenguas[$i])
 Next
 SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 SMDH_Personas_Colectiva_Borrar($colectiva, $sigla)

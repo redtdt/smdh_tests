@@ -41,34 +41,23 @@ SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 SMDH_Personas_Individual_Nueva($nombre, $apellido)
 SMDH_Personas_Individual_Select($nombre, $apellido)
 SMDH_ManejoDeCasos_Personas_Detalles_Open()
-Local $idiomas = SMDH_Personas_Individual_Get_Idiomas($nombre, $apellido)
-For $i = 0 To UBound($idiomas) - 1
-	SMDH_Personas_Individual_Add_Idioma($nombre, $apellido, $idiomas[$i])
-	SMDH_Personas_Individual_Remove_Idioma($nombre, $apellido, $idiomas[$i])
-Next
-For $i = 0 To UBound($idiomas) - 1
-	SMDH_Personas_Individual_Add_Idioma($nombre, $apellido, $idiomas[$i])
-Next
-For $i = 0 To UBound($idiomas) - 1
-	SMDH_Personas_Individual_Remove_Idioma($nombre, $apellido, $idiomas[$i])
-Next
+SMDH_Personas_Set_HablaEspaniol($nombre, $apellido, True)
+SMDH_Personas_Set_HablaEspaniol($nombre, $apellido, False)
+SMDH_Personas_Set_HablaEspaniol($nombre, $apellido, True)
+SMDH_Personas_Set_HablaEspaniol($nombre, $apellido, False)
 SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 SMDH_Personas_Individual_Borrar($nombre, $apellido)
+
+
+
 
 SMDH_Personas_Colectiva_Nueva($colectiva, $sigla)
 SMDH_Personas_Colectiva_Select($colectiva, $sigla)
 SMDH_ManejoDeCasos_Personas_Detalles_Open()
-Local $idiomas = SMDH_Personas_Colectiva_Get_Idiomas($colectiva, $sigla)
-For $i = 0 To UBound($idiomas) - 1
-	SMDH_Personas_Colectiva_Add_Idioma($colectiva, $sigla, $idiomas[$i])
-	SMDH_Personas_Colectiva_Remove_Idioma($colectiva, $sigla, $idiomas[$i])
-Next
-For $i = 0 To UBound($idiomas) - 1
-	SMDH_Personas_Colectiva_Add_Idioma($colectiva, $sigla, $idiomas[$i])
-Next
-For $i = 0 To UBound($idiomas) - 1
-	SMDH_Personas_Colectiva_Remove_Idioma($colectiva, $sigla, $idiomas[$i])
-Next
+SMDH_Personas_Set_HablaEspaniol($colectiva, $sigla, True)
+SMDH_Personas_Set_HablaEspaniol($colectiva, $sigla, False)
+SMDH_Personas_Set_HablaEspaniol($colectiva, $sigla, True)
+SMDH_Personas_Set_HablaEspaniol($colectiva, $sigla, False)
 SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 SMDH_Personas_Colectiva_Borrar($colectiva, $sigla)
 
