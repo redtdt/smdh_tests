@@ -28,7 +28,7 @@ Func SMDH_ManejoDeCasos_Personas_Detalles_Open()
 	UTLogInitTest( "SMDH_ManejoDeCasos_Personas_Detalles_Open")
 	UTAssert( WinActive("Manejo de Casos", "NBPersonas") )
 	UTAssert( ControlClick("Manejo de Casos","","wxWindowClassNR17", "primary", 1, 138, 14) )
-	UTAssert( WinWaitActive("Manejo de Casos", "habla", 10) )
+	UTAssert( WinWaitActive("Manejo de Casos", "Origen", 10) )
 	UTLogEndTestOK()
 EndFunc
 
@@ -803,3 +803,191 @@ Func SMDH_Personas_Colectiva_Set_Escolaridad_Idx($nombre, $sigla, $esc_idx)
 	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
 	UTLogEndTestOK()
 EndFunc
+
+
+
+
+Func SMDH_Personas_Individual_Get_Ocupaciones($nombre, $apellido, $only_leafs = True)
+	UTLogInitTest( "SMDH_Personas_Individual_Get_Ocupaciones", $nombre & ", " & $apellido);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:120]") )
+	UTAssert( WinWaitActive("Ocupación", "", 5) )
+	Local $hTree = ControlGetHandle("Ocupación", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, $only_leafs, True)
+	UTAssert( ControlClick("Ocupación", "", "Cancelar") )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Colectiva_Get_Ocupaciones($nombre, $sigla, $only_leafs = True)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Get_Ocupaciones", $nombre & ", " & $sigla);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:120]") )
+	UTAssert( WinWaitActive("Ocupación", "", 5) )
+	Local $hTree = ControlGetHandle("Ocupación", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, $only_leafs, True)
+	UTAssert( ControlClick("Ocupación", "", "Cancelar") )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Individual_Set_Ocupacion($nombre, $apellido, $ocu)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_Ocupacion", $nombre & ", " & $apellido & ", " & $ocu );
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:120]") )
+	UTAssert( WinWaitActive("Ocupación", "", 5) )
+	Local $hTree = ControlGetHandle("Ocupación", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $ocu)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_Expand($hTree, $hItem)
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	Sleep(300)
+	UTAssert( ControlClick("Ocupación", "", "Seleccionar") )
+	;verify
+	UTAssert( ControlGetText("Manejo de Casos", "Origen", "[CLASS:Static; INSTANCE:151]") == $ocu )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Set_Ocupacion($nombre, $sigla, $ocu)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Set_Ocupacion", $nombre & ", " & $sigla & ", " & $ocu );
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:120]") )
+	UTAssert( WinWaitActive("Ocupación", "", 5) )
+	Local $hTree = ControlGetHandle("Ocupación", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $ocu)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_Expand($hTree, $hItem)
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	Sleep(500)
+	UTAssert( ControlClick("Ocupación", "", "Seleccionar") )
+	;verify
+	UTAssert( ControlGetText("Manejo de Casos", "Origen", "[CLASS:Static; INSTANCE:151]") == $ocu )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Individual_Remove_Ocupacion($nombre, $apellido)
+	UTLogInitTest( "SMDH_Personas_Individual_Remove_Ocupacion", $nombre & ", " & $apellido);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:121]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	UTAssert( ControlGetText("Manejo de Casos", "Origen", "[CLASS:Static; INSTANCE:151]") == "" )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Remove_Ocupacion($nombre, $sigla)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Remove_Ocupacion", $nombre & ", " & $sigla);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:121]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	UTAssert( ControlGetText("Manejo de Casos", "Origen", "[CLASS:Static; INSTANCE:151]") == "" )
+	UTLogEndTestOK()
+EndFunc
+
+
+
+
+
+Func SMDH_Personas_Individual_Get_Idiomas($nombre, $apellido)
+	UTLogInitTest( "SMDH_Personas_Individual_Get_Idiomas", $nombre & ", " & $apellido);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:115]") )
+	UTAssert( WinWaitActive("Idioma", "", 5) )
+	Local $hTree = ControlGetHandle("Idioma", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, True, True)
+	UTAssert( ControlClick("Idioma", "", "Cancelar") )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Colectiva_Get_Idiomas($nombre, $sigla)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Get_Idiomas", $nombre & ", " & $sigla);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:115]") )
+	UTAssert( WinWaitActive("Idioma", "", 5) )
+	Local $hTree = ControlGetHandle("Idioma", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, True, True)
+	UTAssert( ControlClick("Idioma", "", "Cancelar") )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Individual_Add_Idioma($nombre, $apellido, $idioma)
+	UTLogInitTest( "SMDH_Personas_Individual_Add_Idioma", $nombre & ", " & $apellido & ", " & $idioma );
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:115]") )
+	UTAssert( WinWaitActive("Idioma", "", 5) )
+	Local $hTree = ControlGetHandle("Idioma", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $idioma)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_Expand($hTree, $hItem)
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	Sleep(300)
+	UTAssert( ControlClick("Idioma", "", "Seleccionar") )
+	;verify
+	Local $hList = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ListBox; INSTANCE:15]")
+	UTAssert( _GUICtrlListBox_FindString($hList, $idioma, True) >= 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Add_Idioma($nombre, $sigla, $idioma)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Add_Idioma", $nombre & ", " & $sigla & ", " & $idioma );
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:115]") )
+	UTAssert( WinWaitActive("Idioma", "", 5) )
+	Local $hTree = ControlGetHandle("Idioma", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $idioma)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_Expand($hTree, $hItem)
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	Sleep(500)
+	UTAssert( ControlClick("Idioma", "", "Seleccionar") )
+	;verify
+	Local $hList = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ListBox; INSTANCE:15]")
+	UTAssert( _GUICtrlListBox_FindString($hList, $idioma, True) >= 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Individual_Remove_Idioma($nombre, $apellido, $idioma)
+	UTLogInitTest( "SMDH_Personas_Individual_Remove_Idioma", $nombre & ", " & $apellido & ", " & $idioma);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	Local $hList = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ListBox; INSTANCE:15]")
+	UTAssert(_GUICtrlListBox_SelectString($hList, $idioma)>=0)
+	;Local $hItem = _GUICtrlListBox_FindString($hList, $idioma, True)
+	;UTAssert(  $hItem >= 0)
+	;_GUICtrlListBox_ClickItem($hList, $hItem)
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:122]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	UTAssert( _GUICtrlListBox_FindString($hList, $idioma, True) < 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Remove_Idioma($nombre, $sigla, $idioma)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Remove_Idioma", $nombre & ", " & $sigla & ", " & $idioma);
+	UTAssert( WinActive("Manejo de Casos", "Origen") )
+	Local $hList = ControlGetHandle("Manejo de Casos", "Origen","[CLASS:ListBox; INSTANCE:15]")
+	UTAssert(_GUICtrlListBox_SelectString($hList, $idioma)>=0)
+	;Local $hItem = _GUICtrlListBox_FindString($hList, $idioma, True)
+	;UTAssert(  $hItem >= 0)
+	;_GUICtrlListBox_ClickItem($hList, $hItem)
+	UTAssert( ControlClick("Manejo de Casos", "Origen", "[CLASS:Button; INSTANCE:122]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	UTAssert( _GUICtrlListBox_FindString($hList, $idioma, True) < 0)
+	UTLogEndTestOK()
+EndFunc
+
