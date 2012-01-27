@@ -741,3 +741,65 @@ Func SMDH_Personas_Colectiva_Remove_Ciudadania($nombre, $sigla)
 	UTAssert( ControlGetText("Manejo de Casos", "personas registradas", "[CLASS:Static; INSTANCE:126]") == "" )
 	UTLogEndTestOK()
 EndFunc
+
+
+
+Func SMDH_Personas_Individual_Get_Escolaridades($nombre, $apellido)
+	UTLogInitTest( "SMDH_Personas_Individual_Get_Escolaridades", $nombre & ", " & $apellido);
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "personas registradas", "[CLASS:ComboBox; INSTANCE:14]")
+	UTAssert( $hCombo )
+	Local $items = GetArrayFromComboBox($hCombo)
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Colectiva_Get_Escolaridades($nombre, $sigla)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Get_Escolaridades", $nombre & ", " & $sigla);
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "personas registradas", "[CLASS:ComboBox; INSTANCE:14]")
+	UTAssert( $hCombo )
+	Local $items = GetArrayFromComboBox($hCombo)
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_Personas_Individual_Set_Escolaridad_Idx($nombre, $apellido, $esc_idx)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_Escolaridad_Idx", $nombre & ", " & $apellido & ", " & $esc_idx );
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	If $esc_idx = 0 Then
+		$idx = -1
+	Else
+		$idx = $esc_idx
+	EndIf
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:14]")
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "Guardar") )
+	; verify
+	SMDH_Personas_Individual_Select($nombre, $apellido)
+	$hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:14]")
+	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Set_Escolaridad_Idx($nombre, $sigla, $esc_idx)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Set_Escolaridad_Idx", $nombre & ", " & $sigla & ", " & $esc_idx );
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	If $esc_idx = 0 Then
+		$idx = -1
+	Else
+		$idx = $esc_idx
+	EndIf
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:14]")
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	UTAssert( ControlClick("Manejo de Casos", "personas registradas", "Guardar") )
+	; verify
+	SMDH_Personas_Colectiva_Select($nombre, $sigla)
+	$hCombo = ControlGetHandle("Manejo de Casos", "personas registradas","[CLASS:ComboBox; INSTANCE:14]")
+	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
+	UTLogEndTestOK()
+EndFunc
