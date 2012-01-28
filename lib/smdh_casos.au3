@@ -358,3 +358,74 @@ Func SMDH_ManejoDeCasos_Casos_Remove_Tema($caso, $item)
 	UTLogEndTestOK()
 EndFunc
 
+; Relaciones
+Func SMDH_ManejoDeCasos_Casos_Get_TiposRelaciones($caso)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Get_TiposRelaciones", $caso);
+	UTAssert( WinActive("Manejo de Casos", "elacionado") )
+	UTAssert( ControlClick("Manejo de Casos", "elacionado", "[CLASS:Button; INSTANCE:42]") )
+	UTAssert( WinWaitActive("Seleccionar caso", "", 5) )
+	UTAssert( ControlClick("Seleccionar caso", "", "[CLASS:Button; INSTANCE:3]") )
+	UTAssert( WinWaitActive("Tipo de relacion", "", 5) )
+	Local $hTree = ControlGetHandle("Tipo de relacion", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, False, True)
+	UTAssert( ControlClick("Tipo de relacion", "", "[CLASS:Button; INSTANCE:4]") )
+	UTAssert( WinWaitActive("Seleccionar caso", "", 5) )
+	UTAssert( ControlClick("Seleccionar caso", "", "[CLASS:Button; INSTANCE:2]") )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Add_Relacion($caso, $caso_rel, $tipo)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Add_Relacion", $caso & ", " & $caso_rel & ", " & $tipo );
+	UTAssert( WinActive("Manejo de Casos", "elacionado") )
+	UTAssert( ControlClick("Manejo de Casos", "elacionado", "[CLASS:Button; INSTANCE:42]") )
+	UTAssert( WinWaitActive("Seleccionar caso", "", 5) )
+	; now select the caso
+	Local $hList = ControlGetHandle("Seleccionar caso", "","[CLASS:ListBox; INSTANCE:1]")
+	UTAssert(_GUICtrlListBox_SelectString($hList, $caso_rel)>=0)
+	; now, select the tipo
+	UTAssert( ControlClick("Seleccionar caso", "", "[CLASS:Button; INSTANCE:3]") )
+	UTAssert( WinWaitActive("Tipo de relacion", "", 5) )
+	Local $hTree = ControlGetHandle("Tipo de relacion", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $tipo)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_EnsureVisible($hTree, $hItem)
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	UTAssert( ControlClick("Tipo de relacion", "", "[CLASS:Button; INSTANCE:1]") )
+	; weird, there are 2 windows with same title, look for the one visible
+	Local  $a = WinList("Seleccionar caso", "")
+	For $i = 1 To $a[0][0]
+		If BitAND(WinGetState($a[$i][1]), 2) Then
+			UTAssert( WinActivate($a[$i][1]) )
+			Sleep(200)
+			UTAssert( WinActive($a[$i][1]) )
+		EndIf
+	Next
+	UTAssert( ControlClick("Seleccionar caso", "", "[CLASS:Button; INSTANCE:1]") )
+	UTAssert( WinWaitActive("Manejo de Casos", "elacionado", 5) )
+	;verify
+	Local $hList = ControlGetHandle("Manejo de Casos", "elacionado","[CLASS:ListBox; INSTANCE:6]")
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $caso_rel, True)
+	UTAssert( $item_idx >= 0)
+	_GUICtrlListBox_ClickItem($hList, $item_idx, "primary", False, 2)
+	UTAssert( ControlGetText("Manejo de Casos", "elacionado", "[CLASS:Static; INSTANCE:62]") == $tipo )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Remove_Relacion($caso, $caso_rel, $assert = True)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Remove_Relacion", $caso & ", " & $caso_rel);
+	UTAssert( WinActive("Manejo de Casos", "elacionado") )
+	Local $hList = ControlGetHandle("Manejo de Casos", "elacionado","[CLASS:ListBox; INSTANCE:6]")
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $caso_rel, True)
+	UTAssert( $item_idx >= 0)
+	_GUICtrlListBox_ClickItem($hList, $item_idx, "primary", False, 2)
+	UTAssert( ControlClick("Manejo de Casos", "elacionado", "[CLASS:Button; INSTANCE:47]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	UTAssert( _GUICtrlListBox_FindString($hList, $caso_rel, True) < 0)
+	UTLogEndTestOK()
+EndFunc
+
