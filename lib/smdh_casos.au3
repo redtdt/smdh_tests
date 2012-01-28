@@ -65,9 +65,17 @@ Func SMDH_ManejoDeCasos_Casos_Nuevo($caso)
 	UTLogEndTestOK()
 EndFunc
 
+Func SMDH_ManejoDeCasos_Casos_Select($caso)
+	UTAssert( WinActive("Manejo de Casos", "casos registrados") )
+	Local $hList = ControlGetHandle("Manejo de Casos","","[CLASS:ListBox; INSTANCE:2]")
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $caso, True)
+	UTAssert( $item_idx >= 0)
+	_GUICtrlListBox_ClickItem($hList, $item_idx, "left", False, 2)
+EndFunc
+
 Func SMDH_ManejoDeCasos_Casos_Borrar($caso, $assert = True)
 	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Borrar", $caso);
-	UTAssert( WinActive("Manejo de Casos", "NBCasos") )
+	UTAssert( WinActive("Manejo de Casos", "casos registrados") )
 	Local $hList = ControlGetHandle("Manejo de Casos","","[CLASS:ListBox; INSTANCE:2]")
 	Local $item_idx = _GUICtrlListBox_FindString($hList, $caso, True)
 	If ($assert) Then
@@ -84,10 +92,21 @@ Func SMDH_ManejoDeCasos_Casos_Borrar($caso, $assert = True)
 	UTLogEndTestOK()
 EndFunc
 
-Func SMDH_ManejoDeCasos_BusquedaRapida($search)
-	UTLogInitTest( "SMDH_ManejoDeCasos_BusquedaRapida");
+Func SMDH_ManejoDeCasos_Casos_BusquedaRapida($search)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_BusquedaRapida");
 	UTAssert( WinActive("Manejo de Casos") )
 	UTAssert( ControlSetText("Manejo de Casos", "", "[CLASS:Edit; INSTANCE:10]", $search) )
 	UTLogEndTestOK()
 EndFunc
 
+Func SMDH_ManejoDeCasos_Casos_Set_Nombre($caso, $nuevo)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Set_Nombre", $caso & ", " & $nuevo );
+	UTAssert( WinActive("Manejo de Casos", "casos registrados") )
+	SMDH_ManejoDeCasos_Casos_Select($caso)
+	UTAssert( ControlSetText("Manejo de Casos", "casos registrados", "[CLASS:Edit; INSTANCE:8]", $nuevo) )
+	UTAssert( ControlClick("Manejo de Casos", "casos registrados", "[CLASS:Button; INSTANCE:17]") )
+	; verify
+	SMDH_ManejoDeCasos_Casos_Select($nuevo)
+	UTAssert( ControlGetText("Manejo de Casos", "casos registrados", "[CLASS:Edit; INSTANCE:8]") == $nuevo )
+	UTLogEndTestOK()
+EndFunc

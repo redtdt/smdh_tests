@@ -7,9 +7,10 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_casos.au3"
 
-; 2.1.1.1.4 Que guarde correctamente el nombre si es corto
+; 2.1.1.2.4 Que guarde correctamente el nombre si es corto
 
-Local $caso = "a"
+Local $caso = "Caso de pruebas"
+Local $nuevo = "1"
 
 Func TearDown()
 	SMDH_Terminate_No_Asserts()
@@ -21,6 +22,7 @@ Func TearDown()
 		SMDH_ManejoDeCasos_Casos_Open()
 		SMDH_ManejoDeCasos_Casos_DatosGenerales_Open()
 		SMDH_ManejoDeCasos_Casos_Borrar($caso, False)
+		SMDH_ManejoDeCasos_Casos_Borrar($nuevo, False)
 		SMDH_Terminate()
 	EndIf
 EndFunc
@@ -33,4 +35,5 @@ SMDH_ManejoDeCasos_Open()
 SMDH_ManejoDeCasos_Casos_Open()
 SMDH_ManejoDeCasos_Casos_DatosGenerales_Open()
 SMDH_ManejoDeCasos_Casos_Nuevo($caso)
-SMDH_ManejoDeCasos_Casos_Borrar($caso)
+SMDH_ManejoDeCasos_Casos_Set_Nombre($caso, $nuevo)
+SMDH_ManejoDeCasos_Casos_Borrar($nuevo)
