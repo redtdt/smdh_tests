@@ -93,28 +93,3 @@ Func SMDH_ManejoDeCasos_Personas_Open()
 	UTLogEndTestOK()
 EndFunc
 
-Func SMDH_ManejoDeCasos_CreateCaso($caso_name)
-	UTLogInitTest( "SMDH_ManejoDeCasos_CreateCaso");
-	UTAssert( WinActive("Manejo de Casos") )
-	UTAssert( ControlClick("Manejo de Casos", "", "Nuevo caso") )
-	UTAssert( WinWaitActive("Nombre del caso", "", 5) )
-	UTAssert( ControlSetText("Nombre del caso", "", "[CLASS:Edit; INSTANCE:1]", $caso_name) )
-	UTAssert( ControlClick("Nombre del caso", "Seleccionar", "[CLASS:Button; INSTANCE:1]") )
-	Sleep(2000)
-	Local $hCasosList = ControlGetHandle("Manejo de Casos","","[CLASS:ListBox; INSTANCE:2]")
-	UTAssert( _GUICtrlListBox_FindString($hCasosList, $caso_name, True) >= 0)
-	UTLogEndTestOK()
-EndFunc
-
-Func SMDH_ManejoDeCasos_DeleteCaso($caso_name)
-	UTLogInitTest( "SMDH_ManejoDeCasos_DeleteCaso");
-	UTLogEndTestOK()
-EndFunc
-
-Func SMDH_ManejoDeCasos_BusquedaRapida($search)
-	UTLogInitTest( "SMDH_ManejoDeCasos_BusquedaRapida");
-	UTAssert( WinActive("Manejo de Casos") )
-	UTAssert( ControlSetText("Manejo de Casos", "", "[CLASS:Edit; INSTANCE:10]", $search) )
-	UTLogEndTestOK()
-EndFunc
-
