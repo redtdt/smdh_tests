@@ -399,7 +399,7 @@ Func SMDH_ManejoDeCasos_Casos_Add_Relacion($caso, $caso_rel, $tipo)
 	For $i = 1 To $a[0][0]
 		If BitAND(WinGetState($a[$i][1]), 2) Then
 			UTAssert( WinActivate($a[$i][1]) )
-			Sleep(200)
+			Sleep(500)
 			UTAssert( WinActive($a[$i][1]) )
 		EndIf
 	Next
@@ -426,6 +426,34 @@ Func SMDH_ManejoDeCasos_Casos_Remove_Relacion($caso, $caso_rel, $assert = True)
 	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
 	;verify
 	UTAssert( _GUICtrlListBox_FindString($hList, $caso_rel, True) < 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Set_Relacion_Observaciones($caso, $caso_rel, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Set_Relacion_Observaciones", $caso & ", " & $caso_rel & ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "elacionado") )
+	Local $hList = ControlGetHandle("Manejo de Casos", "elacionado","[CLASS:ListBox; INSTANCE:6]")
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $caso_rel, True)
+	UTAssert( $item_idx >= 0)
+	_GUICtrlListBox_ClickItem($hList, $item_idx, "primary", False, 2)
+	UTAssert( ControlSetText("Manejo de Casos", "omentarios", "[CLASS:Edit; INSTANCE:29]", $n) )
+	UTAssert( ControlClick("Manejo de Casos", "omentarios", "[CLASS:Button; INSTANCE:46]") )
+	; verify
+	UTAssert( ControlGetText("Manejo de Casos", "omentarios", "[CLASS:Edit; INSTANCE:29]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Set_Relacion_Comentarios($caso, $caso_rel, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Set_Relacion_Comentarios", $caso & ", " & $caso_rel & ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "elacionado") )
+	Local $hList = ControlGetHandle("Manejo de Casos", "elacionado","[CLASS:ListBox; INSTANCE:6]")
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $caso_rel, True)
+	UTAssert( $item_idx >= 0)
+	_GUICtrlListBox_ClickItem($hList, $item_idx, "primary", False, 2)
+	UTAssert( ControlSetText("Manejo de Casos", "omentarios", "[CLASS:Edit; INSTANCE:28]", $n) )
+	UTAssert( ControlClick("Manejo de Casos", "omentarios", "[CLASS:Button; INSTANCE:46]") )
+	; verify
+	UTAssert( ControlGetText("Manejo de Casos", "omentarios", "[CLASS:Edit; INSTANCE:28]") == $n )
 	UTLogEndTestOK()
 EndFunc
 
