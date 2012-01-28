@@ -10,11 +10,6 @@ Global Const $PERSONA_COLECTIVA = "Colectiva"
 Global Const $PERSONA_SEXO_VACIO = ""
 Global Const $PERSONA_SEXO_MUJER = "Mujer"
 Global Const $PERSONA_SEXO_HOMBRE = "Hombre"
-Global Const $FECHA_TIPO_VACIO = ""
-Global Const $FECHA_TIPO_EXACTA = "Fecha exacta"
-Global Const $FECHA_TIPO_APROX = "Fecha aproximada"
-Global Const $FECHA_TIPO_NO_DIA = "Se desconoce el día"
-Global Const $FECHA_TIPO_NO_MES = "Se desconoce el día y el mes"
 
 Func SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 	UTLogInitTest( "SMDH_ManejoDeCasos_Personas_DatosGenerales_Open")
@@ -1472,4 +1467,14 @@ Func SMDH_Personas_Colectiva_Set_Archivos($nombre, $sigla, $n)
 	; verify
 	UTAssert( ControlGetText("Manejo de Casos", "bservaciones", "[CLASS:Edit; INSTANCE:54]") == $n )
 	UTLogEndTestOK()
+EndFunc
+
+
+
+Func SMDH_Personas_Individual_Set_FechaRecepcion($nombre, $apellido, $tipo, $anio, $mes = 0, $dia = 0, $expect_failure_anio = False, $expect_failure_mes= False, $expect_failure_dia = False, $expect_failure_saving = False)
+	SMDH_SetFecha("SMDH_Personas_Individual_Set_FechaRecepcion", $nombre & ", " & $apellido & ", " & $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, "Manejo de Casos" , "bservaciones","[CLASS:ComboBox; INSTANCE:22]", "[CLASS:Edit; INSTANCE:60]", "[CLASS:Edit; INSTANCE:59]","[CLASS:Edit; INSTANCE:58]", "[CLASS:Button; INSTANCE:127]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
+EndFunc
+
+Func SMDH_Personas_Colectiva_Set_FechaRecepcion($nombre, $apellido, $tipo, $anio, $mes = 0, $dia = 0, $expect_failure_anio = False, $expect_failure_mes= False, $expect_failure_dia = False, $expect_failure_saving = False)
+	SMDH_SetFecha("SMDH_Personas_Colectiva_Set_FechaRecepcion", $nombre & ", " & $apellido & ", " & $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, "Manejo de Casos" , "bservaciones","[CLASS:ComboBox; INSTANCE:22]", "[CLASS:Edit; INSTANCE:60]", "[CLASS:Edit; INSTANCE:59]","[CLASS:Edit; INSTANCE:58]", "[CLASS:Button; INSTANCE:127]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
 EndFunc

@@ -12,6 +12,12 @@
 #include <Array.au3>
 #include "unit_test.au3"
 
+Global Const $FECHA_TIPO_VACIO = ""
+Global Const $FECHA_TIPO_EXACTA = "Fecha exacta"
+Global Const $FECHA_TIPO_APROX = "Fecha aproximada"
+Global Const $FECHA_TIPO_NO_DIA = "Se desconoce el día"
+Global Const $FECHA_TIPO_NO_MES = "Se desconoce el día y el mes"
+
 Func GUI_Is_CheckBox_Checked($title, $text, $controlID)
 	Local $hCheck = ControlGetHandle($title, $text, $controlID)
 	UTAssert( $hCheck <> "" )
@@ -63,4 +69,106 @@ Func GetArrayFromComboBox($hCombo)
 		_ArrayAddCreate($items, $tmp[$x])
     Next
 	return $items
+EndFunc
+
+Func SMDH_SetFecha($test, $prefix, $window, $text, $comboId, $anioId, $mesId, $diaId, $saveId, $tipo, $anio, $mes = 0, $dia = 0,	$expect_failure_anio = False, $expect_failure_mes= False, $expect_failure_dia = False, $expect_failure_saving = False)
+	UTLogInitTest( $test, $prefix & ", " & $window & ", " & $text & ", " & $comboId & ", " & $anioId & ", " & $mesId & ", " & $diaId & ", " & $saveId & ", " & $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia);
+	UTAssert( WinActive($window, $text) )
+	Local $hCombo = ControlGetHandle($window, $text,$comboId)
+	Local $idx = 0;
+	If ($tipo == $FECHA_TIPO_VACIO) Then
+		$idx = -1
+	Else
+		$idx = _GUICtrlComboBoxEx_FindStringExact($hCombo, $tipo);
+		UTAssert( $idx >= 0)
+	EndIf
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	ControlCommand($window,$text,$comboId,"SelectString",$tipo)
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_DIA and $tipo<>$FECHA_TIPO_NO_MES) Then
+		UTAssert( ControlSetText($window, $text, $diaId, "") )
+		UTAssert( ControlSend($window, $text, $diaId, $dia) )
+		If ($expect_failure_dia = False) Then
+			UTAssert( not WinExists("Alerta", "fuera de rango") )
+		Else
+			UTAssert( WinWaitActive("Alerta", "fuera de rango", 10) )
+			UTAssert( ControlClick("Alerta", "", "Aceptar") )
+			; Set a valid one to avoid problems
+			UTAssert( ControlSetText($window, $text, $diaId, "") )
+			UTAssert( ControlSend($window, $text, $diaId, 1) )
+			UTLogEndTestOK()
+			return
+		EndIf
+	EndIf
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_MES) Then
+		UTAssert( ControlSetText($window, $text, $mesId, "") )
+		UTAssert( ControlSend($window, $text, $mesId, $mes) )
+		If ($expect_failure_mes = False) Then
+			UTAssert( not WinExists("Alerta", "fuera de rango") )
+		Else
+			UTAssert( WinWaitActive("Alerta", "fuera de rango", 10) )
+			UTAssert( ControlClick("Alerta", "", "Aceptar") )
+			; Set a valid one to avoid problems
+			UTAssert( ControlSetText($window, $text, $mesId, "") )
+			UTAssert( ControlSend($window, $text, $mesId, 1) )
+			UTLogEndTestOK()
+			return
+		EndIf
+	EndIf
+	If ($tipo<>$FECHA_TIPO_VACIO) Then
+		UTAssert( ControlSetText($window, $text, $anioId, "") )
+		UTAssert( ControlSend($window, $text, $anioId, $anio) )
+		If ($expect_failure_anio = False) Then
+			UTAssert( not WinExists("Alerta", "fuera de rango") )
+		Else
+			UTAssert( WinExists("Alerta", "") )
+			UTAssert( WinWaitActive("Alerta", "", 3) )
+			UTAssert( ControlClick("Alerta", "", "Aceptar") )
+			; a veces sale 2 veces
+			If( WinWaitActive("Alerta", "no es", 1) ) Then
+				UTAssert( ControlClick("Alerta", "", "Aceptar") )
+			EndIf
+			; a veces sale 3 veces
+			If( WinWaitActive("Alerta", "no es", 1) ) Then
+				UTAssert( ControlClick("Alerta", "", "Aceptar") )
+			EndIf
+			; Set a valid one to avoid problems
+			UTAssert( ControlSetText($window, $text, $anioId, "") )
+			UTAssert( ControlSend($window, $text, $anioId, 2000) )
+			UTLogEndTestOK()
+			return
+		EndIf
+	EndIf
+	UTAssert( ControlClick($window, $text, $saveId) )
+	If ($expect_failure_saving = False) Then
+		UTAssert( not WinExists("Alerta", "no es") )
+	Else
+		UTAssert( WinWaitActive("Alerta", "no es", 1) )
+		UTAssert( ControlClick("Alerta", "", "Aceptar") )
+		; sale 2 veces
+		UTAssert( WinWaitActive("Alerta", "no es", 1) )
+		UTAssert( ControlClick("Alerta", "", "Aceptar") )
+		; a veces sale 3 veces
+		If( WinWaitActive("Alerta", "no es", 1) ) Then
+			UTAssert( ControlClick("Alerta", "", "Aceptar") )
+		EndIf
+		UTLogEndTestOK()
+		return
+	EndIf
+	; verify
+	$hCombo = ControlGetHandle($window, $text,$comboId)
+	If ($tipo == $FECHA_TIPO_VACIO) Then
+		UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) == $idx or _GUICtrlComboBoxEx_GetCurSel($hCombo) == 4294967295)
+	Else
+		UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) == $idx )
+	EndIf
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_DIA and $tipo<>$FECHA_TIPO_NO_MES) Then
+		UTAssert( ControlGetText($window, $text, $diaId) == $dia )
+	EndIf
+	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_MES) Then
+		UTAssert( ControlGetText($window, $text, $mesId) == $mes )
+	EndIf
+	If ($tipo<>$FECHA_TIPO_VACIO) Then
+		UTAssert( ControlGetText($window, $text, $anioId) == $anio )
+	EndIf
+	UTLogEndTestOK()
 EndFunc
