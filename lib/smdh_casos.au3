@@ -258,3 +258,103 @@ Func SMDH_ManejoDeCasos_Casos_Set_Archivos($caso, $n)
 	UTLogEndTestOK()
 EndFunc
 
+Func SMDH_ManejoDeCasos_Casos_Get_DerechosAfectados($caso)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Get_DerechosAfectados", $caso);
+	UTAssert( WinActive("Manejo de Casos", "afectados") )
+	UTAssert( ControlClick("Manejo de Casos", "afectados", "[CLASS:Button; INSTANCE:33]") )
+	UTAssert( WinWaitActive("Derecho afectado", "", 5) )
+	Local $hTree = ControlGetHandle("Derecho afectado", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, False, True)
+	UTAssert( ControlClick("Derecho afectado", "", "[CLASS:Button; INSTANCE:4]") )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Add_DerechoAfectado($caso, $item)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Add_DerechoAfectado", $caso & ", " & $item );
+	UTAssert( WinActive("Manejo de Casos", "afectados") )
+	UTAssert( ControlClick("Manejo de Casos", "afectados", "[CLASS:Button; INSTANCE:33]") )
+	UTAssert( WinWaitActive("Derecho afectado", "", 5) )
+	Local $hTree = ControlGetHandle("Derecho afectado", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $item)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_EnsureVisible($hTree, $hItem)
+;	_GUICtrlTreeView_Expand($hTree, $hItem)
+;	MsgBox(0, "","" )
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	UTAssert( ControlClick("Derecho afectado", "", "[CLASS:Button; INSTANCE:1]") )
+	UTAssert( WinWaitActive("Manejo de Casos", "afectados") )
+	;verify
+	Local $hList = ControlGetHandle("Manejo de Casos", "afectados","[CLASS:ListBox; INSTANCE:5]")
+	UTAssert( _GUICtrlListBox_FindString($hList, $item, True) >= 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Remove_DerechoAfectado($caso, $item)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Remove_DerechoAfectado", $caso & ", " & $item);
+	UTAssert( WinActive("Manejo de Casos", "afectados") )
+	Local $hList = ControlGetHandle("Manejo de Casos", "afectados","[CLASS:ListBox; INSTANCE:5]")
+	UTAssert(_GUICtrlListBox_SelectString($hList, $item)>=0)
+	;Local $hItem = _GUICtrlListBox_FindString($hList, $item, True)
+	;UTAssert(  $hItem >= 0)
+	;_GUICtrlListBox_ClickItem($hList, $hItem)
+	UTAssert( ControlClick("Manejo de Casos", "afectados", "[CLASS:Button; INSTANCE:36]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	UTAssert( _GUICtrlListBox_FindString($hList, $item, True) < 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Get_Temas($caso)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Get_Temas", $caso);
+	UTAssert( WinActive("Manejo de Casos", "afectados") )
+	UTAssert( ControlClick("Manejo de Casos", "afectados", "[CLASS:Button; INSTANCE:34]") )
+	UTAssert( WinWaitActive("Temas", "", 5) )
+	Local $hTree = ControlGetHandle("Temas", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, False, True)
+	UTAssert( ControlClick("Temas", "", "[CLASS:Button; INSTANCE:4]") )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Add_Tema($caso, $item)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Add_Tema", $caso & ", " & $item );
+	UTAssert( WinActive("Manejo de Casos", "afectados") )
+	UTAssert( ControlClick("Manejo de Casos", "afectados", "[CLASS:Button; INSTANCE:34]") )
+	UTAssert( WinWaitActive("Temas", "", 5) )
+	Local $hTree = ControlGetHandle("Temas", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $item)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_EnsureVisible($hTree, $hItem)
+;	_GUICtrlTreeView_Expand($hTree, $hItem)
+;	MsgBox(0, "","" )
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	UTAssert( ControlClick("Temas", "", "[CLASS:Button; INSTANCE:1]") )
+	UTAssert( WinWaitActive("Manejo de Casos", "afectados") )
+	;verify
+	Local $hList = ControlGetHandle("Manejo de Casos", "afectados","[CLASS:ListBox; INSTANCE:4]")
+	UTAssert( _GUICtrlListBox_FindString($hList, $item, True) >= 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Remove_Tema($caso, $item)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Remove_Tema", $caso & ", " & $item);
+	UTAssert( WinActive("Manejo de Casos", "afectados") )
+	Local $hList = ControlGetHandle("Manejo de Casos", "afectados","[CLASS:ListBox; INSTANCE:4]")
+	UTAssert(_GUICtrlListBox_SelectString($hList, $item)>=0)
+	;Local $hItem = _GUICtrlListBox_FindString($hList, $item, True)
+	;UTAssert(  $hItem >= 0)
+	;_GUICtrlListBox_ClickItem($hList, $hItem)
+	UTAssert( ControlClick("Manejo de Casos", "afectados", "[CLASS:Button; INSTANCE:37]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	UTAssert( _GUICtrlListBox_FindString($hList, $item, True) < 0)
+	UTLogEndTestOK()
+EndFunc
+
