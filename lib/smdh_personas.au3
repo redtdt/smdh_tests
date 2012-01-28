@@ -1410,3 +1410,28 @@ Func SMDH_Personas_Colectiva_Set_Monitoreo_Idx($nombre, $sigla, $Monitoreo_idx)
 	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
 	UTLogEndTestOK()
 EndFunc
+
+
+
+
+Func SMDH_Personas_Individual_Set_Observaciones($nombre, $apellido, $n)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_Observaciones", $nombre & ", " & $apellido & ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "bservaciones") )
+	UTAssert( ControlSetText("Manejo de Casos", "bservaciones", "[CLASS:Edit; INSTANCE:52]", "") )
+	UTAssert( ControlSend("Manejo de Casos", "bservaciones", "[CLASS:Edit; INSTANCE:52]", String($n)) )
+	UTAssert( ControlClick("Manejo de Casos", "bservaciones", "[CLASS:Button; INSTANCE:127]") )
+	; verify
+	UTAssert( ControlGetText("Manejo de Casos", "bservaciones", "[CLASS:Edit; INSTANCE:52]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Set_Observaciones($nombre, $sigla, $n)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_Observaciones", $nombre & ", " & $sigla & ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "bservaciones") )
+	UTAssert( ControlSetText("Manejo de Casos", "bservaciones", "[CLASS:Edit; INSTANCE:52]", "") )
+	UTAssert( ControlSend("Manejo de Casos", "bservaciones", "[CLASS:Edit; INSTANCE:52]", String($n)) )
+	UTAssert( ControlClick("Manejo de Casos", "bservaciones", "[CLASS:Button; INSTANCE:127]") )
+	; verify
+	UTAssert( ControlGetText("Manejo de Casos", "bservaciones", "[CLASS:Edit; INSTANCE:52]") == $n )
+	UTLogEndTestOK()
+EndFunc
