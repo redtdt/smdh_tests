@@ -185,3 +185,76 @@ Func SMDH_ManejoDeCasos_Casos_Set_Observaciones($caso, $n)
 	UTAssert( ControlGetText("Manejo de Casos", "narrativa", "[CLASS:Edit; INSTANCE:19]") == $n )
 	UTLogEndTestOK()
 EndFunc
+
+; Administrativa
+Func SMDH_ManejoDeCasos_Casos_Set_FechaRecepcion($caso, $tipo, $anio, $mes = 0, $dia = 0, $expect_failure_anio = False, $expect_failure_mes= False, $expect_failure_dia = False, $expect_failure_saving = False)
+	SMDH_SetFecha("SMDH_ManejoDeCasos_Casos_Set_FechaRecepcion", $caso & ", " & $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, "Manejo de Casos" , "omentarios","[CLASS:ComboBox; INSTANCE:7]", "[CLASS:Edit; INSTANCE:27]", "[CLASS:Edit; INSTANCE:26]","[CLASS:Edit; INSTANCE:25]", "[CLASS:Button; INSTANCE:41]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Set_ProyectoLocal($caso, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Set_ProyectoLocal", $caso & ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "omentarios") )
+	UTAssert( ControlSetText("Manejo de Casos", "omentarios", "[CLASS:Edit; INSTANCE:20]", $n) )
+	UTAssert( ControlClick("Manejo de Casos", "omentarios", "[CLASS:Button; INSTANCE:41]") )
+	; verify
+	UTAssert( ControlGetText("Manejo de Casos", "omentarios", "[CLASS:Edit; INSTANCE:20]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Set_ProyectoConjunto($caso, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Set_ProyectoLocal", $caso & ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "omentarios") )
+	UTAssert( ControlSetText("Manejo de Casos", "omentarios", "[CLASS:Edit; INSTANCE:21]", $n) )
+	UTAssert( ControlClick("Manejo de Casos", "omentarios", "[CLASS:Button; INSTANCE:41]") )
+	; verify
+	UTAssert( ControlGetText("Manejo de Casos", "omentarios", "[CLASS:Edit; INSTANCE:21]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Administrativa_Set_Comentarios($caso, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Administrativa_Set_Comentarios", $caso & ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "omentarios") )
+	UTAssert( ControlSetText("Manejo de Casos", "omentarios", "[CLASS:Edit; INSTANCE:23]", $n) )
+	UTAssert( ControlClick("Manejo de Casos", "omentarios", "[CLASS:Button; INSTANCE:41]") )
+	; verify
+	UTAssert( ControlGetText("Manejo de Casos", "omentarios", "[CLASS:Edit; INSTANCE:23]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Get_EstatusCasos($caso)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Get_EstatusCasos", $caso);
+	UTAssert( WinActive("Manejo de Casos", "omentarios") )
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "omentarios", "[CLASS:ComboBox; INSTANCE:6]")
+	UTAssert( $hCombo )
+	Local $items = GetArrayFromComboBox($hCombo)
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Set_EstatusCaso_Idx($caso, $estatuscaso_idx)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Set_EstatusCaso_Idx", $caso & ", " & $estatuscaso_idx );
+	UTAssert( WinActive("Manejo de Casos", "omentarios") )
+	If $estatuscaso_idx = 0 Then
+		$idx = -1
+	Else
+		$idx = $estatuscaso_idx
+	EndIf
+	Local $hCombo = ControlGetHandle("Manejo de Casos", "omentarios","[CLASS:ComboBox; INSTANCE:6]")
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	UTAssert( ControlClick("Manejo de Casos", "omentarios", "[CLASS:Button; INSTANCE:41]") )
+	; verify
+	$hCombo = ControlGetHandle("Manejo de Casos", "omentarios","[CLASS:ComboBox; INSTANCE:6]")
+	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Set_Archivos($caso, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Set_Archivos", $caso & ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "omentarios") )
+	UTAssert( ControlSetText("Manejo de Casos", "omentarios", "[CLASS:Edit; INSTANCE:24]", $n) )
+	UTAssert( ControlClick("Manejo de Casos", "omentarios", "[CLASS:Button; INSTANCE:41]") )
+	; verify
+	UTAssert( ControlGetText("Manejo de Casos", "omentarios", "[CLASS:Edit; INSTANCE:24]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
