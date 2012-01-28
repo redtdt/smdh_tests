@@ -7,15 +7,15 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 5.3.1.1 Que guarde correctamente
+; 5.3.1.2 Que guarde correctamente si es corto
 
 Local $nombre = "Juan"
 Local $apellido = "Perez"
-Local $obser = "observacion de una persona individual"
+Local $obser = "1"
 
 Local $colectiva = "Organismo Colectivo"
 Local $sigla = "redtdt"
-Local $c_obser = "observacion de una persona colectiva"
+Local $c_obser = "a"
 
 Func TearDown()
 	SMDH_Terminate_No_Asserts()
@@ -52,4 +52,3 @@ SMDH_ManejoDeCasos_Personas_InformacionAdministrativa_Open()
 SMDH_Personas_Colectiva_Set_Observaciones($colectiva, $sigla, $c_obser)
 SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 SMDH_Personas_Colectiva_Borrar($colectiva, $sigla)
-

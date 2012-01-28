@@ -7,15 +7,16 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 5.3.1.1 Que guarde correctamente
+; 5.3.3.3 Que guarde correctamente si es largo
+; prueba con 100, 200, 300, 400 hasta 50000 caracteres
+
+Local $base = "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
 
 Local $nombre = "Juan"
 Local $apellido = "Perez"
-Local $obser = "observacion de una persona individual"
 
 Local $colectiva = "Organismo Colectivo"
 Local $sigla = "redtdt"
-Local $c_obser = "observacion de una persona colectiva"
 
 Func TearDown()
 	SMDH_Terminate_No_Asserts()
@@ -42,14 +43,21 @@ SMDH_ManejoDeCasos_Personas_Open()
 SMDH_Personas_Individual_Nueva($nombre, $apellido)
 SMDH_Personas_Individual_Select($nombre, $apellido)
 SMDH_ManejoDeCasos_Personas_InformacionAdministrativa_Open()
-SMDH_Personas_Individual_Set_Observaciones($nombre, $apellido, $obser)
+Local $archivo = ""
+For $i = 1 To 50 Step 1
+	$archivo = $archivo & $base
+	SMDH_Personas_Individual_Set_Archivos($nombre, $apellido, $archivo)
+Next
 SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 SMDH_Personas_Individual_Borrar($nombre, $apellido)
 
 SMDH_Personas_Colectiva_Nueva($colectiva, $sigla)
 SMDH_Personas_Colectiva_Select($colectiva, $sigla)
 SMDH_ManejoDeCasos_Personas_InformacionAdministrativa_Open()
-SMDH_Personas_Colectiva_Set_Observaciones($colectiva, $sigla, $c_obser)
+Local $archivo = ""
+For $i = 1 To 50 Step 1
+	$archivo = $archivo & $base
+	SMDH_Personas_Colectiva_Set_Archivos($colectiva, $sigla, $archivo)
+Next
 SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 SMDH_Personas_Colectiva_Borrar($colectiva, $sigla)
-
