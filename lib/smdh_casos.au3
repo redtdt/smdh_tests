@@ -155,3 +155,33 @@ Func SMDH_ManejoDeCasos_Casos_Set_ExportarRelaciones($caso, $val)
 	UTAssert( GUI_Is_CheckBox_Checked("Manejo de Casos", "casos registrados","[CLASS:Button; INSTANCE:29]") = $val)
 	UTLogEndTestOK()
 EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Set_DescripcionNarrativa($caso, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Set_DescripcionNarrativa", $caso& ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "narrativa") )
+	UTAssert( ControlSetText("Manejo de Casos", "narrativa", "[CLASS:Edit; INSTANCE:17]", $n) )
+	UTAssert( ControlClick("Manejo de Casos", "narrativa", "[CLASS:Button; INSTANCE:38]") )
+	; verify
+	UTAssert( ControlGetText("Manejo de Casos", "narrativa", "[CLASS:Edit; INSTANCE:17]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Set_ResumenDescripcion($caso, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Set_ResumenDescripcion", $caso& ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "narrativa") )
+	UTAssert( ControlSetText("Manejo de Casos", "narrativa", "[CLASS:Edit; INSTANCE:18]", $n) )
+	UTAssert( ControlClick("Manejo de Casos", "narrativa", "[CLASS:Button; INSTANCE:38]") )
+	; verify
+	UTAssert( ControlGetText("Manejo de Casos", "narrativa", "[CLASS:Edit; INSTANCE:18]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Set_Observaciones($caso, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Set_Observaciones", $caso& ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "narrativa") )
+	UTAssert( ControlSetText("Manejo de Casos", "narrativa", "[CLASS:Edit; INSTANCE:19]", $n) )
+	UTAssert( ControlClick("Manejo de Casos", "narrativa", "[CLASS:Button; INSTANCE:38]") )
+	; verify
+	UTAssert( ControlGetText("Manejo de Casos", "narrativa", "[CLASS:Edit; INSTANCE:19]") == $n )
+	UTLogEndTestOK()
+EndFunc
