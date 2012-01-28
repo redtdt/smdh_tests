@@ -1478,3 +1478,44 @@ EndFunc
 Func SMDH_Personas_Colectiva_Set_FechaRecepcion($nombre, $apellido, $tipo, $anio, $mes = 0, $dia = 0, $expect_failure_anio = False, $expect_failure_mes= False, $expect_failure_dia = False, $expect_failure_saving = False)
 	SMDH_SetFecha("SMDH_Personas_Colectiva_Set_FechaRecepcion", $nombre & ", " & $apellido & ", " & $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, "Manejo de Casos" , "bservaciones","[CLASS:ComboBox; INSTANCE:22]", "[CLASS:Edit; INSTANCE:60]", "[CLASS:Edit; INSTANCE:59]","[CLASS:Edit; INSTANCE:58]", "[CLASS:Button; INSTANCE:127]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
 EndFunc
+
+Func SMDH_Personas_Individual_Set_ProyectoLocal($nombre, $apellido, $n)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_ProyectoLocal", $nombre & ", " & $apellido & ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "bservaciones") )
+	UTAssert( ControlSetText("Manejo de Casos", "bservaciones", "[CLASS:Edit; INSTANCE:57]", String($n)) )
+	UTAssert( ControlClick("Manejo de Casos", "bservaciones", "[CLASS:Button; INSTANCE:127]") )
+	; verify
+	UTAssert( ControlGetText("Manejo de Casos", "bservaciones", "[CLASS:Edit; INSTANCE:57]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Set_ProyectoLocal($nombre, $sigla, $n)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_ProyectoLocal", $nombre & ", " & $sigla & ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "bservaciones") )
+	UTAssert( ControlSetText("Manejo de Casos", "bservaciones", "[CLASS:Edit; INSTANCE:57]", String($n)) )
+	UTAssert( ControlClick("Manejo de Casos", "bservaciones", "[CLASS:Button; INSTANCE:127]") )
+	; verify
+	UTAssert( ControlGetText("Manejo de Casos", "bservaciones", "[CLASS:Edit; INSTANCE:57]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Individual_Set_ProyectoConjunto($nombre, $apellido, $n)
+	UTLogInitTest( "SMDH_Personas_Individual_Set_ProyectoConjunto", $nombre & ", " & $apellido & ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "bservaciones") )
+	UTAssert( ControlSetText("Manejo de Casos", "bservaciones", "[CLASS:Edit; INSTANCE:56]", String($n)) )
+	UTAssert( ControlClick("Manejo de Casos", "bservaciones", "[CLASS:Button; INSTANCE:127]") )
+	; verify
+	UTAssert( ControlGetText("Manejo de Casos", "bservaciones", "[CLASS:Edit; INSTANCE:56]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Colectiva_Set_ProyectoConjunto($nombre, $sigla, $n)
+	UTLogInitTest( "SMDH_Personas_Colectiva_Set_ProyectoConjunto", $nombre & ", " & $sigla & ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "bservaciones") )
+	UTAssert( ControlSetText("Manejo de Casos", "bservaciones", "[CLASS:Edit; INSTANCE:56]", String($n)) )
+	UTAssert( ControlClick("Manejo de Casos", "bservaciones", "[CLASS:Button; INSTANCE:127]") )
+	; verify
+	UTAssert( ControlGetText("Manejo de Casos", "bservaciones", "[CLASS:Edit; INSTANCE:56]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
