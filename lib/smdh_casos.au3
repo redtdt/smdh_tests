@@ -118,3 +118,40 @@ EndFunc
 Func SMDH_ManejoDeCasos_Casos_Set_FechaFinal($caso, $tipo, $anio, $mes = 0, $dia = 0, $expect_failure_anio = False, $expect_failure_mes= False, $expect_failure_dia = False, $expect_failure_saving = False)
 	SMDH_SetFecha("SMDH_ManejoDeCasos_Casos_Set_FechaFinal", $caso & ", " & $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, "Manejo de Casos" , "casos registrados","[CLASS:ComboBox; INSTANCE:3]", "[CLASS:Edit; INSTANCE:16]", "[CLASS:Edit; INSTANCE:15]","[CLASS:Edit; INSTANCE:14]", "[CLASS:Button; INSTANCE:17]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
 EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Set_NumeroPersonasAfectadas($caso, $n, $expect_failure = False)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Set_NumeroPersonasAfectadas", $caso & ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "casos registrados") )
+	UTAssert( ControlSetText("Manejo de Casos", "casos registrados", "[CLASS:Edit; INSTANCE:9]", "") )
+	UTAssert( ControlSend("Manejo de Casos", "casos registrados", "[CLASS:Edit; INSTANCE:9]", String($n)) )
+	UTAssert( ControlClick("Manejo de Casos", "casos registrados", "Guardar") )
+	; verify
+	If ($expect_failure) Then
+		UTAssert( ControlGetText("Manejo de Casos", "casos registrados", "[CLASS:Edit; INSTANCE:9]") <> $n )
+	Else
+		UTAssert( ControlGetText("Manejo de Casos", "casos registrados", "[CLASS:Edit; INSTANCE:9]") == $n )
+	EndIf
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Set_ExportarCaso($caso, $val)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Set_ExportarCaso", $caso & ", " & $val );
+	UTAssert( WinActive("Manejo de Casos", "casos registrados") )
+	If ( GUI_Is_CheckBox_Checked("Manejo de Casos", "casos registrados","[CLASS:Button; INSTANCE:18]") <> $val) Then
+		UTAssert( ControlClick("Manejo de Casos", "casos registrados", "[CLASS:Button; INSTANCE:18]") )
+		UTAssert( ControlClick("Manejo de Casos", "casos registrados", "[CLASS:Button; INSTANCE:17]") )
+	EndIf
+	UTAssert( GUI_Is_CheckBox_Checked("Manejo de Casos", "casos registrados","[CLASS:Button; INSTANCE:18]") = $val)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Set_ExportarRelaciones($caso, $val)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_Set_ExportarRelaciones", $caso & ", " & $val );
+	UTAssert( WinActive("Manejo de Casos", "casos registrados") )
+	If ( GUI_Is_CheckBox_Checked("Manejo de Casos", "casos registrados","[CLASS:Button; INSTANCE:29]") <> $val) Then
+		UTAssert( ControlClick("Manejo de Casos", "casos registrados", "[CLASS:Button; INSTANCE:29]") )
+		UTAssert( ControlClick("Manejo de Casos", "casos registrados", "[CLASS:Button; INSTANCE:17]") )
+	EndIf
+	UTAssert( GUI_Is_CheckBox_Checked("Manejo de Casos", "casos registrados","[CLASS:Button; INSTANCE:29]") = $val)
+	UTLogEndTestOK()
+EndFunc
