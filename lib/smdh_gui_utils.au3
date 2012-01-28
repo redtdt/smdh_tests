@@ -82,6 +82,7 @@ Func SMDH_SetFecha($test, $prefix, $window, $text, $comboId, $anioId, $mesId, $d
 		$idx = _GUICtrlComboBoxEx_FindStringExact($hCombo, $tipo);
 		UTAssert( $idx >= 0)
 	EndIf
+;	_GUICtrlComboBoxEx_ShowDropDown($hCombo, True)
 	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
 	ControlCommand($window,$text,$comboId,"SelectString",$tipo)
 	If ($tipo<>$FECHA_TIPO_VACIO and $tipo<>$FECHA_TIPO_NO_DIA and $tipo<>$FECHA_TIPO_NO_MES) Then
@@ -145,8 +146,9 @@ Func SMDH_SetFecha($test, $prefix, $window, $text, $comboId, $anioId, $mesId, $d
 		UTAssert( WinWaitActive("Alerta", "no es", 1) )
 		UTAssert( ControlClick("Alerta", "", "Aceptar") )
 		; sale 2 veces
-		UTAssert( WinWaitActive("Alerta", "no es", 1) )
-		UTAssert( ControlClick("Alerta", "", "Aceptar") )
+		If( WinWaitActive("Alerta", "no es", 1) ) Then
+			UTAssert( ControlClick("Alerta", "", "Aceptar") )
+		EndIf
 		; a veces sale 3 veces
 		If( WinWaitActive("Alerta", "no es", 1) ) Then
 			UTAssert( ControlClick("Alerta", "", "Aceptar") )
