@@ -119,6 +119,119 @@ Func SMDH_ManejoDeCasos_Actos_Set_FechaFinal($victima, $tipov, $tipo, $anio, $me
 	SMDH_SetFecha("SMDH_ManejoDeCasos_Actos_Set_FechaFinal", $victima & ", " & $tipov & ", " & $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, "Manejo de Casos" , "Actos registrados","[CLASS:ComboBox; INSTANCE:9]", "[CLASS:Edit; INSTANCE:37]", "[CLASS:Edit; INSTANCE:36]","[CLASS:Edit; INSTANCE:35]", "[CLASS:Button; INSTANCE:50]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
 EndFunc
 
+Func SMDH_ManejoDeCasos_Actos_Get_CaracteristicasRelevantes($victima, $tipov)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Get_CaracteristicasRelevantes", $victima & ", " & $tipov);
+	UTAssert( WinActive("Manejo de Casos", "Actos registrados") )
+	UTAssert( ControlClick("Manejo de Casos", "Actos registrados", "[CLASS:Button; INSTANCE:52]") )
+	UTAssert( WinWaitActive("Características relevantes", "", 5) )
+	Local $hTree = ControlGetHandle("Características relevantes", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, False, True)
+	UTAssert( ControlClick("Características relevantes", "", "[CLASS:Button; INSTANCE:4]") )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Add_CaracteristicaRelevante($victima, $tipov, $item)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Add_CaracteristicaRelevante", $victima & ", " & $tipov & ", " & $item );
+	UTAssert( WinActive("Manejo de Casos", "Actos registrados") )
+	UTAssert( ControlClick("Manejo de Casos", "Actos registrados", "[CLASS:Button; INSTANCE:52]") )
+	UTAssert( WinWaitActive("Características relevantes", "", 5) )
+	Local $hTree = ControlGetHandle("Características relevantes", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $item)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_EnsureVisible($hTree, $hItem)
+;	_GUICtrlTreeView_Expand($hTree, $hItem)
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	UTAssert( ControlClick("Características relevantes", "", "[CLASS:Button; INSTANCE:1]") )
+	UTAssert( WinWaitActive("Manejo de Casos", "Actos registrados") )
+	;verify
+	Local $hList = ControlGetHandle("Manejo de Casos", "Actos registrados","[CLASS:ListBox; INSTANCE:8]")
+	UTAssert( _GUICtrlListBox_FindString($hList, $item, True) >= 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Remove_CaracteristicaRelevante($victima, $tipov, $item)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Remove_CaracteristicaRelevante", $victima & ", " & $tipov & ", " & $item);
+	UTAssert( WinActive("Manejo de Casos", "Actos registrados") )
+	Local $hList = ControlGetHandle("Manejo de Casos", "Actos registrados","[CLASS:ListBox; INSTANCE:8]")
+	UTAssert(_GUICtrlListBox_SelectString($hList, $item)>=0)
+	;Local $hItem = _GUICtrlListBox_FindString($hList, $item, True)
+	;UTAssert(  $hItem >= 0)
+	;_GUICtrlListBox_ClickItem($hList, $hItem)
+	UTAssert( ControlClick("Manejo de Casos", "Actos registrados", "[CLASS:Button; INSTANCE:64]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	UTAssert( _GUICtrlListBox_FindString($hList, $item, True) < 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Get_TiposLugares($victima, $tipov)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Get_TiposLugares", $victima & ", " & $tipov);
+	UTAssert( WinActive("Manejo de Casos", "Actos registrados") )
+	UTAssert( ControlClick("Manejo de Casos", "Actos registrados", "[CLASS:Button; INSTANCE:53]") )
+	UTAssert( WinWaitActive("Tipo de lugar", "", 5) )
+	Local $hTree = ControlGetHandle("Tipo de lugar", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, False, True)
+	UTAssert( ControlClick("Tipo de lugar", "", "[CLASS:Button; INSTANCE:4]") )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Set_TipoLugar($victima, $tipov, $item)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Set_TipoLugar", $victima & ", " & $tipov & ", " & $item );
+	UTAssert( WinActive("Manejo de Casos", "Actos registrados") )
+	UTAssert( ControlClick("Manejo de Casos", "Actos registrados", "[CLASS:Button; INSTANCE:53]") )
+	UTAssert( WinWaitActive("Tipo de lugar", "", 5) )
+	Local $hTree = ControlGetHandle("Tipo de lugar", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $item)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_EnsureVisible($hTree, $hItem)
+;	_GUICtrlTreeView_Expand($hTree, $hItem)
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	UTAssert( ControlClick("Tipo de lugar", "", "[CLASS:Button; INSTANCE:1]") )
+	UTAssert( WinWaitActive("Manejo de Casos", "Actos registrados") )
+	;verify
+	UTAssert( ControlGetText("Manejo de Casos", "Actos registrados", "[CLASS:Static; INSTANCE:79]") == $item )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Remove_TipoLugar($victima, $tipov)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Remove_TipoLugar", $victima & ", " & $tipov);
+	UTAssert( WinActive("Manejo de Casos", "Actos registrados") )
+	UTAssert( ControlClick("Manejo de Casos", "Actos registrados", "[CLASS:Button; INSTANCE:59]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	UTAssert( ControlGetText("Manejo de Casos", "Actos registrados", "[CLASS:Static; INSTANCE:79]") == "" )
+	UTLogEndTestOK()
+EndFunc
+
+Local $EstatusVDHwTitle = "Manejo de Casos"
+Local $EstatusVDHwText = "Actos registrados"
+Local $EstatusVDHbAdd = "[CLASS:Button; INSTANCE:54]"
+Local $EstatusVDHbRemove = "[CLASS:Button; INSTANCE:61]"
+Local $EstatusVDHstatic = "[CLASS:Static; INSTANCE:82]"
+Local $EstatusVDHsTitle = "Estatus de la VDH"
+Local $EstatusVDHsOK = "[CLASS:Button; INSTANCE:1]"
+Local $EstatusVDHsCancel = "[CLASS:Button; INSTANCE:4]"
+Local $EstatusVDHtree = "[CLASS:SysTreeView32; INSTANCE:1]"
+
+Func SMDH_ManejoDeCasos_Actos_Get_EstatusVDHs($victima, $tipov)
+	return SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Get_EstatusVDHs", $victima & ", " & $tipov, $EstatusVDHwTitle, $EstatusVDHwText, $EstatusVDHbAdd, $EstatusVDHbRemove, $EstatusVDHstatic, $EstatusVDHsTitle, $EstatusVDHsOK, $EstatusVDHsCancel, $EstatusVDHtree)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Set_EstatusVDH($victima, $tipov, $item)
+	SMDH_SetFromTreeViewList_Single("SMDH_ManejoDeCasos_Actos_Set_EstatusVDH", $victima & ", " & $tipov, $EstatusVDHwTitle, $EstatusVDHwText, $EstatusVDHbAdd, $EstatusVDHbRemove, $EstatusVDHstatic, $EstatusVDHsTitle, $EstatusVDHsOK, $EstatusVDHsCancel, $EstatusVDHtree, $item)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Remove_EstatusVDH($victima, $tipov)
+	SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Remove_EstatusVDH", $victima & ", " & $tipov, $EstatusVDHwTitle, $EstatusVDHwText, $EstatusVDHbAdd, $EstatusVDHbRemove, $EstatusVDHstatic, $EstatusVDHsTitle, $EstatusVDHsOK, $EstatusVDHsCancel, $EstatusVDHtree)
+EndFunc
 
 ;~ Func SMDH_ManejoDeCasos_Actos_BusquedaRapida($search)
 ;~ 	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_BusquedaRapida");
