@@ -233,6 +233,38 @@ Func SMDH_ManejoDeCasos_Actos_Remove_EstatusVDH($victima, $tipov)
 	SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Remove_EstatusVDH", $victima & ", " & $tipov, $EstatusVDHwTitle, $EstatusVDHwText, $EstatusVDHbAdd, $EstatusVDHbRemove, $EstatusVDHstatic, $EstatusVDHsTitle, $EstatusVDHsOK, $EstatusVDHsCancel, $EstatusVDHtree)
 EndFunc
 
+Local $EstatusVictimawTitle = "Manejo de Casos"
+Local $EstatusVictimawText = "Actos registrados"
+Local $EstatusVictimabAdd = "[CLASS:Button; INSTANCE:55]"
+Local $EstatusVictimabRemove = "[CLASS:Button; INSTANCE:60]"
+Local $EstatusVictimastatic = "[CLASS:Static; INSTANCE:83]"
+Local $EstatusVictimasTitle = "Estatus de la víctima"
+Local $EstatusVictimasOK = "[CLASS:Button; INSTANCE:1]"
+Local $EstatusVictimasCancel = "[CLASS:Button; INSTANCE:4]"
+Local $EstatusVictimatree = "[CLASS:SysTreeView32; INSTANCE:1]"
+
+Func SMDH_ManejoDeCasos_Actos_Get_EstatusVictimas($victima, $tipov)
+	return SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Get_EstatusVictimas", $victima & ", " & $tipov, $EstatusVictimawTitle, $EstatusVictimawText, $EstatusVictimabAdd, $EstatusVictimabRemove, $EstatusVictimastatic, $EstatusVictimasTitle, $EstatusVictimasOK, $EstatusVictimasCancel, $EstatusVictimatree)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Set_EstatusVictima($victima, $tipov, $item)
+	SMDH_SetFromTreeViewList_Single("SMDH_ManejoDeCasos_Actos_Set_EstatusVictima", $victima & ", " & $tipov, $EstatusVictimawTitle, $EstatusVictimawText, $EstatusVictimabAdd, $EstatusVictimabRemove, $EstatusVictimastatic, $EstatusVictimasTitle, $EstatusVictimasOK, $EstatusVictimasCancel, $EstatusVictimatree, $item)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Remove_EstatusVictima($victima, $tipov)
+	SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Remove_EstatusVictima", $victima & ", " & $tipov, $EstatusVictimawTitle, $EstatusVictimawText, $EstatusVictimabAdd, $EstatusVictimabRemove, $EstatusVictimastatic, $EstatusVictimasTitle, $EstatusVictimasOK, $EstatusVictimasCancel, $EstatusVictimatree)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Set_Observaciones($victima, $tipov, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Set_Observaciones", $victima & ", " & $tipov & ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "Actos registrados") )
+	UTAssert( ControlSetText("Manejo de Casos", "Actos registrados", "[CLASS:Edit; INSTANCE:30]", $n) )
+	UTAssert( ControlClick("Manejo de Casos", "Actos registrados", "[CLASS:Button; INSTANCE:50]") )
+	; verify
+	UTAssert( ControlGetText("Manejo de Casos", "Actos registrados", "[CLASS:Edit; INSTANCE:30]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
 ;~ Func SMDH_ManejoDeCasos_Actos_BusquedaRapida($search)
 ;~ 	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_BusquedaRapida");
 ;~ 	UTAssert( WinActive("Manejo de Casos") )
