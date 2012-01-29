@@ -386,6 +386,17 @@ Func SMDH_ManejoDeCasos_Actos_Remove_UltimoEstatus($victima, $tipov, $perpetrado
 	SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Remove_UltimoEstatus", $victima & ", " & $tipov & ", " & $perpetrador, $UltimoEstatuswTitle, $UltimoEstatuswText, $UltimoEstatusbAdd, $UltimoEstatusbRemove, $UltimoEstatusstatic, $UltimoEstatussTitle, $UltimoEstatussOK, $UltimoEstatussCancel, $UltimoEstatustree)
 EndFunc
 
+Func SMDH_ManejoDeCasos_Actos_Set_Perpetrador_Observaciones($victima, $tipov, $perpetrador, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Set_Perpetrador_Observaciones", $victima & ", " & $tipov & ", " & $perpetrador & ", " & $n );
+	UTAssert( WinActive("Manejo de Casos", "NBActosPerp") )
+	UTAssert( ControlSetText("Manejo de Casos", "NBActosPerp", "[CLASS:Edit; INSTANCE:38]", $n) )
+	UTAssert( ControlClick("Manejo de Casos", "NBActosPerp", "[CLASS:Button; INSTANCE:71]") )
+	; verify
+	UTAssert( ControlGetText("Manejo de Casos", "NBActosPerp", "[CLASS:Edit; INSTANCE:38]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+
 ;~ Func SMDH_ManejoDeCasos_Actos_BusquedaRapida($search)
 ;~ 	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_BusquedaRapida");
 ;~ 	UTAssert( WinActive("Manejo de Casos") )
