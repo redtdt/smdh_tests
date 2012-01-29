@@ -396,6 +396,16 @@ Func SMDH_ManejoDeCasos_Actos_Set_Perpetrador_Observaciones($victima, $tipov, $p
 	UTLogEndTestOK()
 EndFunc
 
+Func SMDH_ManejoDeCasos_Actos_Set_ExportarPerpetrador($victima, $tipov, $perpetrador, $val)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Set_ExportarPerpetrador", $victima & ", " & $tipov & ", " & $perpetrador & ", " & $val );
+	UTAssert( WinActive("Manejo de Casos", "NBActosPerp") )
+	If ( GUI_Is_CheckBox_Checked("Manejo de Casos", "NBActosPerp","[CLASS:Button; INSTANCE:66]") <> $val) Then
+		UTAssert( ControlClick("Manejo de Casos", "NBActosPerp", "[CLASS:Button; INSTANCE:66]") )
+		UTAssert( ControlClick("Manejo de Casos", "NBActosPerp", "[CLASS:Button; INSTANCE:71]") )
+	EndIf
+	UTAssert( GUI_Is_CheckBox_Checked("Manejo de Casos", "NBActosPerp","[CLASS:Button; INSTANCE:66]") = $val)
+	UTLogEndTestOK()
+EndFunc
 
 ;~ Func SMDH_ManejoDeCasos_Actos_BusquedaRapida($search)
 ;~ 	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_BusquedaRapida");
