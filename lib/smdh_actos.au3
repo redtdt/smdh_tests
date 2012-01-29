@@ -17,7 +17,7 @@ Func SMDH_ManejoDeCasos_Actos_Perpetradores_Open()
 	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Perpetradores_Open")
 	UTAssert( WinActive("Manejo de Casos", "NBActos") )
 	UTAssert( ControlClick("Manejo de Casos","","wxWindowClassNR12", "primary", 1, 180, 14) )
-	UTAssert( WinWaitActive("Manejo de Casos", "Perpetradores", 5) )
+	UTAssert( WinWaitActive("Manejo de Casos", "NBActosPerp", 5) )
 	UTLogEndTestOK()
 EndFunc
 
@@ -71,13 +71,20 @@ Func SMDH_ManejoDeCasos_Actos_Nuevo($victima, $tipo)
 	; ok
 	UTAssert( ControlClick("Nuevo acto", "", "[CLASS:Button; INSTANCE:3]") )
 	; verify
-	UTAssert( WinActive("Manejo de Casos", "Actos registrados") )
+	UTAssert( WinWaitActive("Manejo de Casos", "Actos registrados", 5) )
 	Local $hList = ControlGetHandle("Manejo de Casos", "Actos registrados", "[CLASS:ListBox; INSTANCE:7]")
 	Local $str = $victima & " / " & $tipo
 	UTAssert( _GUICtrlListBox_FindString($hList, $str, True) >= 0)
 	UTLogEndTestOK()
 EndFunc
 
+Func SMDH_ManejoDeCasos_Actos_Exist($victima, $tipo)
+	UTAssert( WinActive("Manejo de Casos", "Actos registrados") )
+	Local $str = $victima & " / " & $tipo
+	Local $hList = ControlGetHandle("Manejo de Casos","Actos registrados","[CLASS:ListBox; INSTANCE:7]")
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $str, True)
+	Return $item_idx >= 0
+EndFunc
 
 Func SMDH_ManejoDeCasos_Actos_Select($victima, $tipo)
 	UTAssert( WinActive("Manejo de Casos", "Actos registrados") )
@@ -276,6 +283,42 @@ Func SMDH_ManejoDeCasos_Actos_Set_ExportarActo($victima, $tipov, $val)
 	UTLogEndTestOK()
 EndFunc
 
+
+Func SMDH_ManejoDeCasos_Actos_Add_Perpetrador($victima, $tipov, $perpetrador)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Add_Perpetrador", $victima & ", " & $tipov & ", " & $perpetrador )
+	UTAssert( WinActive("Manejo de Casos", "NBActosPerp") )
+	UTAssert( ControlClick("Manejo de Casos", "NBActosPerp", "[CLASS:Button; INSTANCE:65]") )
+	UTAssert( WinWaitActive("Seleccionar una persona", "", 10) )
+	$a = WinList("Seleccionar una persona")
+	Local $hList = ControlGetHandle("Seleccionar una persona", "","[CLASS:ListBox; INSTANCE:1]")
+	UTAssert(_GUICtrlListBox_SelectString($hList, $perpetrador)>=0)
+	UTAssert( ControlClick("Seleccionar una persona","","[CLASS:Button; INSTANCE:7]") )
+	; verify
+	UTAssert( WinWaitActive("Manejo de Casos", "NBActosPerp", 5) )
+	Local $hList = ControlGetHandle("Manejo de Casos", "NBActosPerp","[CLASS:ListBox; INSTANCE:10]")
+	UTAssert( _GUICtrlListBox_FindString($hList, $perpetrador, True) >= 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Remove_Perpetrador($victima, $tipov, $perpetrador, $assert = True)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Remove_Perpetrador", $victima & ", " & $tipov & ", " & $perpetrador )
+	UTAssert( WinActive("Manejo de Casos", "NBActosPerp") )
+	Local $hList = ControlGetHandle("Manejo de Casos", "NBActosPerp", "[CLASS:ListBox; INSTANCE:10]")
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $perpetrador, True)
+	If ($assert) Then
+		UTAssert( $item_idx >= 0)
+	ElseIf ($item_idx < 0) Then
+		UTLogEndTestOK()
+		Return
+	EndIf
+	_GUICtrlListBox_ClickItem($hList, $item_idx, "primary", False, 2)
+	UTAssert( ControlClick("Manejo de Casos", "NBActosPerp", "[CLASS:Button; INSTANCE:78]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	UTAssert( WinActive("Manejo de Casos", "NBActosPerp") )
+	UTAssert( _GUICtrlListBox_FindString($hList, $perpetrador, True) < 0)
+	UTLogEndTestOK()
+EndFunc
 
 ;~ Func SMDH_ManejoDeCasos_Actos_BusquedaRapida($search)
 ;~ 	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_BusquedaRapida");
