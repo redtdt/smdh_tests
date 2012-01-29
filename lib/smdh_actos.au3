@@ -429,6 +429,26 @@ Func SMDH_ManejoDeCasos_Actos_Remove_LegislacionNacional($victima, $tipov, $item
 	SMDH_RemoveFromTreeViewList_Multi("SMDH_ManejoDeCasos_Actos_Remove_LegislacionNacional", $victima & ", " & $tipov, $LegislacionNacionalwTitle, $LegislacionNacionalwText, $LegislacionNacionalbAdd, $LegislacionNacionalbRemove, $LegislacionNacionalList, $LegislacionNacionalsTitle, $LegislacionNacionalsOK, $LegislacionNacionalsCancel, $LegislacionNacionaltree, $item)
 EndFunc
 
+Func SMDH_ManejoDeCasos_Actos_Set_LegislacionNacional_Notas($victima, $tipov, $item, $n)
+	UTLogInitTest("SMDH_ManejoDeCasos_Actos_Set_LegislacionNacional_Notas", $victima & ", " & $tipov & ", " & $item & ", " & $n)
+	UTAssert( WinActive($LegislacionNacionalwTitle, $LegislacionNacionalwText) )
+	; select
+	Local $hList = ControlGetHandle($LegislacionNacionalwTitle, $LegislacionNacionalwText, $LegislacionNacionalList)
+	UTAssert(_GUICtrlListBox_SelectString($hList, $item)>=0)
+	Local $hItem = _GUICtrlListBox_FindString($hList, $item, True)
+	UTAssert(  $hItem >= 0)
+	_GUICtrlListBox_ClickItem($hList, $hItem, "primary", True, 2)
+	; set text
+	UTAssert( ControlFocus($LegislacionNacionalwTitle, $LegislacionNacionalwText, "[CLASS:Edit; INSTANCE:40]") )
+	UTAssert( ControlSetText($LegislacionNacionalwTitle, $LegislacionNacionalwText, "[CLASS:Edit; INSTANCE:40]", "") )
+	UTAssert( ControlSend($LegislacionNacionalwTitle, $LegislacionNacionalwText, "[CLASS:Edit; INSTANCE:40]", $n, 1) )
+	;UTAssert( ControlSetText($LegislacionNacionalwTitle, $LegislacionNacionalwText, "[CLASS:Edit; INSTANCE:40]", $n) )
+	UTAssert( ControlClick($LegislacionNacionalwTitle, $LegislacionNacionalwText, "[CLASS:Button; INSTANCE:87]") )
+	; verify
+	UTAssert( ControlGetText($LegislacionNacionalwTitle, $LegislacionNacionalwText, "[CLASS:Edit; INSTANCE:40]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
 Local $InstrumentoInternacionalwTitle = "Manejo de Casos"
 Local $InstrumentoInternacionalwText = "NBNormatividad"
 Local $InstrumentoInternacionalbAdd = "[CLASS:Button; INSTANCE:80]"
@@ -450,3 +470,24 @@ EndFunc
 Func SMDH_ManejoDeCasos_Actos_Remove_InstrumentoInternacional($victima, $tipov, $item)
 	SMDH_RemoveFromTreeViewList_Multi("SMDH_ManejoDeCasos_Actos_Remove_InstrumentoInternacional", $victima & ", " & $tipov, $InstrumentoInternacionalwTitle, $InstrumentoInternacionalwText, $InstrumentoInternacionalbAdd, $InstrumentoInternacionalbRemove, $InstrumentoInternacionalList, $InstrumentoInternacionalsTitle, $InstrumentoInternacionalsOK, $InstrumentoInternacionalsCancel, $InstrumentoInternacionaltree, $item)
 EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Set_InstrumentoInternacional_Notas($victima, $tipov, $item, $n)
+	UTLogInitTest("SMDH_ManejoDeCasos_Actos_Set_InstrumentoInternacional_Notas", $victima & ", " & $tipov & ", " & $item & ", " & $n)
+	UTAssert( WinActive($InstrumentoInternacionalwTitle, $InstrumentoInternacionalwText) )
+	; select
+	Local $hList = ControlGetHandle($InstrumentoInternacionalwTitle, $InstrumentoInternacionalwText, $InstrumentoInternacionalList)
+	UTAssert(_GUICtrlListBox_SelectString($hList, $item)>=0)
+	Local $hItem = _GUICtrlListBox_FindString($hList, $item, True)
+	UTAssert(  $hItem >= 0)
+	_GUICtrlListBox_ClickItem($hList, $hItem, "primary", True, 2)
+	; set text
+	UTAssert( ControlFocus($InstrumentoInternacionalwTitle, $InstrumentoInternacionalwText, "[CLASS:Edit; INSTANCE:39]") )
+	UTAssert( ControlSetText($InstrumentoInternacionalwTitle, $InstrumentoInternacionalwText, "[CLASS:Edit; INSTANCE:39]", "") )
+	UTAssert( ControlSend($InstrumentoInternacionalwTitle, $InstrumentoInternacionalwText, "[CLASS:Edit; INSTANCE:39]", $n, 1) )
+	;UTAssert( ControlSetText($InstrumentoInternacionalwTitle, $InstrumentoInternacionalwText, "[CLASS:Edit; INSTANCE:40]", $n) )
+	UTAssert( ControlClick($InstrumentoInternacionalwTitle, $InstrumentoInternacionalwText, "[CLASS:Button; INSTANCE:87]") )
+	; verify
+	UTAssert( ControlGetText($InstrumentoInternacionalwTitle, $InstrumentoInternacionalwText, "[CLASS:Edit; INSTANCE:39]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
