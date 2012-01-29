@@ -491,3 +491,13 @@ Func SMDH_ManejoDeCasos_Actos_Set_InstrumentoInternacional_Notas($victima, $tipo
 	UTLogEndTestOK()
 EndFunc
 
+Func SMDH_ManejoDeCasos_Actos_Set_ExportarNormatividad($victima, $tipov, $val)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Set_ExportarNormatividad", $victima & ", " & $tipov & ", " & $val );
+	UTAssert( WinActive("Manejo de Casos", "NBNormatividad") )
+	If ( GUI_Is_CheckBox_Checked("Manejo de Casos", "NBNormatividad","[CLASS:Button; INSTANCE:84]") <> $val) Then
+		UTAssert( ControlClick("Manejo de Casos", "NBNormatividad", "[CLASS:Button; INSTANCE:84]") )
+		UTAssert( ControlClick("Manejo de Casos", "NBNormatividad", "[CLASS:Button; INSTANCE:87]") )
+	EndIf
+	UTAssert( GUI_Is_CheckBox_Checked("Manejo de Casos", "NBNormatividad","[CLASS:Button; INSTANCE:84]") = $val)
+	UTLogEndTestOK()
+EndFunc
