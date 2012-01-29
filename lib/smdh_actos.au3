@@ -110,6 +110,16 @@ Func SMDH_ManejoDeCasos_Actos_Borrar($victima, $tipo, $assert = True)
 	UTLogEndTestOK()
 EndFunc
 
+
+Func SMDH_ManejoDeCasos_Actos_Set_FechaInicial($victima, $tipov, $tipo, $anio, $mes = 0, $dia = 0, $expect_failure_anio = False, $expect_failure_mes= False, $expect_failure_dia = False, $expect_failure_saving = False)
+	SMDH_SetFecha("SMDH_ManejoDeCasos_Actos_Set_FechaInicial", $victima & ", " & $tipov & ", " & $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, "Manejo de Casos" , "Actos registrados","[CLASS:ComboBox; INSTANCE:8]", "[CLASS:Edit; INSTANCE:34]", "[CLASS:Edit; INSTANCE:33]","[CLASS:Edit; INSTANCE:32]", "[CLASS:Button; INSTANCE:50]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Set_FechaFinal($victima, $tipov, $tipo, $anio, $mes = 0, $dia = 0, $expect_failure_anio = False, $expect_failure_mes= False, $expect_failure_dia = False, $expect_failure_saving = False)
+	SMDH_SetFecha("SMDH_ManejoDeCasos_Actos_Set_FechaFinal", $victima & ", " & $tipov & ", " & $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, "Manejo de Casos" , "Actos registrados","[CLASS:ComboBox; INSTANCE:9]", "[CLASS:Edit; INSTANCE:37]", "[CLASS:Edit; INSTANCE:36]","[CLASS:Edit; INSTANCE:35]", "[CLASS:Button; INSTANCE:50]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
+EndFunc
+
+
 ;~ Func SMDH_ManejoDeCasos_Actos_BusquedaRapida($search)
 ;~ 	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_BusquedaRapida");
 ;~ 	UTAssert( WinActive("Manejo de Casos") )
