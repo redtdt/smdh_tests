@@ -265,6 +265,18 @@ Func SMDH_ManejoDeCasos_Actos_Set_Observaciones($victima, $tipov, $n)
 	UTLogEndTestOK()
 EndFunc
 
+Func SMDH_ManejoDeCasos_Actos_Set_ExportarActo($victima, $tipov, $val)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Set_ExportarActo", $victima & ", " & $tipov & ", " & $val );
+	UTAssert( WinActive("Manejo de Casos", "Actos registrados") )
+	If ( GUI_Is_CheckBox_Checked("Manejo de Casos", "Actos registrados","[CLASS:Button; INSTANCE:56]") <> $val) Then
+		UTAssert( ControlClick("Manejo de Casos", "Actos registrados", "[CLASS:Button; INSTANCE:56]") )
+		UTAssert( ControlClick("Manejo de Casos", "Actos registrados", "[CLASS:Button; INSTANCE:50]") )
+	EndIf
+	UTAssert( GUI_Is_CheckBox_Checked("Manejo de Casos", "Actos registrados","[CLASS:Button; INSTANCE:56]") = $val)
+	UTLogEndTestOK()
+EndFunc
+
+
 ;~ Func SMDH_ManejoDeCasos_Actos_BusquedaRapida($search)
 ;~ 	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_BusquedaRapida");
 ;~ 	UTAssert( WinActive("Manejo de Casos") )
