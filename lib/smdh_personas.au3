@@ -43,6 +43,18 @@ Func SMDH_ManejoDeCasos_Personas_DatosBiograficos_Open()
 	UTLogEndTestOK()
 EndFunc
 
+Func SMDH_Personas_Individual_Compose_String($nombre, $apellido)
+	return $apellido & ", " & $nombre
+EndFunc
+
+Func SMDH_Personas_Colectiva_Compose_String($nombre, $sigla = "")
+	Local $str = $nombre
+	If ($sigla <> "") Then
+		$str = $str & " (" & $sigla & ")"
+	EndIf
+	return $str
+EndFunc
+
 Func SMDH_Personas_Individual_Nueva($nombre, $apellido)
 	UTLogInitTest( "SMDH_Personas_Individual_Nueva", $nombre & ", " & $apellido )
 	UTAssert( WinActive("Manejo de Casos", "NBPersonas") )

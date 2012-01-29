@@ -5,12 +5,6 @@
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 #include "smdh_gui_utils.au3"
 
-Global Const $PERSONA_INDIVIDUAL = "Individual"
-Global Const $PERSONA_COLECTIVA = "Colectiva"
-Global Const $PERSONA_SEXO_VACIO = ""
-Global Const $PERSONA_SEXO_MUJER = "Mujer"
-Global Const $PERSONA_SEXO_HOMBRE = "Hombre"
-
 Func SMDH_ManejoDeCasos_Casos_DatosGenerales_Open()
 	UTLogInitTest( "SMDH_ManejoDeCasos_Casos_DatosGenerales_Open")
 	UTAssert( WinActive("Manejo de Casos", "NBCasos") )
@@ -63,6 +57,13 @@ Func SMDH_ManejoDeCasos_Casos_Nuevo($caso)
 	Local $hList = ControlGetHandle("Manejo de Casos","","[CLASS:ListBox; INSTANCE:2]")
 	UTAssert( _GUICtrlListBox_FindString($hList, $caso, True) >= 0)
 	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Casos_Exist($caso)
+	UTAssert( WinActive("Manejo de Casos", "casos registrados") )
+	Local $hList = ControlGetHandle("Manejo de Casos","","[CLASS:ListBox; INSTANCE:2]")
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $caso, True)
+	Return $item_idx >= 0
 EndFunc
 
 Func SMDH_ManejoDeCasos_Casos_Select($caso)
