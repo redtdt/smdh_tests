@@ -320,6 +320,72 @@ Func SMDH_ManejoDeCasos_Actos_Remove_Perpetrador($victima, $tipov, $perpetrador,
 	UTLogEndTestOK()
 EndFunc
 
+Local $GradoInvolucramientowTitle = "Manejo de Casos"
+Local $GradoInvolucramientowText = "NBActosPerp"
+Local $GradoInvolucramientobAdd = "[CLASS:Button; INSTANCE:68]"
+Local $GradoInvolucramientobRemove = "[CLASS:Button; INSTANCE:75]"
+Local $GradoInvolucramientostatic = "[CLASS:Static; INSTANCE:99]"
+Local $GradoInvolucramientosTitle = "Grado de involucramiento"
+Local $GradoInvolucramientosOK = "[CLASS:Button; INSTANCE:1]"
+Local $GradoInvolucramientosCancel = "[CLASS:Button; INSTANCE:4]"
+Local $GradoInvolucramientotree = "[CLASS:SysTreeView32; INSTANCE:1]"
+
+Func SMDH_ManejoDeCasos_Actos_Get_GradosInvolucramientos($victima, $tipov, $perpetrador)
+	return SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Get_GradosInvolucramientos", $victima & ", " & $tipov & ", " & $perpetrador, $GradoInvolucramientowTitle, $GradoInvolucramientowText, $GradoInvolucramientobAdd, $GradoInvolucramientobRemove, $GradoInvolucramientostatic, $GradoInvolucramientosTitle, $GradoInvolucramientosOK, $GradoInvolucramientosCancel, $GradoInvolucramientotree)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Set_GradoInvolucramiento($victima, $tipov, $perpetrador, $item)
+	SMDH_SetFromTreeViewList_Single("SMDH_ManejoDeCasos_Actos_Set_GradoInvolucramiento", $victima & ", " & $tipov & ", " & $perpetrador, $GradoInvolucramientowTitle, $GradoInvolucramientowText, $GradoInvolucramientobAdd, $GradoInvolucramientobRemove, $GradoInvolucramientostatic, $GradoInvolucramientosTitle, $GradoInvolucramientosOK, $GradoInvolucramientosCancel, $GradoInvolucramientotree, $item)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Remove_GradoInvolucramiento($victima, $tipov, $perpetrador)
+	SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Remove_GradoInvolucramiento", $victima & ", " & $tipov & ", " & $perpetrador, $GradoInvolucramientowTitle, $GradoInvolucramientowText, $GradoInvolucramientobAdd, $GradoInvolucramientobRemove, $GradoInvolucramientostatic, $GradoInvolucramientosTitle, $GradoInvolucramientosOK, $GradoInvolucramientosCancel, $GradoInvolucramientotree)
+EndFunc
+
+Local $TipoPerpetradorwTitle = "Manejo de Casos"
+Local $TipoPerpetradorwText = "NBActosPerp"
+Local $TipoPerpetradorbAdd = "[CLASS:Button; INSTANCE:69]"
+Local $TipoPerpetradorbRemove = "[CLASS:Button; INSTANCE:74]"
+Local $TipoPerpetradorstatic = "[CLASS:Static; INSTANCE:98]"
+Local $TipoPerpetradorsTitle = "Tipo de perpetrador"
+Local $TipoPerpetradorsOK = "[CLASS:Button; INSTANCE:1]"
+Local $TipoPerpetradorsCancel = "[CLASS:Button; INSTANCE:4]"
+Local $TipoPerpetradortree = "[CLASS:SysTreeView32; INSTANCE:1]"
+
+Func SMDH_ManejoDeCasos_Actos_Get_TiposPerpetradores($victima, $tipov, $perpetrador)
+	return SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Get_TiposPerpetradores", $victima & ", " & $tipov & ", " & $perpetrador, $TipoPerpetradorwTitle, $TipoPerpetradorwText, $TipoPerpetradorbAdd, $TipoPerpetradorbRemove, $TipoPerpetradorstatic, $TipoPerpetradorsTitle, $TipoPerpetradorsOK, $TipoPerpetradorsCancel, $TipoPerpetradortree)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Set_TipoPerpetrador($victima, $tipov, $perpetrador, $item)
+	SMDH_SetFromTreeViewList_Single("SMDH_ManejoDeCasos_Actos_Set_TipoPerpetrador", $victima & ", " & $tipov & ", " & $perpetrador, $TipoPerpetradorwTitle, $TipoPerpetradorwText, $TipoPerpetradorbAdd, $TipoPerpetradorbRemove, $TipoPerpetradorstatic, $TipoPerpetradorsTitle, $TipoPerpetradorsOK, $TipoPerpetradorsCancel, $TipoPerpetradortree, $item)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Remove_TipoPerpetrador($victima, $tipov, $perpetrador)
+	SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Remove_TipoPerpetrador", $victima & ", " & $tipov & ", " & $perpetrador, $TipoPerpetradorwTitle, $TipoPerpetradorwText, $TipoPerpetradorbAdd, $TipoPerpetradorbRemove, $TipoPerpetradorstatic, $TipoPerpetradorsTitle, $TipoPerpetradorsOK, $TipoPerpetradorsCancel, $TipoPerpetradortree)
+EndFunc
+
+Local $UltimoEstatuswTitle = "Manejo de Casos"
+Local $UltimoEstatuswText = "NBActosPerp"
+Local $UltimoEstatusbAdd = "[CLASS:Button; INSTANCE:70]"
+Local $UltimoEstatusbRemove = "[CLASS:Button; INSTANCE:73]"
+Local $UltimoEstatusstatic = "[CLASS:Static; INSTANCE:97]"
+Local $UltimoEstatussTitle = "Último estatus de perpetrador"
+Local $UltimoEstatussOK = "[CLASS:Button; INSTANCE:1]"
+Local $UltimoEstatussCancel = "[CLASS:Button; INSTANCE:4]"
+Local $UltimoEstatustree = "[CLASS:SysTreeView32; INSTANCE:1]"
+
+Func SMDH_ManejoDeCasos_Actos_Get_UltimosEstatus($victima, $tipov, $perpetrador)
+	return SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Get_UltimosEstatus", $victima & ", " & $tipov & ", " & $perpetrador, $UltimoEstatuswTitle, $UltimoEstatuswText, $UltimoEstatusbAdd, $UltimoEstatusbRemove, $UltimoEstatusstatic, $UltimoEstatussTitle, $UltimoEstatussOK, $UltimoEstatussCancel, $UltimoEstatustree)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Set_UltimoEstatus($victima, $tipov, $perpetrador, $item)
+	SMDH_SetFromTreeViewList_Single("SMDH_ManejoDeCasos_Actos_Set_UltimoEstatus", $victima & ", " & $tipov & ", " & $perpetrador, $UltimoEstatuswTitle, $UltimoEstatuswText, $UltimoEstatusbAdd, $UltimoEstatusbRemove, $UltimoEstatusstatic, $UltimoEstatussTitle, $UltimoEstatussOK, $UltimoEstatussCancel, $UltimoEstatustree, $item)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Remove_UltimoEstatus($victima, $tipov, $perpetrador)
+	SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Remove_UltimoEstatus", $victima & ", " & $tipov & ", " & $perpetrador, $UltimoEstatuswTitle, $UltimoEstatuswText, $UltimoEstatusbAdd, $UltimoEstatusbRemove, $UltimoEstatusstatic, $UltimoEstatussTitle, $UltimoEstatussOK, $UltimoEstatussCancel, $UltimoEstatustree)
+EndFunc
+
 ;~ Func SMDH_ManejoDeCasos_Actos_BusquedaRapida($search)
 ;~ 	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_BusquedaRapida");
 ;~ 	UTAssert( WinActive("Manejo de Casos") )

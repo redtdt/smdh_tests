@@ -65,7 +65,7 @@ Func SMDH_Personas_Individual_Nueva($nombre, $apellido)
 	UTAssert( ControlClick("Datos de una persona", "", $PERSONA_INDIVIDUAL) )
 	UTAssert( ControlClick("Datos de una persona", "", "Seleccionar") )
 	UTAssert( not WinExists("Alerta", "existe una persona") )
-	UTAssert( WinWaitActive("Manejo de Casos", "personas registradas", 5) )
+	UTAssert( WinActive("Manejo de Casos", "personas registradas") )
 	Local $hList = ControlGetHandle("Manejo de Casos","","[CLASS:ListBox; INSTANCE:13]")
 	Local $str = $apellido & ", " & $nombre
 	Local $item_idx = _GUICtrlListBox_FindString($hList, $str, True)
