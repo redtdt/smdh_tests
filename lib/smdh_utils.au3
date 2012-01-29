@@ -65,7 +65,7 @@ Func SMDH_ManejoDeCasos_Actos_Open()
 	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Open")
 	UTAssert( WinActive("Manejo de Casos") )
 	UTAssert( ControlClick("Manejo de Casos","","wxWindowClassNR2", "primary", 1, 74, 14) )
-	UTAssert( WinWaitActive("Manejo de Casos", "NBActos", 10) )
+	UTAssert( WinWaitActive("Manejo de Casos", "Caso:", 10) )
 	UTLogEndTestOK()
 EndFunc
 

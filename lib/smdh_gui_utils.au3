@@ -176,7 +176,7 @@ Func SMDH_SetFecha($test, $prefix, $window, $text, $comboId, $anioId, $mesId, $d
 EndFunc
 
 ; To retrieve list of items from subwindows like Tipo de Lugar
-Func SMDH_GetTreeViewList($test, $prefix, $window, $text, $addId, $removeId, $staticId, $subwindow, $subOk, $subCancel, $tree)
+Func SMDH_GetTreeViewList_Single($test, $prefix, $window, $text, $addId, $removeId, $staticId, $subwindow, $subOk, $subCancel, $tree)
 	UTLogInitTest( $test, $prefix & ", " & $window & ", " & $text & ", " & $addId & ", " & $removeId & ", " & $staticId & ", " & $subwindow & ", " & $subOk & ", " & $subCancel & ", " & $tree)
 	UTAssert( WinActive($window, $text) )
 	UTAssert( ControlClick($window, $text, $addId) )
@@ -217,5 +217,61 @@ Func SMDH_RemoveFromTreeViewList_Single($test, $prefix, $window, $text, $addId, 
 	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
 	;verify
 	UTAssert( ControlGetText($window, $text, $staticId) == "" )
+	UTLogEndTestOK()
+EndFunc
+
+
+
+
+
+; To retrieve list of items from subwindows like Tipo de Lugar
+Func SMDH_GetTreeViewList_Multi($test, $prefix, $window, $text, $addId, $removeId, $listId, $subwindow, $subOk, $subCancel, $tree)
+	UTLogInitTest( $test, $prefix & ", " & $window & ", " & $text & ", " & $addId & ", " & $removeId & ", " & $listId & ", " & $subwindow & ", " & $subOk & ", " & $subCancel & ", " & $tree)
+	UTAssert( WinActive($window, $text) )
+	UTAssert( ControlClick($window, $text, $addId) )
+	UTAssert( WinWaitActive($subwindow, "", 5) )
+	Local $hTree = ControlGetHandle($subwindow, "", $tree)
+	UTAssert( $hTree )
+	$items = GetArrayFromTreeView($hTree, False, True)
+	UTAssert( ControlClick($subwindow, "", $subCancel) )
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+; To select an item from a list of items from subwindows like Tipo de Lugar
+Func SMDH_AddFromTreeViewList_Multi($test, $prefix, $window, $text, $addId, $removeId, $listId, $subwindow, $subOk, $subCancel, $tree, $item)
+	UTLogInitTest( $test, $prefix & ", " & $window & ", " & $text & ", " & $addId & ", " & $removeId & ", " & $listId & ", " & $subwindow & ", " & $subOk & ", " & $subCancel & ", " & $tree & ", " & $item)
+	UTAssert( WinActive($window, $text) )
+	UTAssert( ControlClick($window, $text, $addId) )
+	UTAssert( WinWaitActive($subwindow, "", 5) )
+	Local $hTree = ControlGetHandle($subwindow, "", $tree)
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $item)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_EnsureVisible($hTree, $hItem)
+;	_GUICtrlTreeView_Expand($hTree, $hItem)
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	UTAssert( ControlClick($subwindow, "", $subOk) )
+	UTAssert( WinWaitActive($window, $text) )
+	;verify
+	Local $hList = ControlGetHandle($window, $text, $listId)
+	UTAssert( _GUICtrlListBox_FindString($hList, $item, True) >= 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_RemoveFromTreeViewList_Multi($test, $prefix, $window, $text, $addId, $removeId, $listId, $subwindow, $subOk, $subCancel, $tree, $item)
+	UTLogInitTest( $test, $prefix & ", " & $window & ", " & $text & ", " & $addId & ", " & $removeId & ", " & $listId & ", " & $subwindow & ", " & $subOk & ", " & $subCancel & ", " & $tree & ", " & $item)
+	UTAssert( WinActive($window, $text) )
+	Local $hList = ControlGetHandle($window, $text, $listId)
+	UTAssert(_GUICtrlListBox_SelectString($hList, $item)>=0)
+	Local $hItem = _GUICtrlListBox_FindString($hList, $item, True)
+	UTAssert(  $hItem >= 0)
+	_GUICtrlListBox_ClickItem($hList, $hItem, "primary", True, 2)
+	UTAssert( ControlClick($window, $text, $removeId) )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	UTAssert( WinWaitActive($window, $text) )
+	UTAssert( _GUICtrlListBox_FindString($hList, $item, True) < 0)
 	UTLogEndTestOK()
 EndFunc

@@ -7,7 +7,7 @@
 
 Func SMDH_ManejoDeCasos_Actos_InformacionGeneral_Open()
 	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_InformacionGeneral_Open")
-	UTAssert( WinActive("Manejo de Casos", "NBActos") )
+	UTAssert( WinActive("Manejo de Casos", "Caso:") )
 	UTAssert( ControlClick("Manejo de Casos","","wxWindowClassNR12", "primary", 1, 64, 14) )
 	UTAssert( WinWaitActive("Manejo de Casos", "Actos registrados", 5) )
 	UTLogEndTestOK()
@@ -15,7 +15,7 @@ EndFunc
 
 Func SMDH_ManejoDeCasos_Actos_Perpetradores_Open()
 	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Perpetradores_Open")
-	UTAssert( WinActive("Manejo de Casos", "NBActos") )
+	UTAssert( WinActive("Manejo de Casos", "Caso:") )
 	UTAssert( ControlClick("Manejo de Casos","","wxWindowClassNR12", "primary", 1, 180, 14) )
 	UTAssert( WinWaitActive("Manejo de Casos", "NBActosPerp", 5) )
 	UTLogEndTestOK()
@@ -23,9 +23,9 @@ EndFunc
 
 Func SMDH_ManejoDeCasos_Actos_Normatividad_Open()
 	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Normatividad_Open")
-	UTAssert( WinActive("Manejo de Casos", "NBActos") )
+	UTAssert( WinActive("Manejo de Casos", "Caso:") )
 	UTAssert( ControlClick("Manejo de Casos","","wxWindowClassNR12", "primary", 1, 270, 14) )
-	UTAssert( WinWaitActive("Manejo de Casos", "normatividad", 5) )
+	UTAssert( WinWaitActive("Manejo de Casos", "NBNormatividad", 5) )
 	UTLogEndTestOK()
 EndFunc
 
@@ -229,7 +229,7 @@ Local $EstatusVDHsCancel = "[CLASS:Button; INSTANCE:4]"
 Local $EstatusVDHtree = "[CLASS:SysTreeView32; INSTANCE:1]"
 
 Func SMDH_ManejoDeCasos_Actos_Get_EstatusVDHs($victima, $tipov)
-	return SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Get_EstatusVDHs", $victima & ", " & $tipov, $EstatusVDHwTitle, $EstatusVDHwText, $EstatusVDHbAdd, $EstatusVDHbRemove, $EstatusVDHstatic, $EstatusVDHsTitle, $EstatusVDHsOK, $EstatusVDHsCancel, $EstatusVDHtree)
+	return SMDH_GetTreeViewList_Single("SMDH_ManejoDeCasos_Actos_Get_EstatusVDHs", $victima & ", " & $tipov, $EstatusVDHwTitle, $EstatusVDHwText, $EstatusVDHbAdd, $EstatusVDHbRemove, $EstatusVDHstatic, $EstatusVDHsTitle, $EstatusVDHsOK, $EstatusVDHsCancel, $EstatusVDHtree)
 EndFunc
 
 Func SMDH_ManejoDeCasos_Actos_Set_EstatusVDH($victima, $tipov, $item)
@@ -237,7 +237,7 @@ Func SMDH_ManejoDeCasos_Actos_Set_EstatusVDH($victima, $tipov, $item)
 EndFunc
 
 Func SMDH_ManejoDeCasos_Actos_Remove_EstatusVDH($victima, $tipov)
-	SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Remove_EstatusVDH", $victima & ", " & $tipov, $EstatusVDHwTitle, $EstatusVDHwText, $EstatusVDHbAdd, $EstatusVDHbRemove, $EstatusVDHstatic, $EstatusVDHsTitle, $EstatusVDHsOK, $EstatusVDHsCancel, $EstatusVDHtree)
+	SMDH_RemoveFromTreeViewList_Single("SMDH_ManejoDeCasos_Actos_Remove_EstatusVDH", $victima & ", " & $tipov, $EstatusVDHwTitle, $EstatusVDHwText, $EstatusVDHbAdd, $EstatusVDHbRemove, $EstatusVDHstatic, $EstatusVDHsTitle, $EstatusVDHsOK, $EstatusVDHsCancel, $EstatusVDHtree)
 EndFunc
 
 Local $EstatusVictimawTitle = "Manejo de Casos"
@@ -251,7 +251,7 @@ Local $EstatusVictimasCancel = "[CLASS:Button; INSTANCE:4]"
 Local $EstatusVictimatree = "[CLASS:SysTreeView32; INSTANCE:1]"
 
 Func SMDH_ManejoDeCasos_Actos_Get_EstatusVictimas($victima, $tipov)
-	return SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Get_EstatusVictimas", $victima & ", " & $tipov, $EstatusVictimawTitle, $EstatusVictimawText, $EstatusVictimabAdd, $EstatusVictimabRemove, $EstatusVictimastatic, $EstatusVictimasTitle, $EstatusVictimasOK, $EstatusVictimasCancel, $EstatusVictimatree)
+	return SMDH_GetTreeViewList_Single("SMDH_ManejoDeCasos_Actos_Get_EstatusVictimas", $victima & ", " & $tipov, $EstatusVictimawTitle, $EstatusVictimawText, $EstatusVictimabAdd, $EstatusVictimabRemove, $EstatusVictimastatic, $EstatusVictimasTitle, $EstatusVictimasOK, $EstatusVictimasCancel, $EstatusVictimatree)
 EndFunc
 
 Func SMDH_ManejoDeCasos_Actos_Set_EstatusVictima($victima, $tipov, $item)
@@ -259,7 +259,7 @@ Func SMDH_ManejoDeCasos_Actos_Set_EstatusVictima($victima, $tipov, $item)
 EndFunc
 
 Func SMDH_ManejoDeCasos_Actos_Remove_EstatusVictima($victima, $tipov)
-	SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Remove_EstatusVictima", $victima & ", " & $tipov, $EstatusVictimawTitle, $EstatusVictimawText, $EstatusVictimabAdd, $EstatusVictimabRemove, $EstatusVictimastatic, $EstatusVictimasTitle, $EstatusVictimasOK, $EstatusVictimasCancel, $EstatusVictimatree)
+	SMDH_RemoveFromTreeViewList_Single("SMDH_ManejoDeCasos_Actos_Remove_EstatusVictima", $victima & ", " & $tipov, $EstatusVictimawTitle, $EstatusVictimawText, $EstatusVictimabAdd, $EstatusVictimabRemove, $EstatusVictimastatic, $EstatusVictimasTitle, $EstatusVictimasOK, $EstatusVictimasCancel, $EstatusVictimatree)
 EndFunc
 
 Func SMDH_ManejoDeCasos_Actos_Set_Observaciones($victima, $tipov, $n)
@@ -331,7 +331,7 @@ Local $GradoInvolucramientosCancel = "[CLASS:Button; INSTANCE:4]"
 Local $GradoInvolucramientotree = "[CLASS:SysTreeView32; INSTANCE:1]"
 
 Func SMDH_ManejoDeCasos_Actos_Get_GradosInvolucramientos($victima, $tipov, $perpetrador)
-	return SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Get_GradosInvolucramientos", $victima & ", " & $tipov & ", " & $perpetrador, $GradoInvolucramientowTitle, $GradoInvolucramientowText, $GradoInvolucramientobAdd, $GradoInvolucramientobRemove, $GradoInvolucramientostatic, $GradoInvolucramientosTitle, $GradoInvolucramientosOK, $GradoInvolucramientosCancel, $GradoInvolucramientotree)
+	return SMDH_GetTreeViewList_Single("SMDH_ManejoDeCasos_Actos_Get_GradosInvolucramientos", $victima & ", " & $tipov & ", " & $perpetrador, $GradoInvolucramientowTitle, $GradoInvolucramientowText, $GradoInvolucramientobAdd, $GradoInvolucramientobRemove, $GradoInvolucramientostatic, $GradoInvolucramientosTitle, $GradoInvolucramientosOK, $GradoInvolucramientosCancel, $GradoInvolucramientotree)
 EndFunc
 
 Func SMDH_ManejoDeCasos_Actos_Set_GradoInvolucramiento($victima, $tipov, $perpetrador, $item)
@@ -339,7 +339,7 @@ Func SMDH_ManejoDeCasos_Actos_Set_GradoInvolucramiento($victima, $tipov, $perpet
 EndFunc
 
 Func SMDH_ManejoDeCasos_Actos_Remove_GradoInvolucramiento($victima, $tipov, $perpetrador)
-	SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Remove_GradoInvolucramiento", $victima & ", " & $tipov & ", " & $perpetrador, $GradoInvolucramientowTitle, $GradoInvolucramientowText, $GradoInvolucramientobAdd, $GradoInvolucramientobRemove, $GradoInvolucramientostatic, $GradoInvolucramientosTitle, $GradoInvolucramientosOK, $GradoInvolucramientosCancel, $GradoInvolucramientotree)
+	SMDH_RemoveFromTreeViewList_Single("SMDH_ManejoDeCasos_Actos_Remove_GradoInvolucramiento", $victima & ", " & $tipov & ", " & $perpetrador, $GradoInvolucramientowTitle, $GradoInvolucramientowText, $GradoInvolucramientobAdd, $GradoInvolucramientobRemove, $GradoInvolucramientostatic, $GradoInvolucramientosTitle, $GradoInvolucramientosOK, $GradoInvolucramientosCancel, $GradoInvolucramientotree)
 EndFunc
 
 Local $TipoPerpetradorwTitle = "Manejo de Casos"
@@ -353,7 +353,7 @@ Local $TipoPerpetradorsCancel = "[CLASS:Button; INSTANCE:4]"
 Local $TipoPerpetradortree = "[CLASS:SysTreeView32; INSTANCE:1]"
 
 Func SMDH_ManejoDeCasos_Actos_Get_TiposPerpetradores($victima, $tipov, $perpetrador)
-	return SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Get_TiposPerpetradores", $victima & ", " & $tipov & ", " & $perpetrador, $TipoPerpetradorwTitle, $TipoPerpetradorwText, $TipoPerpetradorbAdd, $TipoPerpetradorbRemove, $TipoPerpetradorstatic, $TipoPerpetradorsTitle, $TipoPerpetradorsOK, $TipoPerpetradorsCancel, $TipoPerpetradortree)
+	return SMDH_GetTreeViewList_Single("SMDH_ManejoDeCasos_Actos_Get_TiposPerpetradores", $victima & ", " & $tipov & ", " & $perpetrador, $TipoPerpetradorwTitle, $TipoPerpetradorwText, $TipoPerpetradorbAdd, $TipoPerpetradorbRemove, $TipoPerpetradorstatic, $TipoPerpetradorsTitle, $TipoPerpetradorsOK, $TipoPerpetradorsCancel, $TipoPerpetradortree)
 EndFunc
 
 Func SMDH_ManejoDeCasos_Actos_Set_TipoPerpetrador($victima, $tipov, $perpetrador, $item)
@@ -361,7 +361,7 @@ Func SMDH_ManejoDeCasos_Actos_Set_TipoPerpetrador($victima, $tipov, $perpetrador
 EndFunc
 
 Func SMDH_ManejoDeCasos_Actos_Remove_TipoPerpetrador($victima, $tipov, $perpetrador)
-	SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Remove_TipoPerpetrador", $victima & ", " & $tipov & ", " & $perpetrador, $TipoPerpetradorwTitle, $TipoPerpetradorwText, $TipoPerpetradorbAdd, $TipoPerpetradorbRemove, $TipoPerpetradorstatic, $TipoPerpetradorsTitle, $TipoPerpetradorsOK, $TipoPerpetradorsCancel, $TipoPerpetradortree)
+	SMDH_RemoveFromTreeViewList_Single("SMDH_ManejoDeCasos_Actos_Remove_TipoPerpetrador", $victima & ", " & $tipov & ", " & $perpetrador, $TipoPerpetradorwTitle, $TipoPerpetradorwText, $TipoPerpetradorbAdd, $TipoPerpetradorbRemove, $TipoPerpetradorstatic, $TipoPerpetradorsTitle, $TipoPerpetradorsOK, $TipoPerpetradorsCancel, $TipoPerpetradortree)
 EndFunc
 
 Local $UltimoEstatuswTitle = "Manejo de Casos"
@@ -375,7 +375,7 @@ Local $UltimoEstatussCancel = "[CLASS:Button; INSTANCE:4]"
 Local $UltimoEstatustree = "[CLASS:SysTreeView32; INSTANCE:1]"
 
 Func SMDH_ManejoDeCasos_Actos_Get_UltimosEstatus($victima, $tipov, $perpetrador)
-	return SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Get_UltimosEstatus", $victima & ", " & $tipov & ", " & $perpetrador, $UltimoEstatuswTitle, $UltimoEstatuswText, $UltimoEstatusbAdd, $UltimoEstatusbRemove, $UltimoEstatusstatic, $UltimoEstatussTitle, $UltimoEstatussOK, $UltimoEstatussCancel, $UltimoEstatustree)
+	return SMDH_GetTreeViewList_Single("SMDH_ManejoDeCasos_Actos_Get_UltimosEstatus", $victima & ", " & $tipov & ", " & $perpetrador, $UltimoEstatuswTitle, $UltimoEstatuswText, $UltimoEstatusbAdd, $UltimoEstatusbRemove, $UltimoEstatusstatic, $UltimoEstatussTitle, $UltimoEstatussOK, $UltimoEstatussCancel, $UltimoEstatustree)
 EndFunc
 
 Func SMDH_ManejoDeCasos_Actos_Set_UltimoEstatus($victima, $tipov, $perpetrador, $item)
@@ -383,7 +383,7 @@ Func SMDH_ManejoDeCasos_Actos_Set_UltimoEstatus($victima, $tipov, $perpetrador, 
 EndFunc
 
 Func SMDH_ManejoDeCasos_Actos_Remove_UltimoEstatus($victima, $tipov, $perpetrador)
-	SMDH_GetTreeViewList("SMDH_ManejoDeCasos_Actos_Remove_UltimoEstatus", $victima & ", " & $tipov & ", " & $perpetrador, $UltimoEstatuswTitle, $UltimoEstatuswText, $UltimoEstatusbAdd, $UltimoEstatusbRemove, $UltimoEstatusstatic, $UltimoEstatussTitle, $UltimoEstatussOK, $UltimoEstatussCancel, $UltimoEstatustree)
+	SMDH_RemoveFromTreeViewList_Single("SMDH_ManejoDeCasos_Actos_Remove_UltimoEstatus", $victima & ", " & $tipov & ", " & $perpetrador, $UltimoEstatuswTitle, $UltimoEstatuswText, $UltimoEstatusbAdd, $UltimoEstatusbRemove, $UltimoEstatusstatic, $UltimoEstatussTitle, $UltimoEstatussOK, $UltimoEstatussCancel, $UltimoEstatustree)
 EndFunc
 
 Func SMDH_ManejoDeCasos_Actos_Set_Perpetrador_Observaciones($victima, $tipov, $perpetrador, $n)
@@ -405,4 +405,48 @@ Func SMDH_ManejoDeCasos_Actos_Set_ExportarPerpetrador($victima, $tipov, $perpetr
 	EndIf
 	UTAssert( GUI_Is_CheckBox_Checked("Manejo de Casos", "NBActosPerp","[CLASS:Button; INSTANCE:66]") = $val)
 	UTLogEndTestOK()
+EndFunc
+
+Local $LegislacionNacionalwTitle = "Manejo de Casos"
+Local $LegislacionNacionalwText = "NBNormatividad"
+Local $LegislacionNacionalbAdd = "[CLASS:Button; INSTANCE:79]"
+Local $LegislacionNacionalbRemove = "[CLASS:Button; INSTANCE:82]"
+Local $LegislacionNacionalList = "[CLASS:ListBox; INSTANCE:12]"
+Local $LegislacionNacionalsTitle = "Legislación nacional"
+Local $LegislacionNacionalsOK = "[CLASS:Button; INSTANCE:1]"
+Local $LegislacionNacionalsCancel = "[CLASS:Button; INSTANCE:4]"
+Local $LegislacionNacionaltree = "[CLASS:SysTreeView32; INSTANCE:1]"
+
+Func SMDH_ManejoDeCasos_Actos_Get_LegislacionesNacionales($victima, $tipov)
+	return SMDH_GetTreeViewList_Multi("SMDH_ManejoDeCasos_Actos_Get_LegislacionesNacionales", $victima & ", " & $tipov, $LegislacionNacionalwTitle, $LegislacionNacionalwText, $LegislacionNacionalbAdd, $LegislacionNacionalbRemove, $LegislacionNacionalList, $LegislacionNacionalsTitle, $LegislacionNacionalsOK, $LegislacionNacionalsCancel, $LegislacionNacionaltree)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Set_LegislacionNacional($victima, $tipov, $item)
+	SMDH_AddFromTreeViewList_Multi("SMDH_ManejoDeCasos_Actos_Set_LegislacionNacional", $victima & ", " & $tipov, $LegislacionNacionalwTitle, $LegislacionNacionalwText, $LegislacionNacionalbAdd, $LegislacionNacionalbRemove, $LegislacionNacionalList, $LegislacionNacionalsTitle, $LegislacionNacionalsOK, $LegislacionNacionalsCancel, $LegislacionNacionaltree, $item)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Remove_LegislacionNacional($victima, $tipov, $item)
+	SMDH_RemoveFromTreeViewList_Multi("SMDH_ManejoDeCasos_Actos_Remove_LegislacionNacional", $victima & ", " & $tipov, $LegislacionNacionalwTitle, $LegislacionNacionalwText, $LegislacionNacionalbAdd, $LegislacionNacionalbRemove, $LegislacionNacionalList, $LegislacionNacionalsTitle, $LegislacionNacionalsOK, $LegislacionNacionalsCancel, $LegislacionNacionaltree, $item)
+EndFunc
+
+Local $InstrumentoInternacionalwTitle = "Manejo de Casos"
+Local $InstrumentoInternacionalwText = "NBNormatividad"
+Local $InstrumentoInternacionalbAdd = "[CLASS:Button; INSTANCE:80]"
+Local $InstrumentoInternacionalbRemove = "[CLASS:Button; INSTANCE:83]"
+Local $InstrumentoInternacionalList = "[CLASS:ListBox; INSTANCE:11]"
+Local $InstrumentoInternacionalsTitle = "Instrumentos internacionales"
+Local $InstrumentoInternacionalsOK = "[CLASS:Button; INSTANCE:1]"
+Local $InstrumentoInternacionalsCancel = "[CLASS:Button; INSTANCE:4]"
+Local $InstrumentoInternacionaltree = "[CLASS:SysTreeView32; INSTANCE:1]"
+
+Func SMDH_ManejoDeCasos_Actos_Get_InstrumentosInternacionales($victima, $tipov)
+	return SMDH_GetTreeViewList_Multi("SMDH_ManejoDeCasos_Actos_Get_InstrumentosInternacionales", $victima & ", " & $tipov, $InstrumentoInternacionalwTitle, $InstrumentoInternacionalwText, $InstrumentoInternacionalbAdd, $InstrumentoInternacionalbRemove, $InstrumentoInternacionalList, $InstrumentoInternacionalsTitle, $InstrumentoInternacionalsOK, $InstrumentoInternacionalsCancel, $InstrumentoInternacionaltree)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Set_InstrumentoInternacional($victima, $tipov, $item)
+	SMDH_AddFromTreeViewList_Multi("SMDH_ManejoDeCasos_Actos_Set_InstrumentoInternacional", $victima & ", " & $tipov, $InstrumentoInternacionalwTitle, $InstrumentoInternacionalwText, $InstrumentoInternacionalbAdd, $InstrumentoInternacionalbRemove, $InstrumentoInternacionalList, $InstrumentoInternacionalsTitle, $InstrumentoInternacionalsOK, $InstrumentoInternacionalsCancel, $InstrumentoInternacionaltree, $item)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Actos_Remove_InstrumentoInternacional($victima, $tipov, $item)
+	SMDH_RemoveFromTreeViewList_Multi("SMDH_ManejoDeCasos_Actos_Remove_InstrumentoInternacional", $victima & ", " & $tipov, $InstrumentoInternacionalwTitle, $InstrumentoInternacionalwText, $InstrumentoInternacionalbAdd, $InstrumentoInternacionalbRemove, $InstrumentoInternacionalList, $InstrumentoInternacionalsTitle, $InstrumentoInternacionalsOK, $InstrumentoInternacionalsCancel, $InstrumentoInternacionaltree, $item)
 EndFunc
