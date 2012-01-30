@@ -299,3 +299,69 @@ Func SMDH_ManejoDeCasos_Fuentes_Set_FechaFuente($caso, $id, $tipo, $anio, $mes =
 	SMDH_SetFecha("SMDH_ManejoDeCasos_Fuentes_Set_FechaFuente", $caso & ", " & $id & ", " &  $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, $FuenteswTitle , $FuentesDocumentalwText,"[CLASS:ComboBox; INSTANCE:28]", "[CLASS:Edit; INSTANCE:91]", "[CLASS:Edit; INSTANCE:90]","[CLASS:Edit; INSTANCE:89]", "[CLASS:Button; INSTANCE:153]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
 EndFunc
 
+
+Local $TipoFuentewTitle = $FuenteswTitle
+Local $TipoFuentewText = $FuentesDocumentalwText
+Local $TipoFuentebAdd = "[CLASS:Button; INSTANCE:159]"
+Local $TipoFuentebRemove = "[CLASS:Button; INSTANCE:158]"
+Local $TipoFuentestatic = "[CLASS:Static; INSTANCE:214]"
+Local $TipoFuentesTitle = "Tipo de fuente"
+Local $TipoFuentesOK = "[CLASS:Button; INSTANCE:1]"
+Local $TipoFuentesCancel = "[CLASS:Button; INSTANCE:4]"
+Local $TipoFuentetree = "[CLASS:SysTreeView32; INSTANCE:1]"
+
+Func SMDH_ManejoDeCasos_Fuentes_Get_TiposFuentes($caso, $id)
+	return SMDH_GetTreeViewList_Single("SMDH_ManejoDeCasos_Fuentes_Get_TiposFuentes", $caso & ", " & $id, $TipoFuentewTitle, $TipoFuentewText, $TipoFuentebAdd, $TipoFuentebRemove, $TipoFuentestatic, $TipoFuentesTitle, $TipoFuentesOK, $TipoFuentesCancel, $TipoFuentetree)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Set_TipoFuente($caso, $id, $item)
+	SMDH_SetFromTreeViewList_Single("SMDH_ManejoDeCasos_Fuentes_Set_TipoFuente", $caso & ", " & $id, $TipoFuentewTitle, $TipoFuentewText, $TipoFuentebAdd, $TipoFuentebRemove, $TipoFuentestatic, $TipoFuentesTitle, $TipoFuentesOK, $TipoFuentesCancel, $TipoFuentetree, $item)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Remove_TipoFuente($caso, $id)
+	SMDH_RemoveFromTreeViewList_Single("SMDH_ManejoDeCasos_Fuentes_Remove_TipoFuente", $caso & ", " & $id, $TipoFuentewTitle, $TipoFuentewText, $TipoFuentebAdd, $TipoFuentebRemove, $TipoFuentestatic, $TipoFuentesTitle, $TipoFuentesOK, $TipoFuentesCancel, $TipoFuentetree)
+EndFunc
+
+Local $LenguaIndigenaDocumentalwTitle = $FuenteswTitle
+Local $LenguaIndigenaDocumentalwText = $FuenteswText
+Local $LenguaIndigenaDocumentalbAdd = "[CLASS:Button; INSTANCE:163]"
+Local $LenguaIndigenaDocumentalbRemove = "[CLASS:Button; INSTANCE:164]"
+Local $LenguaIndigenaDocumentalstatic = "[CLASS:Static; INSTANCE:219]"
+Local $LenguaIndigenaDocumentalsTitle = "Lengua indígena"
+Local $LenguaIndigenaDocumentalsOK = "[CLASS:Button; INSTANCE:1]"
+Local $LenguaIndigenaDocumentalsCancel = "[CLASS:Button; INSTANCE:4]"
+Local $LenguaIndigenaDocumentaltree = "[CLASS:SysTreeView32; INSTANCE:1]"
+
+Func SMDH_ManejoDeCasos_Fuentes_Documental_Get_LenguasIndigenas($caso, $id)
+	return SMDH_GetTreeViewList_Single("SMDH_ManejoDeCasos_Fuentes_Documental_Get_LenguasIndigenas", $caso & ", " & $id, $LenguaIndigenaDocumentalwTitle, $LenguaIndigenaDocumentalwText, $LenguaIndigenaDocumentalbAdd, $LenguaIndigenaDocumentalbRemove, $LenguaIndigenaDocumentalstatic, $LenguaIndigenaDocumentalsTitle, $LenguaIndigenaDocumentalsOK, $LenguaIndigenaDocumentalsCancel, $LenguaIndigenaDocumentaltree)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Documental_Set_LenguaIndigena($caso, $id, $item)
+	SMDH_SetFromTreeViewList_Single("SMDH_ManejoDeCasos_Fuentes_Documental_Set_LenguaIndigenaDocumental", $caso & ", " & $id, $LenguaIndigenaDocumentalwTitle, $LenguaIndigenaDocumentalwText, $LenguaIndigenaDocumentalbAdd, $LenguaIndigenaDocumentalbRemove, $LenguaIndigenaDocumentalstatic, $LenguaIndigenaDocumentalsTitle, $LenguaIndigenaDocumentalsOK, $LenguaIndigenaDocumentalsCancel, $LenguaIndigenaDocumentaltree, $item)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Documental_Remove_LenguaIndigena($caso, $id)
+	SMDH_RemoveFromTreeViewList_Single("SMDH_ManejoDeCasos_Fuentes_Documental_Remove_LenguaIndigenaDocumental", $caso & ", " & $id, $LenguaIndigenaDocumentalwTitle, $LenguaIndigenaDocumentalwText, $LenguaIndigenaDocumentalbAdd, $LenguaIndigenaDocumentalbRemove, $LenguaIndigenaDocumentalstatic, $LenguaIndigenaDocumentalsTitle, $LenguaIndigenaDocumentalsOK, $LenguaIndigenaDocumentalsCancel, $LenguaIndigenaDocumentaltree)
+EndFunc
+
+Local $ConfiabilidadDocumentalwTitle = $FuenteswTitle
+Local $ConfiabilidadDocumentalwText = $FuenteswText
+Local $ConfiabilidadDocumentalbAdd = "[CLASS:Button; INSTANCE:165]"
+Local $ConfiabilidadDocumentalbRemove = "[CLASS:Button; INSTANCE:166]"
+Local $ConfiabilidadDocumentalstatic = "[CLASS:Static; INSTANCE:220]"
+Local $ConfiabilidadDocumentalsTitle = "Confiabilidad"
+Local $ConfiabilidadDocumentalsOK = "[CLASS:Button; INSTANCE:1]"
+Local $ConfiabilidadDocumentalsCancel = "[CLASS:Button; INSTANCE:4]"
+Local $ConfiabilidadDocumentaltree = "[CLASS:SysTreeView32; INSTANCE:1]"
+
+Func SMDH_ManejoDeCasos_Fuentes_Documental_Get_Confiabilidades($caso, $id)
+	return SMDH_GetTreeViewList_Single("SMDH_ManejoDeCasos_Fuentes_Documental_Get_Confiabilidades", $caso & ", " & $id, $ConfiabilidadDocumentalwTitle, $ConfiabilidadDocumentalwText, $ConfiabilidadDocumentalbAdd, $ConfiabilidadDocumentalbRemove, $ConfiabilidadDocumentalstatic, $ConfiabilidadDocumentalsTitle, $ConfiabilidadDocumentalsOK, $ConfiabilidadDocumentalsCancel, $ConfiabilidadDocumentaltree)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Documental_Set_Confiabilidad($caso, $id, $item)
+	SMDH_SetFromTreeViewList_Single("SMDH_ManejoDeCasos_Fuentes_Documental_Set_Confiabilidad", $caso & ", " & $id, $ConfiabilidadDocumentalwTitle, $ConfiabilidadDocumentalwText, $ConfiabilidadDocumentalbAdd, $ConfiabilidadDocumentalbRemove, $ConfiabilidadDocumentalstatic, $ConfiabilidadDocumentalsTitle, $ConfiabilidadDocumentalsOK, $ConfiabilidadDocumentalsCancel, $ConfiabilidadDocumentaltree, $item)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Documental_Remove_Confiabilidad($caso, $id)
+	SMDH_RemoveFromTreeViewList_Single("SMDH_ManejoDeCasos_Fuentes_Documental_Remove_Confiabilidad", $caso & ", " & $id, $ConfiabilidadDocumentalwTitle, $ConfiabilidadDocumentalwText, $ConfiabilidadDocumentalbAdd, $ConfiabilidadDocumentalbRemove, $ConfiabilidadDocumentalstatic, $ConfiabilidadDocumentalsTitle, $ConfiabilidadDocumentalsOK, $ConfiabilidadDocumentalsCancel, $ConfiabilidadDocumentaltree)
+EndFunc
