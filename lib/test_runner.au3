@@ -35,14 +35,24 @@ Func StdoutReadAll($iPID)
 EndFunc
 
 Func TestRunner($tests)
+	Local $file = FileOpen("test_results.txt", 2)
+	; Check if file opened for writing OK
+	If $file = -1 Then
+		MsgBox(0, "Error", "Error abriendo el archivo test_results.txt")
+		Exit
+	EndIf
+
 	For $test IN $tests
 		Local $sPrefix = "[TESTFILE:" & $test & "] "
 		ConsoleWrite( $sPrefix & "Running" & @CRLF )
+		FileWrite($file, $sPrefix & "Running" & @CRLF)
 		Local $res = RunTest($test)
 		If $res<>0 Or ( $res==0 And @error<>0 )Then
 			ConsoleWrite( $sPrefix & "FAILED" & @CRLF )
+			FileWrite($file, $sPrefix & "FAILED" & @CRLF)
 		Else
 			ConsoleWrite( $sPrefix & "OK" & @CRLF )
+			FileWrite($file, $sPrefix & "OK" & @CRLF)
 		EndIf
 	Next
 EndFunc
