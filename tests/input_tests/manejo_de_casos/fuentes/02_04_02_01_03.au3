@@ -9,10 +9,11 @@
 #include "../../../../lib/smdh_fuentes.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 2.4.2.1.1 Que guarde correctamente
+; 2.4.2.1.3 Que guarde correctamente si es largo
+; prueba con 10, 20, 30, 400 hasta 120 caracteres
 
 Local $caso = "Caso de pruebas para fuentes"
-Local $fuente = "FuenteDocumental"
+Local $base = "1234567890"
 
 Func TearDown()
 	SMDH_Terminate_No_Asserts()
@@ -26,9 +27,9 @@ Func TearDown()
 		If (SMDH_ManejoDeCasos_Casos_Exist($caso)) Then
 			SMDH_ManejoDeCasos_Casos_Select($caso)
 
-			SMDH_ManejoDeCasos_Fuentes_Open()
-			SMDH_ManejoDeCasos_Fuentes_Documental_Open()
-			SMDH_ManejoDeCasos_Fuentes_Documental_Borrar($caso, $fuente, False)
+			;SMDH_ManejoDeCasos_Fuentes_Open()
+			;SMDH_ManejoDeCasos_Fuentes_Documental_Open()
+			;SMDH_ManejoDeCasos_Fuentes_Documental_Borrar($caso, $fuente, False)
 
 			; delete caso
 			SMDH_ManejoDeCasos_Casos_Open()
@@ -53,8 +54,12 @@ SMDH_ManejoDeCasos_Casos_Select($caso)
 ; what we are testing
 SMDH_ManejoDeCasos_Fuentes_Open()
 SMDH_ManejoDeCasos_Fuentes_Documental_Open()
-SMDH_ManejoDeCasos_Fuentes_Documental_Nueva($caso, $fuente)
-SMDH_ManejoDeCasos_Fuentes_Documental_Borrar($caso, $fuente)
+Local $fuente = ""
+For $i = 1 To 12 Step 1
+	$fuente = $fuente & $base
+	SMDH_ManejoDeCasos_Fuentes_Documental_Nueva($caso, $fuente)
+	SMDH_ManejoDeCasos_Fuentes_Documental_Borrar($caso, $fuente)
+Next
 
 ; delete caso
 SMDH_ManejoDeCasos_Casos_Open()

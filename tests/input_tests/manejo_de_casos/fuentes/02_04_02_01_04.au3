@@ -9,10 +9,10 @@
 #include "../../../../lib/smdh_fuentes.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 2.4.2.1.1 Que guarde correctamente
+; 2.4.2.1.4 Que guarde correctamente si es corto
 
 Local $caso = "Caso de pruebas para fuentes"
-Local $fuente = "FuenteDocumental"
+Local $fuente = "a"
 
 Func TearDown()
 	SMDH_Terminate_No_Asserts()
@@ -28,7 +28,7 @@ Func TearDown()
 
 			SMDH_ManejoDeCasos_Fuentes_Open()
 			SMDH_ManejoDeCasos_Fuentes_Documental_Open()
-			SMDH_ManejoDeCasos_Fuentes_Documental_Borrar($caso, $fuente, False)
+			SMDH_ManejoDeCasos_Fuentes_Personal_Borrar($caso, $fuente, False)
 
 			; delete caso
 			SMDH_ManejoDeCasos_Casos_Open()
