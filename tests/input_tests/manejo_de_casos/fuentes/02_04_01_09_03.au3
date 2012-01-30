@@ -9,7 +9,7 @@
 #include "../../../../lib/smdh_fuentes.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 2.4.1.7.3 Que guarde correctamente si es largo
+; 2.4.1.9.3 Que guarde correctamente si es largo
 ; prueba con 100, 200, 300, 400 hasta 50000 caracteres
 
 Local $caso = "Caso de pruebas para fuentes"
