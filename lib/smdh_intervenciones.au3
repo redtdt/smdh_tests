@@ -196,13 +196,13 @@ Func SMDH_ManejoDeCasos_Intervenciones_Remove_Set_Comentarios($caso, $quien, $ti
 	UTLogEndTestOK()
 EndFunc
 
-;~ Func SMDH_ManejoDeCasos_Actos_Set_ExportarActo($victima, $tipov, $val)
-;~ 	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Set_ExportarActo", $victima & ", " & $tipov & ", " & $val );
-;~ 	UTAssert( WinActive("Manejo de Casos", "Actos registrados") )
-;~ 	If ( GUI_Is_CheckBox_Checked("Manejo de Casos", "Actos registrados","[CLASS:Button; INSTANCE:56]") <> $val) Then
-;~ 		UTAssert( ControlClick("Manejo de Casos", "Actos registrados", "[CLASS:Button; INSTANCE:56]") )
-;~ 		UTAssert( ControlClick("Manejo de Casos", "Actos registrados", "[CLASS:Button; INSTANCE:50]") )
-;~ 	EndIf
-;~ 	UTAssert( GUI_Is_CheckBox_Checked("Manejo de Casos", "Actos registrados","[CLASS:Button; INSTANCE:56]") = $val)
-;~ 	UTLogEndTestOK()
-;~ EndFunc
+Func SMDH_ManejoDeCasos_Intervenciones_Set_ExportarIntervencions($caso, $quien, $tipoi, $val)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Intervenciones_Set_ExportarIntervencions", $caso & ", " & $quien & ", " & $tipoi & ", " & $val );
+	UTAssert( WinActive($IntervencioneswTitle, $IntervencioneswText) )
+	If ( GUI_Is_CheckBox_Checked($IntervencioneswTitle, $IntervencioneswText,"[CLASS:Button; INSTANCE:15]") <> $val) Then
+		UTAssert( ControlClick($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Button; INSTANCE:15]") )
+		UTAssert( ControlClick($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Button; INSTANCE:4]") )
+	EndIf
+	UTAssert( GUI_Is_CheckBox_Checked($IntervencioneswTitle, $IntervencioneswText,"[CLASS:Button; INSTANCE:15]") = $val)
+	UTLogEndTestOK()
+EndFunc
