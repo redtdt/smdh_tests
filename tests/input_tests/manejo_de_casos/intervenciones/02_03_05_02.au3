@@ -9,15 +9,15 @@
 #include "../../../../lib/smdh_intervenciones.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 2.3.4.2 Que guarde correctamente
+; 2.3.5.2 Que elimine correctamente
 
 Local $caso = "Caso de pruebas para intervenciones"
 Local $quien_nombre = "Fulano"
 Local $quien_apellido = "Castro"
 Local $quien = SMDH_Personas_Individual_Compose_String($quien_nombre, $quien_apellido)
-Local $sobre_quien_nombre = "Sutano"
-Local $sobre_quien_apellido = "Lopez"
-Local $sobre_quien = SMDH_Personas_Individual_Compose_String($sobre_quien_nombre, $sobre_quien_apellido)
+Local $a_quien_nombre = "Mengano"
+Local $a_quien_apellido = "Portillo"
+Local $a_quien = SMDH_Personas_Individual_Compose_String($a_quien_nombre, $a_quien_apellido)
 Local $tipo = "Acción urgente"
 Local $anio = 2010
 Local $mes = 11
@@ -47,7 +47,7 @@ Func TearDown()
 		SMDH_ManejoDeCasos_Personas_Open()
 		SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 		SMDH_Personas_Individual_Borrar($quien_nombre, $quien_apellido, False)
-		SMDH_Personas_Individual_Borrar($sobre_quien_nombre, $sobre_quien_apellido, False)
+		SMDH_Personas_Individual_Borrar($a_quien_nombre, $a_quien_apellido, False)
 		SMDH_Terminate()
 	EndIf
 EndFunc
@@ -62,7 +62,7 @@ SMDH_ManejoDeCasos_Open()
 SMDH_ManejoDeCasos_Personas_Open()
 SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 SMDH_Personas_Individual_Nueva($quien_nombre, $quien_apellido)
-SMDH_Personas_Individual_Nueva($sobre_quien_nombre, $sobre_quien_apellido)
+SMDH_Personas_Individual_Nueva($a_quien_nombre, $a_quien_apellido)
 ; create a caso
 SMDH_ManejoDeCasos_Casos_Open()
 SMDH_ManejoDeCasos_Casos_DatosGenerales_Open()
@@ -73,8 +73,8 @@ SMDH_ManejoDeCasos_Casos_Select($caso)
 SMDH_ManejoDeCasos_Intervenciones_Open()
 SMDH_ManejoDeCasos_Intervenciones_Nuevo($caso, $quien, $tipo)
 SMDH_ManejoDeCasos_Intervenciones_Select($caso, $quien, $tipo)
-SMDH_ManejoDeCasos_Intervenciones_Set_Sobre_Quien($caso, $quien, $tipo, $sobre_quien)
-SMDH_ManejoDeCasos_Intervenciones_Remove_Sobre_Quien($caso, $quien, $tipo)
+SMDH_ManejoDeCasos_Intervenciones_Set_A_Quien($caso, $quien, $tipo, $a_quien)
+SMDH_ManejoDeCasos_Intervenciones_Remove_A_Quien($caso, $quien, $tipo)
 SMDH_ManejoDeCasos_Intervenciones_Borrar($caso, $quien, $tipo)
 
 ; delete caso
@@ -85,4 +85,4 @@ SMDH_ManejoDeCasos_Casos_Borrar($caso)
 SMDH_ManejoDeCasos_Personas_Open()
 SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 SMDH_Personas_Individual_Borrar($quien_nombre, $quien_apellido)
-SMDH_Personas_Individual_Borrar($sobre_quien_nombre, $sobre_quien_apellido)
+SMDH_Personas_Individual_Borrar($a_quien_nombre, $a_quien_apellido)
