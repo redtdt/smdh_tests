@@ -155,3 +155,77 @@ Func SMDH_ManejoDeCasos_Fuentes_Set_Idioma_Idx($caso, $persona, $Idioma_idx)
 	UTLogEndTestOK()
 EndFunc
 
+Local $LenguaIndigenawTitle = $FuenteswTitle
+Local $LenguaIndigenawText = $FuenteswText
+Local $LenguaIndigenabAdd = "[CLASS:Button; INSTANCE:148]"
+Local $LenguaIndigenabRemove = "[CLASS:Button; INSTANCE:149]"
+Local $LenguaIndigenastatic = "[CLASS:Static; INSTANCE:197]"
+Local $LenguaIndigenasTitle = "Lengua indígena"
+Local $LenguaIndigenasOK = "[CLASS:Button; INSTANCE:1]"
+Local $LenguaIndigenasCancel = "[CLASS:Button; INSTANCE:4]"
+Local $LenguaIndigenatree = "[CLASS:SysTreeView32; INSTANCE:1]"
+
+Func SMDH_ManejoDeCasos_Fuentes_Get_LenguasIndigenas($caso, $persona)
+	return SMDH_GetTreeViewList_Single("SMDH_ManejoDeCasos_Fuentes_Get_LenguasIndigenas", $caso & ", " & $persona, $LenguaIndigenawTitle, $LenguaIndigenawText, $LenguaIndigenabAdd, $LenguaIndigenabRemove, $LenguaIndigenastatic, $LenguaIndigenasTitle, $LenguaIndigenasOK, $LenguaIndigenasCancel, $LenguaIndigenatree)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Set_LenguaIndigena($caso, $persona, $item)
+	SMDH_SetFromTreeViewList_Single("SMDH_ManejoDeCasos_Fuentes_Set_LenguaIndigena", $caso & ", " & $persona, $LenguaIndigenawTitle, $LenguaIndigenawText, $LenguaIndigenabAdd, $LenguaIndigenabRemove, $LenguaIndigenastatic, $LenguaIndigenasTitle, $LenguaIndigenasOK, $LenguaIndigenasCancel, $LenguaIndigenatree, $item)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Remove_LenguaIndigena($caso, $persona)
+	SMDH_RemoveFromTreeViewList_Single("SMDH_ManejoDeCasos_Fuentes_Remove_LenguaIndigena", $caso & ", " & $persona, $LenguaIndigenawTitle, $LenguaIndigenawText, $LenguaIndigenabAdd, $LenguaIndigenabRemove, $LenguaIndigenastatic, $LenguaIndigenasTitle, $LenguaIndigenasOK, $LenguaIndigenasCancel, $LenguaIndigenatree)
+EndFunc
+
+Local $ConfiabilidadwTitle = $FuenteswTitle
+Local $ConfiabilidadwText = $FuenteswText
+Local $ConfiabilidadbAdd = "[CLASS:Button; INSTANCE:150]"
+Local $ConfiabilidadbRemove = "[CLASS:Button; INSTANCE:151]"
+Local $Confiabilidadstatic = "[CLASS:Static; INSTANCE:198]"
+Local $ConfiabilidadsTitle = "Confiabilidad"
+Local $ConfiabilidadsOK = "[CLASS:Button; INSTANCE:1]"
+Local $ConfiabilidadsCancel = "[CLASS:Button; INSTANCE:4]"
+Local $Confiabilidadtree = "[CLASS:SysTreeView32; INSTANCE:1]"
+
+Func SMDH_ManejoDeCasos_Fuentes_Get_Confiabilidades($caso, $persona)
+	return SMDH_GetTreeViewList_Single("SMDH_ManejoDeCasos_Fuentes_Get_Confiabilidades", $caso & ", " & $persona, $ConfiabilidadwTitle, $ConfiabilidadwText, $ConfiabilidadbAdd, $ConfiabilidadbRemove, $Confiabilidadstatic, $ConfiabilidadsTitle, $ConfiabilidadsOK, $ConfiabilidadsCancel, $Confiabilidadtree)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Set_Confiabilidad($caso, $persona, $item)
+	SMDH_SetFromTreeViewList_Single("SMDH_ManejoDeCasos_Fuentes_Set_Confiabilidad", $caso & ", " & $persona, $ConfiabilidadwTitle, $ConfiabilidadwText, $ConfiabilidadbAdd, $ConfiabilidadbRemove, $Confiabilidadstatic, $ConfiabilidadsTitle, $ConfiabilidadsOK, $ConfiabilidadsCancel, $Confiabilidadtree, $item)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Remove_Confiabilidad($caso, $persona)
+	SMDH_RemoveFromTreeViewList_Single("SMDH_ManejoDeCasos_Fuentes_Remove_Confiabilidad", $caso & ", " & $persona, $ConfiabilidadwTitle, $ConfiabilidadwText, $ConfiabilidadbAdd, $ConfiabilidadbRemove, $Confiabilidadstatic, $ConfiabilidadsTitle, $ConfiabilidadsOK, $ConfiabilidadsCancel, $Confiabilidadtree)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Set_Observaciones($caso, $persona, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Set_Observaciones", $caso & ", " & $persona & ", " & $n );
+	UTAssert( WinActive($FuenteswTitle, $FuenteswText) )
+	UTAssert( ControlSetText($FuenteswTitle, $FuenteswText, "[CLASS:Edit; INSTANCE:75]", $n) )
+	UTAssert( ControlClick($FuenteswTitle, $FuenteswText, "[CLASS:Button; INSTANCE:141]") )
+	; verify
+	UTAssert( ControlGetText($FuenteswTitle, $FuenteswText, "[CLASS:Edit; INSTANCE:75]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Set_Comentarios($caso, $persona, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Set_Comentarios", $caso & ", " & $persona & ", " & $n );
+	UTAssert( WinActive($FuenteswTitle, $FuenteswText) )
+	UTAssert( ControlSetText($FuenteswTitle, $FuenteswText, "[CLASS:Edit; INSTANCE:76]", $n) )
+	UTAssert( ControlClick($FuenteswTitle, $FuenteswText, "[CLASS:Button; INSTANCE:141]") )
+	; verify
+	UTAssert( ControlGetText($FuenteswTitle, $FuenteswText, "[CLASS:Edit; INSTANCE:76]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Set_ExportarFuentePersonal($caso, $persona, $val)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Set_ExportarFuentePersonal", $caso & ", " & $persona & ", " & $val );
+	UTAssert( WinActive($FuenteswTitle, $FuenteswText) )
+	If ( GUI_Is_CheckBox_Checked($FuenteswTitle, $FuenteswText,"[CLASS:Button; INSTANCE:137]") <> $val) Then
+		UTAssert( ControlClick($FuenteswTitle, $FuenteswText, "[CLASS:Button; INSTANCE:137]") )
+		UTAssert( ControlClick($FuenteswTitle, $FuenteswText, "[CLASS:Button; INSTANCE:141]") )
+	EndIf
+	UTAssert( GUI_Is_CheckBox_Checked($FuenteswTitle, $FuenteswText,"[CLASS:Button; INSTANCE:137]") = $val)
+	UTLogEndTestOK()
+EndFunc
