@@ -105,3 +105,53 @@ EndFunc
 Func SMDH_ManejoDeCasos_Intervenciones_Set_FechaIntervencion($caso, $quien, $tipoi, $tipo, $anio, $mes = 0, $dia = 0, $expect_failure_anio = False, $expect_failure_mes= False, $expect_failure_dia = False, $expect_failure_saving = False)
 	SMDH_SetFecha("SMDH_ManejoDeCasos_Intervenciones_Set_FechaIntervencion", $caso & ", " & $quien & ", " & $tipoi & ", " & $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, $IntervencioneswTitle , $IntervencioneswText,"[CLASS:ComboBox; INSTANCE:1]", "[CLASS:Edit; INSTANCE:7]", "[CLASS:Edit; INSTANCE:6]","[CLASS:Edit; INSTANCE:5]", "[CLASS:Button; INSTANCE:4]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
 EndFunc
+
+Func SMDH_ManejoDeCasos_Intervenciones_Set_Sobre_Quien($caso, $quien, $tipoi, $persona)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Intervenciones_Set_Sobre_Quien", $caso & ", " & $quien & ", " & $tipoi & ", " & $persona );
+	UTAssert( WinActive($IntervencioneswTitle, $IntervencioneswText) )
+	UTAssert( ControlClick($IntervencioneswTitle,$IntervencioneswText,"[CLASS:Button; INSTANCE:5]") )
+	UTAssert( WinWaitActive("Seleccionar una persona", "", 10) )
+	Local $hList = ControlGetHandle("Seleccionar una persona", "","[CLASS:ListBox; INSTANCE:1]")
+	UTAssert(_GUICtrlListBox_SelectString($hList, $persona)>=0)
+	UTAssert( ControlClick("Seleccionar una persona","","[CLASS:Button; INSTANCE:7]") )
+	;verify
+	UTAssert( WinWaitActive($IntervencioneswTitle,$IntervencioneswText, ""), 5 )
+	UTAssert( ControlGetText($IntervencioneswTitle,$IntervencioneswText, "[CLASS:Static; INSTANCE:7]") == $persona )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Intervenciones_Remove_Sobre_Quien($caso, $quien, $tipoi)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Intervenciones_Remove_Sobre_Quien", $caso & ", " & $quien & ", " & $tipoi );
+	UTAssert( WinActive($IntervencioneswTitle, $IntervencioneswText ) )
+	UTAssert( ControlClick($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Button; INSTANCE:9]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	UTAssert( ControlGetText($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Static; INSTANCE:7]") == "" )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Intervenciones_Set_A_Quien($caso, $quien, $tipoi, $persona)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Intervenciones_Set_A_Quien", $caso & ", " & $quien & ", " & $tipoi & ", " & $persona );
+	UTAssert( WinActive($IntervencioneswTitle, $IntervencioneswText) )
+	UTAssert( ControlClick($IntervencioneswTitle,$IntervencioneswText,"[CLASS:Button; INSTANCE:3]") )
+	UTAssert( WinWaitActive("Seleccionar una persona", "", 10) )
+	Local $hList = ControlGetHandle("Seleccionar una persona", "","[CLASS:ListBox; INSTANCE:1]")
+	UTAssert(_GUICtrlListBox_SelectString($hList, $persona)>=0)
+	UTAssert( ControlClick("Seleccionar una persona","","[CLASS:Button; INSTANCE:7]") )
+	;verify
+	UTAssert( WinWaitActive($IntervencioneswTitle,$IntervencioneswText, ""), 5 )
+	UTAssert( ControlGetText($IntervencioneswTitle,$IntervencioneswText, "[CLASS:Static; INSTANCE:4]") == $persona )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Intervenciones_Remove_A_Quien($caso, $quien, $tipoi)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Intervenciones_Remove_A_Quien", $caso & ", " & $quien & ", " & $tipoi );
+	UTAssert( WinActive($IntervencioneswTitle, $IntervencioneswText ) )
+	UTAssert( ControlClick($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Button; INSTANCE:10]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	UTAssert( ControlGetText($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Static; INSTANCE:4]") == "" )
+	UTLogEndTestOK()
+EndFunc
