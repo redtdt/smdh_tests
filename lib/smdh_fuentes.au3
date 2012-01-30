@@ -7,6 +7,7 @@
 
 Local $FuenteswTitle = "Manejo de Casos"
 Local $FuenteswText = "NBFuente"
+Local $FuentesDocumentalwText = "NBFuenteDocumental"
 
 Func SMDH_ManejoDeCasos_Fuentes_Personal_Open()
 	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Personal_Open")
@@ -234,30 +235,30 @@ EndFunc
 
 Func SMDH_ManejoDeCasos_Fuentes_Documental_Nueva($caso, $id)
 	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Documental_Nueva", $caso & ", " & $id )
-	UTAssert( WinActive($FuenteswTitle, $FuenteswText) )
-	UTAssert( ControlClick($FuenteswTitle, $FuenteswText,"[CLASS:Button; INSTANCE:152]") )
+	UTAssert( WinActive($FuenteswTitle, $FuentesDocumentalwText) )
+	UTAssert( ControlClick($FuenteswTitle, $FuentesDocumentalwText,"[CLASS:Button; INSTANCE:152]") )
 	UTAssert( WinWaitActive("Identificación", "", 10) )
 	UTAssert( ControlSetText("Identificación", "", "[CLASS:Edit; INSTANCE:1]", $id) )
 	UTAssert( ControlClick("Identificación","","[CLASS:Button; INSTANCE:1]") )
 	; verify
-	UTAssert( WinWaitActive($FuenteswTitle, $FuenteswText, ""), 5 )
-	Local $hList = ControlGetHandle($FuenteswTitle, $FuenteswText,"[CLASS:ListBox; INSTANCE:21]")
+	UTAssert( WinWaitActive($FuenteswTitle, $FuentesDocumentalwText, ""), 5 )
+	Local $hList = ControlGetHandle($FuenteswTitle, $FuentesDocumentalwText,"[CLASS:ListBox; INSTANCE:21]")
 	UTAssert( _GUICtrlListBox_FindString($hList, $id, True) >= 0)
 	UTLogEndTestOK()
 EndFunc
 
 Func SMDH_ManejoDeCasos_Fuentes_Documental_Exists($caso, $id)
-	UTAssert( WinActive($FuenteswTitle, $FuenteswText) )
+	UTAssert( WinActive($FuenteswTitle, $FuentesDocumentalwText) )
 	Local $str = $id
-	Local $hList = ControlGetHandle($FuenteswTitle, $FuenteswText, "[CLASS:ListBox; INSTANCE:21]")
+	Local $hList = ControlGetHandle($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:ListBox; INSTANCE:21]")
 	Local $item_idx = _GUICtrlListBox_FindString($hList, $str, True)
 	Return $item_idx >= 0
 EndFunc
 
 Func SMDH_ManejoDeCasos_Fuentes_Documental_Select($caso, $id)
-	UTAssert( WinActive($FuenteswTitle, $FuenteswText) )
+	UTAssert( WinActive($FuenteswTitle, $FuentesDocumentalwText) )
 	Local $str = $id
-	Local $hList = ControlGetHandle($FuenteswTitle, $FuenteswText, "[CLASS:ListBox; INSTANCE:21]")
+	Local $hList = ControlGetHandle($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:ListBox; INSTANCE:21]")
 	Local $item_idx = _GUICtrlListBox_FindString($hList, $str, True)
 	UTAssert( $item_idx >= 0)
 	_GUICtrlListBox_ClickItem($hList, $item_idx, "left", False, 2)
@@ -265,9 +266,9 @@ EndFunc
 
 Func SMDH_ManejoDeCasos_Fuentes_Documental_Borrar($caso, $id, $assert = True)
 	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Documental_Borrar", $caso & ", " & $id )
-	UTAssert( WinActive($FuenteswTitle, $FuenteswText) )
+	UTAssert( WinActive($FuenteswTitle, $FuentesDocumentalwText) )
 	Local $str = $id
-	Local $hList = ControlGetHandle($FuenteswTitle, $FuenteswText, "[CLASS:ListBox; INSTANCE:21]")
+	Local $hList = ControlGetHandle($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:ListBox; INSTANCE:21]")
 	Local $item_idx = _GUICtrlListBox_FindString($hList, $str,  True)
 	If ($assert) Then
 		UTAssert( $item_idx >= 0)
@@ -276,10 +277,25 @@ Func SMDH_ManejoDeCasos_Fuentes_Documental_Borrar($caso, $id, $assert = True)
 		Return
 	EndIf
 	_GUICtrlListBox_ClickItem($hList, $item_idx, "primary", False, 2)
-	UTAssert( ControlClick($FuenteswTitle, $FuenteswText, "[CLASS:Button; INSTANCE:162]") )
+	UTAssert( ControlClick($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Button; INSTANCE:162]") )
 	UTAssert( WinWaitActive("Alerta", "", 5) )
 	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
-	UTAssert( WinActive($FuenteswTitle, $FuenteswText) )
+	UTAssert( WinActive($FuenteswTitle, $FuentesDocumentalwText) )
 	UTAssert( _GUICtrlListBox_FindString($hList, $str, True) < 0)
 	UTLogEndTestOK()
 EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Set_DatosFuente($caso, $id, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Set_DatosFuente", $caso & ", " & $id & ", " & $n );
+	UTAssert( WinActive($FuenteswTitle, $FuentesDocumentalwText) )
+	UTAssert( ControlSetText($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Edit; INSTANCE:81]", $n) )
+	UTAssert( ControlClick($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Button; INSTANCE:153]") )
+	; verify
+	UTAssert( ControlGetText($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Edit; INSTANCE:81]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Set_FechaFuente($caso, $id, $tipo, $anio, $mes = 0, $dia = 0, $expect_failure_anio = False, $expect_failure_mes= False, $expect_failure_dia = False, $expect_failure_saving = False)
+	SMDH_SetFecha("SMDH_ManejoDeCasos_Fuentes_Set_FechaFuente", $caso & ", " & $id & ", " &  $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, $FuenteswTitle , $FuentesDocumentalwText,"[CLASS:ComboBox; INSTANCE:28]", "[CLASS:Edit; INSTANCE:91]", "[CLASS:Edit; INSTANCE:90]","[CLASS:Edit; INSTANCE:89]", "[CLASS:Button; INSTANCE:153]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
+EndFunc
+
