@@ -155,3 +155,54 @@ Func SMDH_ManejoDeCasos_Intervenciones_Remove_A_Quien($caso, $quien, $tipoi)
 	UTAssert( ControlGetText($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Static; INSTANCE:4]") == "" )
 	UTLogEndTestOK()
 EndFunc
+
+Func SMDH_ManejoDeCasos_Intervenciones_Remove_Set_RespuestaIntervencion($caso, $quien, $tipoi, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Intervenciones_Remove_Set_RespuestaIntervencion", $caso & ", " & $quien & ", " & $tipoi & ", " & $n );
+	UTAssert( WinActive($IntervencioneswTitle, $IntervencioneswText) )
+	UTAssert( ControlSetText($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Edit; INSTANCE:3]", $n) )
+	UTAssert( ControlClick($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Button; INSTANCE:4]") )
+	; verify
+	UTAssert( ControlGetText($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Edit; INSTANCE:3]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Intervenciones_Remove_Set_ImpactoIntervencion($caso, $quien, $tipoi, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Intervenciones_Remove_Set_ImpactoIntervencion", $caso & ", " & $quien & ", " & $tipoi & ", " & $n );
+	UTAssert( WinActive($IntervencioneswTitle, $IntervencioneswText) )
+	UTAssert( ControlSetText($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Edit; INSTANCE:4]", $n) )
+	UTAssert( ControlClick($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Button; INSTANCE:4]") )
+	; verify
+	UTAssert( ControlGetText($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Edit; INSTANCE:4]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Intervenciones_Remove_Set_Observaciones($caso, $quien, $tipoi, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Intervenciones_Remove_Set_Observaciones", $caso & ", " & $quien & ", " & $tipoi & ", " & $n );
+	UTAssert( WinActive($IntervencioneswTitle, $IntervencioneswText) )
+	UTAssert( ControlSetText($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Edit; INSTANCE:2]", $n) )
+	UTAssert( ControlClick($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Button; INSTANCE:4]") )
+	; verify
+	UTAssert( ControlGetText($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Edit; INSTANCE:2]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Intervenciones_Remove_Set_Comentarios($caso, $quien, $tipoi, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Intervenciones_Remove_Set_Comentarios", $caso & ", " & $quien & ", " & $tipoi & ", " & $n );
+	UTAssert( WinActive($IntervencioneswTitle, $IntervencioneswText) )
+	UTAssert( ControlSetText($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Edit; INSTANCE:1]", $n) )
+	UTAssert( ControlClick($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Button; INSTANCE:4]") )
+	; verify
+	UTAssert( ControlGetText($IntervencioneswTitle, $IntervencioneswText, "[CLASS:Edit; INSTANCE:1]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+;~ Func SMDH_ManejoDeCasos_Actos_Set_ExportarActo($victima, $tipov, $val)
+;~ 	UTLogInitTest( "SMDH_ManejoDeCasos_Actos_Set_ExportarActo", $victima & ", " & $tipov & ", " & $val );
+;~ 	UTAssert( WinActive("Manejo de Casos", "Actos registrados") )
+;~ 	If ( GUI_Is_CheckBox_Checked("Manejo de Casos", "Actos registrados","[CLASS:Button; INSTANCE:56]") <> $val) Then
+;~ 		UTAssert( ControlClick("Manejo de Casos", "Actos registrados", "[CLASS:Button; INSTANCE:56]") )
+;~ 		UTAssert( ControlClick("Manejo de Casos", "Actos registrados", "[CLASS:Button; INSTANCE:50]") )
+;~ 	EndIf
+;~ 	UTAssert( GUI_Is_CheckBox_Checked("Manejo de Casos", "Actos registrados","[CLASS:Button; INSTANCE:56]") = $val)
+;~ 	UTLogEndTestOK()
+;~ EndFunc
