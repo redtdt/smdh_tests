@@ -66,7 +66,6 @@ SMDH_ManejoDeCasos_Fuentes_Open()
 SMDH_ManejoDeCasos_Fuentes_Personal_Open()
 SMDH_ManejoDeCasos_Fuentes_Personal_Nueva($caso, $fuente)
 Local $items = SMDH_ManejoDeCasos_Fuentes_Get_Conexiones($caso, $fuente)
-_ArrayDisplay($items)
 For $i = 0 To UBound($items) - 1
 	SMDH_ManejoDeCasos_Fuentes_Set_Conexion($caso, $fuente, $items[$i])
 	SMDH_ManejoDeCasos_Fuentes_Remove_Conexion($caso, $fuente)
