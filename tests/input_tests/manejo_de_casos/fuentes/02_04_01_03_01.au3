@@ -9,7 +9,7 @@
 #include "../../../../lib/smdh_fuentes.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 2.4.1.1.1 Que guarde correctamente
+; 2.4.1.3.1 Que guarde correctamente
 
 Local $caso = "Caso de pruebas para fuentes"
 Local $fuente_nombre = "Cesar"
@@ -37,7 +37,7 @@ Func TearDown()
 			SMDH_ManejoDeCasos_Casos_DatosGenerales_Open()
 			SMDH_ManejoDeCasos_Casos_Borrar($caso, False)
 		EndIf
-		; delete quien
+		; delete sobre
 		SMDH_ManejoDeCasos_Personas_Open()
 		SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 		SMDH_Personas_Individual_Borrar($fuente_nombre, $fuente_apellido, False)
@@ -65,6 +65,12 @@ SMDH_ManejoDeCasos_Casos_Select($caso)
 SMDH_ManejoDeCasos_Fuentes_Open()
 SMDH_ManejoDeCasos_Fuentes_Personal_Open()
 SMDH_ManejoDeCasos_Fuentes_Personal_Nueva($caso, $fuente)
+Local $items = SMDH_ManejoDeCasos_Fuentes_Get_Conexiones($caso, $fuente)
+_ArrayDisplay($items)
+For $i = 0 To UBound($items) - 1
+	SMDH_ManejoDeCasos_Fuentes_Set_Conexion($caso, $fuente, $items[$i])
+	SMDH_ManejoDeCasos_Fuentes_Remove_Conexion($caso, $fuente)
+Next
 SMDH_ManejoDeCasos_Fuentes_Personal_Borrar($caso, $fuente)
 
 ; delete caso
