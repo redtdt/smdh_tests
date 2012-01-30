@@ -229,3 +229,57 @@ Func SMDH_ManejoDeCasos_Fuentes_Set_ExportarFuentePersonal($caso, $persona, $val
 	UTAssert( GUI_Is_CheckBox_Checked($FuenteswTitle, $FuenteswText,"[CLASS:Button; INSTANCE:137]") = $val)
 	UTLogEndTestOK()
 EndFunc
+
+; Fuentes Documentales
+
+Func SMDH_ManejoDeCasos_Fuentes_Documental_Nueva($caso, $id)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Documental_Nueva", $caso & ", " & $id )
+	UTAssert( WinActive($FuenteswTitle, $FuenteswText) )
+	UTAssert( ControlClick($FuenteswTitle, $FuenteswText,"[CLASS:Button; INSTANCE:152]") )
+	UTAssert( WinWaitActive("Identificación", "", 10) )
+	UTAssert( ControlSetText("Identificación", "", "[CLASS:Edit; INSTANCE:1]", $id) )
+	UTAssert( ControlClick("Identificación","","[CLASS:Button; INSTANCE:1]") )
+	; verify
+	UTAssert( WinWaitActive($FuenteswTitle, $FuenteswText, ""), 5 )
+	Local $hList = ControlGetHandle($FuenteswTitle, $FuenteswText,"[CLASS:ListBox; INSTANCE:21]")
+	UTAssert( _GUICtrlListBox_FindString($hList, $id, True) >= 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Documental_Exists($caso, $id)
+	UTAssert( WinActive($FuenteswTitle, $FuenteswText) )
+	Local $str = $id
+	Local $hList = ControlGetHandle($FuenteswTitle, $FuenteswText, "[CLASS:ListBox; INSTANCE:21]")
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $str, True)
+	Return $item_idx >= 0
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Documental_Select($caso, $id)
+	UTAssert( WinActive($FuenteswTitle, $FuenteswText) )
+	Local $str = $id
+	Local $hList = ControlGetHandle($FuenteswTitle, $FuenteswText, "[CLASS:ListBox; INSTANCE:21]")
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $str, True)
+	UTAssert( $item_idx >= 0)
+	_GUICtrlListBox_ClickItem($hList, $item_idx, "left", False, 2)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Documental_Borrar($caso, $id, $assert = True)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Documental_Borrar", $caso & ", " & $id )
+	UTAssert( WinActive($FuenteswTitle, $FuenteswText) )
+	Local $str = $id
+	Local $hList = ControlGetHandle($FuenteswTitle, $FuenteswText, "[CLASS:ListBox; INSTANCE:21]")
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $str,  True)
+	If ($assert) Then
+		UTAssert( $item_idx >= 0)
+	ElseIf ($item_idx < 0) Then
+		UTLogEndTestOK()
+		Return
+	EndIf
+	_GUICtrlListBox_ClickItem($hList, $item_idx, "primary", False, 2)
+	UTAssert( ControlClick($FuenteswTitle, $FuenteswText, "[CLASS:Button; INSTANCE:162]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	UTAssert( WinActive($FuenteswTitle, $FuenteswText) )
+	UTAssert( _GUICtrlListBox_FindString($hList, $str, True) < 0)
+	UTLogEndTestOK()
+EndFunc
