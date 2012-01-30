@@ -81,7 +81,7 @@ Func SMDH_ManejoDeCasos_Fuentes_Open()
 	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Open")
 	UTAssert( WinActive("Manejo de Casos") )
 	UTAssert( ControlClick("Manejo de Casos","","wxWindowClassNR2", "primary", 1, 222, 14) )
-	UTAssert( WinWaitActive("Manejo de Casos", "fuente personal", 10) )
+	UTAssert( WinWaitActive("Manejo de Casos", "NBFuente", 10) )
 	UTLogEndTestOK()
 EndFunc
 
