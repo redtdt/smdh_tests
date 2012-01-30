@@ -36,6 +36,7 @@ Func TearDown()
 			SMDH_ManejoDeCasos_Casos_DatosGenerales_Open()
 			SMDH_ManejoDeCasos_Casos_Borrar($caso, False)
 		EndIf
+		SMDH_Terminate()
 	EndIf
 EndFunc
 
