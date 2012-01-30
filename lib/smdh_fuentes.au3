@@ -128,3 +128,30 @@ Func SMDH_ManejoDeCasos_Fuentes_Set_FechaInformacion($caso, $persona, $tipo, $an
 	SMDH_SetFecha("SMDH_ManejoDeCasos_Fuentes_Set_FechaInformacion", $caso & ", " & $persona & ", " &  $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, $FuenteswTitle , $FuenteswText,"[CLASS:ComboBox; INSTANCE:26]", "[CLASS:Edit; INSTANCE:79]", "[CLASS:Edit; INSTANCE:78]","[CLASS:Edit; INSTANCE:77]", "[CLASS:Button; INSTANCE:141]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
 EndFunc
 
+Func SMDH_ManejoDeCasos_Fuentes_Get_Idiomas($caso, $persona)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Get_Idiomas", $caso & ", " & $persona);
+	UTAssert( WinActive($FuenteswTitle, $FuenteswText) )
+	Local $hCombo = ControlGetHandle($FuenteswTitle, $FuenteswText, "[CLASS:ComboBox; INSTANCE:27]")
+	UTAssert( $hCombo )
+	Local $items = GetArrayFromComboBox($hCombo)
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Set_Idioma_Idx($caso, $persona, $Idioma_idx)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Set_Idioma_Idx", $caso & ", " & $persona & ", " & $Idioma_idx );
+	UTAssert( WinActive($FuenteswTitle, $FuenteswText) )
+	If $Idioma_idx = 0 Then
+		$idx = -1
+	Else
+		$idx = $Idioma_idx
+	EndIf
+	Local $hCombo = ControlGetHandle($FuenteswTitle, $FuenteswText,"[CLASS:ComboBox; INSTANCE:27]")
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	UTAssert( ControlClick($FuenteswTitle, $FuenteswText, "Guardar") )
+	; verify
+	$hCombo = ControlGetHandle($FuenteswTitle, $FuenteswText,"[CLASS:ComboBox; INSTANCE:27]")
+	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
+	UTLogEndTestOK()
+EndFunc
+
