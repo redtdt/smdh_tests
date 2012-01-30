@@ -63,7 +63,6 @@ SMDH_ManejoDeCasos_Casos_Select($caso)
 
 ; what we are testing
 SMDH_ManejoDeCasos_Intervenciones_Open()
-Exit 1
 SMDH_ManejoDeCasos_Intervenciones_Nuevo($caso, $quien, $tipo)
 SMDH_ManejoDeCasos_Intervenciones_Borrar($caso, $quien, $tipo)
 

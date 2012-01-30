@@ -9,13 +9,16 @@
 #include "../../../../lib/smdh_intervenciones.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 2.3.2.1 Que elimine correctamente
+; 2.3.3.1 Que guarde correctamente
 
 Local $caso = "Caso de pruebas para intervenciones"
 Local $quien_nombre = "Fulano"
 Local $quien_apellido = "Castro"
 Local $quien = SMDH_Personas_Individual_Compose_String($quien_nombre, $quien_apellido)
 Local $tipo = "Acción urgente"
+Local $anio = 2010
+Local $mes = 11
+Local $dia = 20
 
 Func TearDown()
 	SMDH_Terminate_No_Asserts()
@@ -64,6 +67,11 @@ SMDH_ManejoDeCasos_Casos_Select($caso)
 ; what we are testing
 SMDH_ManejoDeCasos_Intervenciones_Open()
 SMDH_ManejoDeCasos_Intervenciones_Nuevo($caso, $quien, $tipo)
+SMDH_ManejoDeCasos_Intervenciones_Set_FechaIntervencion($caso, $quien, $tipo, $FECHA_TIPO_VACIO, $anio, $mes, $dia)
+SMDH_ManejoDeCasos_Intervenciones_Set_FechaIntervencion($caso, $quien, $tipo, $FECHA_TIPO_EXACTA, $anio, $mes, $dia)
+SMDH_ManejoDeCasos_Intervenciones_Set_FechaIntervencion($caso, $quien, $tipo, $FECHA_TIPO_APROX, $anio, $mes, $dia)
+SMDH_ManejoDeCasos_Intervenciones_Set_FechaIntervencion($caso, $quien, $tipo, $FECHA_TIPO_NO_DIA, $anio, $mes, $dia)
+SMDH_ManejoDeCasos_Intervenciones_Set_FechaIntervencion($caso, $quien, $tipo, $FECHA_TIPO_NO_MES, $anio, $mes, $dia)
 SMDH_ManejoDeCasos_Intervenciones_Borrar($caso, $quien, $tipo)
 
 ; delete caso

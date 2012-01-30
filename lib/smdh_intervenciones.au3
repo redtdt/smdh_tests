@@ -46,6 +46,14 @@ Func SMDH_ManejoDeCasos_Intervenciones_Nuevo($caso, $quien, $tipo)
 	UTAssert( WinWaitActive("Agregar intervención", "") )
 	UTAssert( ControlGetText("Agregar intervención", "", "[CLASS:Static; INSTANCE:4]") == $tipo )
 	; ok
+	Local  $a = WinList("Agregar intervención", "")
+	For $i = 1 To $a[0][0]
+		If BitAND(WinGetState($a[$i][1]), 2) Then
+			UTAssert( WinActivate($a[$i][1]) )
+			Sleep(500)
+			UTAssert( WinActive($a[$i][1]) )
+		EndIf
+	Next
 	UTAssert( ControlClick("Agregar intervención", "", "[CLASS:Button; INSTANCE:3]") )
 	; verify
 	UTAssert( WinWaitActive($IntervencioneswTitle, $IntervencioneswText, 5) )
@@ -92,4 +100,8 @@ Func SMDH_ManejoDeCasos_Intervenciones_Borrar($caso, $quien, $tipo, $assert = Tr
 	UTAssert( WinActive($IntervencioneswTitle, $IntervencioneswText) )
 	UTAssert( _GUICtrlListBox_FindString($hList, $str, True) < 0)
 	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Intervenciones_Set_FechaIntervencion($caso, $quien, $tipoi, $tipo, $anio, $mes = 0, $dia = 0, $expect_failure_anio = False, $expect_failure_mes= False, $expect_failure_dia = False, $expect_failure_saving = False)
+	SMDH_SetFecha("SMDH_ManejoDeCasos_Intervenciones_Set_FechaIntervencion", $caso & ", " & $quien & ", " & $tipoi & ", " & $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, $IntervencioneswTitle , $IntervencioneswText,"[CLASS:ComboBox; INSTANCE:1]", "[CLASS:Edit; INSTANCE:7]", "[CLASS:Edit; INSTANCE:6]","[CLASS:Edit; INSTANCE:5]", "[CLASS:Button; INSTANCE:4]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
 EndFunc
