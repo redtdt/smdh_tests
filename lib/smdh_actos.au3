@@ -66,7 +66,7 @@ Func SMDH_ManejoDeCasos_Actos_Nuevo($victima, $tipo)
 	; select tipo
 	SMDH_ManejoDeCasos_Actos_Nuevo_Tipo_Select($tipo)
 	; verify tipo chosen
-	UTAssert( WinWaitActive("Nuevo acto", "") )
+	UTAssert( WinWaitActive("Nuevo acto", "", 10) )
 	UTAssert( ControlGetText("Nuevo acto", "", "[CLASS:Static; INSTANCE:4]") == $tipo )
 	; ok
 	UTAssert( ControlClick("Nuevo acto", "", "[CLASS:Button; INSTANCE:3]") )
@@ -152,7 +152,7 @@ Func SMDH_ManejoDeCasos_Actos_Add_CaracteristicaRelevante($victima, $tipov, $ite
 ;	_GUICtrlTreeView_Expand($hTree, $hItem)
 	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
 	UTAssert( ControlClick("Características relevantes", "", "[CLASS:Button; INSTANCE:1]") )
-	UTAssert( WinWaitActive("Manejo de Casos", "Actos registrados") )
+	UTAssert( WinWaitActive("Manejo de Casos", "Actos registrados", 10) )
 	;verify
 	Local $hList = ControlGetHandle("Manejo de Casos", "Actos registrados","[CLASS:ListBox; INSTANCE:8]")
 	UTAssert( _GUICtrlListBox_FindString($hList, $item, True) >= 0)
@@ -201,7 +201,7 @@ Func SMDH_ManejoDeCasos_Actos_Set_TipoLugar($victima, $tipov, $item)
 ;	_GUICtrlTreeView_Expand($hTree, $hItem)
 	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
 	UTAssert( ControlClick("Tipo de lugar", "", "[CLASS:Button; INSTANCE:1]") )
-	UTAssert( WinWaitActive("Manejo de Casos", "Actos registrados") )
+	UTAssert( WinWaitActive("Manejo de Casos", "Actos registrados", 10) )
 	;verify
 	UTAssert( ControlGetText("Manejo de Casos", "Actos registrados", "[CLASS:Static; INSTANCE:79]") == $item )
 	UTLogEndTestOK()

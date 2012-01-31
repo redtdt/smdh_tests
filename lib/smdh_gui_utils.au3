@@ -122,14 +122,14 @@ Func SMDH_SetFecha($test, $prefix, $window, $text, $comboId, $anioId, $mesId, $d
 			UTAssert( not WinExists("Alerta", "fuera de rango") )
 		Else
 			UTAssert( WinExists("Alerta", "") )
-			UTAssert( WinWaitActive("Alerta", "", 3) )
+			UTAssert( WinWaitActive("Alerta", "", 5) )
 			UTAssert( ControlClick("Alerta", "", "Aceptar") )
 			; a veces sale 2 veces
-			If( WinWaitActive("Alerta", "no es", 1) ) Then
+			If( WinWaitActive("Alerta", "no es", 5) ) Then
 				UTAssert( ControlClick("Alerta", "", "Aceptar") )
 			EndIf
 			; a veces sale 3 veces
-			If( WinWaitActive("Alerta", "no es", 1) ) Then
+			If( WinWaitActive("Alerta", "no es", 5) ) Then
 				UTAssert( ControlClick("Alerta", "", "Aceptar") )
 			EndIf
 			; Set a valid one to avoid problems
@@ -143,14 +143,14 @@ Func SMDH_SetFecha($test, $prefix, $window, $text, $comboId, $anioId, $mesId, $d
 	If ($expect_failure_saving = False) Then
 		UTAssert( not WinExists("Alerta", "no es") )
 	Else
-		UTAssert( WinWaitActive("Alerta", "no es", 1) )
+		UTAssert( WinWaitActive("Alerta", "no es", 5) )
 		UTAssert( ControlClick("Alerta", "", "Aceptar") )
 		; sale 2 veces
-		If( WinWaitActive("Alerta", "no es", 1) ) Then
+		If( WinWaitActive("Alerta", "no es", 5) ) Then
 			UTAssert( ControlClick("Alerta", "", "Aceptar") )
 		EndIf
 		; a veces sale 3 veces
-		If( WinWaitActive("Alerta", "no es", 1) ) Then
+		If( WinWaitActive("Alerta", "no es", 5) ) Then
 			UTAssert( ControlClick("Alerta", "", "Aceptar") )
 		EndIf
 		UTLogEndTestOK()
@@ -203,7 +203,7 @@ Func SMDH_SetFromTreeViewList_Single($test, $prefix, $window, $text, $addId, $re
 ;	_GUICtrlTreeView_Expand($hTree, $hItem)
 	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
 	UTAssert( ControlClick($subwindow, "", $subOk) )
-	UTAssert( WinWaitActive($window, $text) )
+	UTAssert( WinWaitActive($window, $text, 10) )
 	;verify
 	UTAssert( ControlGetText($window, $text, $staticId) == $item )
 	UTLogEndTestOK()
@@ -252,7 +252,7 @@ Func SMDH_AddFromTreeViewList_Multi($test, $prefix, $window, $text, $addId, $rem
 ;	_GUICtrlTreeView_Expand($hTree, $hItem)
 	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
 	UTAssert( ControlClick($subwindow, "", $subOk) )
-	UTAssert( WinWaitActive($window, $text) )
+	UTAssert( WinWaitActive($window, $text, 10) )
 	;verify
 	Local $hList = ControlGetHandle($window, $text, $listId)
 	UTAssert( _GUICtrlListBox_FindString($hList, $item, True) >= 0)
@@ -271,7 +271,7 @@ Func SMDH_RemoveFromTreeViewList_Multi($test, $prefix, $window, $text, $addId, $
 	UTAssert( WinWaitActive("Alerta", "", 5) )
 	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
 	;verify
-	UTAssert( WinWaitActive($window, $text) )
+	UTAssert( WinWaitActive($window, $text, 10) )
 	UTAssert( _GUICtrlListBox_FindString($hList, $item, True) < 0)
 	UTLogEndTestOK()
 EndFunc

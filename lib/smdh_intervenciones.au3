@@ -43,7 +43,7 @@ Func SMDH_ManejoDeCasos_Intervenciones_Nuevo($caso, $quien, $tipo)
 	; select tipo
 	SMDH_ManejoDeCasos_Intervenciones_Nuevo_Tipo_Select($tipo)
 	; verify tipo chosen
-	UTAssert( WinWaitActive("Agregar intervención", "") )
+	UTAssert( WinWaitActive("Agregar intervención", "", 10) )
 	UTAssert( ControlGetText("Agregar intervención", "", "[CLASS:Static; INSTANCE:4]") == $tipo )
 	; ok
 	Local  $a = WinList("Agregar intervención", "")

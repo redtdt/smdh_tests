@@ -265,14 +265,14 @@ Func SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $tipo, $an
 			UTAssert( not WinExists("Alerta", "fuera de rango") )
 		Else
 			UTAssert( WinExists("Alerta", "") )
-			UTAssert( WinWaitActive("Alerta", "", 3) )
+			UTAssert( WinWaitActive("Alerta", "", 5) )
 			UTAssert( ControlClick("Alerta", "", "Aceptar") )
 			; a veces sale 2 veces
-			If( WinWaitActive("Alerta", "no es", 1) ) Then
+			If( WinWaitActive("Alerta", "no es", 5) ) Then
 				UTAssert( ControlClick("Alerta", "", "Aceptar") )
 			EndIf
 			; a veces sale 3 veces
-			If( WinWaitActive("Alerta", "no es", 1) ) Then
+			If( WinWaitActive("Alerta", "no es", 5) ) Then
 				UTAssert( ControlClick("Alerta", "", "Aceptar") )
 			EndIf
 			; Set a valid one to avoid problems
@@ -286,13 +286,13 @@ Func SMDH_Personas_Individual_Set_FechaNacimiento($nombre, $apellido, $tipo, $an
 	If ($expect_failure_saving = False) Then
 		UTAssert( not WinExists("Alerta", "no es") )
 	Else
-		UTAssert( WinWaitActive("Alerta", "no es", 1) )
+		UTAssert( WinWaitActive("Alerta", "no es", 5) )
 		UTAssert( ControlClick("Alerta", "", "Aceptar") )
 		; sale 2 veces
-		UTAssert( WinWaitActive("Alerta", "no es", 1) )
+		UTAssert( WinWaitActive("Alerta", "no es", 5) )
 		UTAssert( ControlClick("Alerta", "", "Aceptar") )
 		; a veces sale 3 veces
-		If( WinWaitActive("Alerta", "no es", 1) ) Then
+		If( WinWaitActive("Alerta", "no es", 5) ) Then
 			UTAssert( ControlClick("Alerta", "", "Aceptar") )
 		EndIf
 		UTLogEndTestOK()
@@ -370,14 +370,14 @@ Func SMDH_Personas_Colectiva_Set_FechaCreacion($nombre, $sigla, $tipo, $anio, $m
 			UTAssert( not WinExists("Alerta", "fuera de rango") )
 		Else
 			UTAssert( WinExists("Alerta", "") )
-			UTAssert( WinWaitActive("Alerta", "", 3) )
+			UTAssert( WinWaitActive("Alerta", "", 5) )
 			UTAssert( ControlClick("Alerta", "", "Aceptar") )
 			; a veces sale 2 veces
-			If( WinWaitActive("Alerta", "", 1) ) Then
+			If( WinWaitActive("Alerta", "", 5) ) Then
 				UTAssert( ControlClick("Alerta", "", "Aceptar") )
 			EndIf
 			; a veces sale 3 veces
-			If( WinWaitActive("Alerta", "", 1) ) Then
+			If( WinWaitActive("Alerta", "", 5) ) Then
 				UTAssert( ControlClick("Alerta", "", "Aceptar") )
 			EndIf
 			; Set a valid one to avoid problems
@@ -391,13 +391,13 @@ Func SMDH_Personas_Colectiva_Set_FechaCreacion($nombre, $sigla, $tipo, $anio, $m
 	If ($expect_failure_saving = False) Then
 		UTAssert( not WinExists("Alerta", "no es") )
 	Else
-		UTAssert( WinWaitActive("Alerta", "no es", 1) )
+		UTAssert( WinWaitActive("Alerta", "no es", 5) )
 		UTAssert( ControlClick("Alerta", "", "Aceptar") )
 		; sale 2 veces
-		UTAssert( WinWaitActive("Alerta", "no es", 1) )
+		UTAssert( WinWaitActive("Alerta", "no es", 5) )
 		UTAssert( ControlClick("Alerta", "", "Aceptar") )
 		; a veces sale 3 veces
-		If( WinWaitActive("Alerta", "no es", 1) ) Then
+		If( WinWaitActive("Alerta", "no es", 5) ) Then
 			UTAssert( ControlClick("Alerta", "", "Aceptar") )
 		EndIf
 		UTLogEndTestOK()
