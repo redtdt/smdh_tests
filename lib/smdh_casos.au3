@@ -400,7 +400,7 @@ Func SMDH_ManejoDeCasos_Casos_Add_Relacion($caso, $caso_rel, $tipo)
 	For $i = 1 To $a[0][0]
 		If BitAND(WinGetState($a[$i][1]), 2) Then
 			UTAssert( WinActivate($a[$i][1]) )
-			Sleep(500)
+			Sleep(1000)
 			UTAssert( WinActive($a[$i][1]) )
 		EndIf
 	Next
