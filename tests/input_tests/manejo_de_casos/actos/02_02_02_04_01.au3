@@ -98,7 +98,6 @@ SMDH_ManejoDeCasos_Actos_Perpetradores_Open()
 SMDH_ManejoDeCasos_Actos_Add_Perpetrador($victima, $violacion, $perpetrador)
 
 Local $items = SMDH_ManejoDeCasos_Actos_Get_TiposPerpetradores($victima, $violacion, $perpetrador)
-_ArrayDisplay($items)
 For $i = 0 To UBound($items) - 1
 	SMDH_ManejoDeCasos_Actos_Set_TipoPerpetrador($victima, $violacion, $perpetrador, $items[$i])
 	SMDH_ManejoDeCasos_Actos_Remove_TipoPerpetrador($victima, $violacion, $perpetrador)

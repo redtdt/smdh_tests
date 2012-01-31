@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_casos.au3"
 
-; 2.1.1.5.1 Que guarde correctamente números en un rango (0-9999999999)
+; 2.1.1.5.3 Que guarde correctamente números en un rango (0-9999999999)
 
 Local $caso = "Caso de pruebas"
 
