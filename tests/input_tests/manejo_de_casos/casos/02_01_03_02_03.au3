@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_casos.au3"
 
-; 2.3.2.3 Que guarde correctamente si es largo
+; 2.1.3.2.3 Que guarde correctamente si es largo
 ; prueba con 100, 200, 300, 400 hasta 50000 caracteres
 
 Local $base = "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"

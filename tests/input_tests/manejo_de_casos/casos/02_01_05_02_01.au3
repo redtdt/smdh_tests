@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_casos.au3"
 
-; 2.5.2.1 Que elimine correctamente la selección
+; 2.1.5.2.1 Que elimine correctamente la selección
 
 Local $caso = "Caso de pruebas"
 Local $caso_rel = "Relacionado Caso de pruebas"

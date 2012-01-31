@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_casos.au3"
 
-; 2.5.3.4 Que guarde correctamente si es corto
+; 2.1.5.3.4 Que guarde correctamente si es corto
 
 Local $caso = "Caso de pruebas"
 Local $caso_rel = "Relacionado Caso de pruebas"

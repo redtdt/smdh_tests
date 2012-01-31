@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_casos.au3"
 
-; 2.2.3.1 Que guarde correctamente
+; 2.1.2.3.1 Que guarde correctamente
 
 Local $caso = "Caso de pruebas"
 Local $obser = "observacion de un caso de prueba"

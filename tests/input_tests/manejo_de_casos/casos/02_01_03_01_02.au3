@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_casos.au3"
 
-; 2.3.1.2 Que acepte solo números en los rangos adecuados
+; 2.1.3.1.2 Que acepte solo números en los rangos adecuados
 
 Local $caso = "Caso de pruebas"
 Local $anio = 2010

@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_casos.au3"
 
-; 2.5.1.1.1 Que guarde correctamente la selección (probar todas las opciones)
+; 2.1.5.1.1.1 Que guarde correctamente la selección (probar todas las opciones)
 
 Local $caso = "Caso de pruebas"
 Local $caso_rel = "Relacionado Caso de pruebas"

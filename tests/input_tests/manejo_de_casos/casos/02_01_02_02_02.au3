@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_casos.au3"
 
-; 2.2.2.2 Que guarde correctamente con caracteres especiales
+; 2.1.2.2.2 Que guarde correctamente con caracteres especiales
 
 Local $caso = "Caso de pruebas"
 Local $obser = "resumen de la descripcion deun caso de prueba áéíóúÁÉÍÓÚñ~`!@#$%^&*()_-+={}[]|\:;'<>,.?/¿¡"

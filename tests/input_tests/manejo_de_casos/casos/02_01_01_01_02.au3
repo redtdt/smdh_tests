@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_casos.au3"
 
-; 2.1.1.1.1 Que guarde correctamente el nombre con caracteres especiales
+; 2.1.1.1.2 Que guarde correctamente el nombre con caracteres especiales
 
 Local $caso = "Caso de pruebas áéíóúÁÉÍÓÚñ~`!@#$%^&*()_-+={}[]|\:;'<>,.?/¿¡"
 
