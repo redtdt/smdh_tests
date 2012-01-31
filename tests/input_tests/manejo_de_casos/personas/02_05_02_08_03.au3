@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 5.2.8.3 Que guarde correctamente números en un rango (0-9999999999)
+; 2.5.2.8.3 Que guarde correctamente números en un rango (0-9999999999)
 
 Local $nombre = "Juan"
 Local $apellido = "Perez"

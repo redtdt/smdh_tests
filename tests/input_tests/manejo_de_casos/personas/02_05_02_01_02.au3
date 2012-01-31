@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 5.2.1.2 Que elimine correctamtente la selección
+; 2.5.2.1.2 Que elimine correctamtente la selección
 
 Local $nombre = "Juan"
 Local $apellido = "Perez"

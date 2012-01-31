@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 5.2.1.1 Que guarde correctamente la selección (probar todas las opciones)
+; 2.5.2.1.1 Que guarde correctamente la selección (probar todas las opciones)
 
 Local $nombre = "Juan"
 Local $apellido = "Perez"

@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 5.1.9.2 Que guarde correctamente caracteres especiales
+; 2.5.1.9.2 Que guarde correctamente caracteres especiales
 Local $nombre = "Juan"
 Local $apellido = "Perez"
 Local $localidad = "Pueblo Xoco áéíóúÁÉÍÓÚñ~`!@#$%^&*()_-+={}[]|\:;'<>,.?/¿¡"

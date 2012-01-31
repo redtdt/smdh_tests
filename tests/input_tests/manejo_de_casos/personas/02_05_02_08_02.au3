@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 5.2.8.2 Que guarde correctamente sólo números positivos
+; 2.5.2.8.2 Que guarde correctamente sólo números positivos
 
 Local $nombre = "Juan"
 Local $apellido = "Perez"

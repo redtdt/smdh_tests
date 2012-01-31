@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 5.1.1.2 Que guarde correctamente el nombre con caracteres especiales
+; 2.5.1.1.2 Que guarde correctamente el nombre con caracteres especiales
 
 Local $nombre1 = "Fernand@!#"
 Local $apellido1 = "Perez"
