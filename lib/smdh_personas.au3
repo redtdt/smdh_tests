@@ -1651,3 +1651,23 @@ Func SMDH_Personas_Individual_DatoBiografico_Set_FechaVigencia($nombre, $apellid
 	SMDH_SetFecha("SMDH_Personas_Individual_DatoBiografico_Set_FechaVigencia", $nombre & ", " & $apellido & ", " &  $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, $PersonaswTitle , $PersonasBiowText,"[CLASS:ComboBox; INSTANCE:25]", "[CLASS:Edit; INSTANCE:74]", "[CLASS:Edit; INSTANCE:73]","[CLASS:Edit; INSTANCE:72]", "[CLASS:Button; INSTANCE:129]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
 EndFunc
 
+Func SMDH_Personas_Individual_DatoBiografico_Set_Observaciones($nombre, $apellido, $n)
+	UTLogInitTest( "SMDH_Personas_Individual_DatoBiografico_Set_Observaciones", $nombre & ", " & $apellido & ", " & $n );
+	UTAssert( WinActive($PersonaswTitle, $PersonasBiowText) )
+	UTAssert( ControlSetText($PersonaswTitle, $PersonasBiowText, "[CLASS:Edit; INSTANCE:61]", $n) )
+	UTAssert( ControlClick($PersonaswTitle, $PersonasBiowText, "[CLASS:Button; INSTANCE:129]") )
+	; verify
+	UTAssert( ControlGetText($PersonaswTitle, $PersonasBiowText, "[CLASS:Edit; INSTANCE:61]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Individual_DatoBiografico_Set_Comentarios($nombre, $apellido, $n)
+	UTLogInitTest( "SMDH_Personas_Individual_DatoBiografico_Set_Comentarios", $nombre & ", " & $apellido & ", " & $n );
+	UTAssert( WinActive($PersonaswTitle, $PersonasBiowText) )
+	UTAssert( ControlSetText($PersonaswTitle, $PersonasBiowText, "[CLASS:Edit; INSTANCE:62]", $n) )
+	UTAssert( ControlClick($PersonaswTitle, $PersonasBiowText, "[CLASS:Button; INSTANCE:129]") )
+	; verify
+	UTAssert( ControlGetText($PersonaswTitle, $PersonasBiowText, "[CLASS:Edit; INSTANCE:62]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
