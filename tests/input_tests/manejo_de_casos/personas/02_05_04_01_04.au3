@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 2.5.4.1.1 Que guarde correctamente
+; 2.5.4.1.3 Que guarde correctamente si es corto
 
 Local $nombre = "Juan"
 Local $apellido = "Perez"
@@ -16,7 +16,7 @@ Local $rel_nombre = "Dolores"
 Local $rel_apellido = "Heredia"
 Local $rel = SMDH_Personas_Individual_Compose_String($rel_nombre, $rel_apellido)
 
-Local $datoid = "identificador del dato"
+Local $datoid = "i"
 Local $tipo = "Pareja"
 
 Func TearDown()

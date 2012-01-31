@@ -7,7 +7,8 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 2.5.4.1.1 Que guarde correctamente
+; 2.5.4.1.3 Que guarde correctamente si es largo
+; prueba con 50, 100, 150, 200 hasta 500 caracteres
 
 Local $nombre = "Juan"
 Local $apellido = "Perez"
@@ -16,8 +17,8 @@ Local $rel_nombre = "Dolores"
 Local $rel_apellido = "Heredia"
 Local $rel = SMDH_Personas_Individual_Compose_String($rel_nombre, $rel_apellido)
 
-Local $datoid = "identificador del dato"
 Local $tipo = "Pareja"
+Local $base = "12345678901234567890123456789012345678901234567890"
 
 Func TearDown()
 	SMDH_Terminate_No_Asserts()
@@ -47,8 +48,12 @@ SMDH_Personas_Individual_Select($nombre, $apellido)
 
 ; what we are testing
 SMDH_ManejoDeCasos_Personas_DatosBiograficos_Open()
-SMDH_Personas_Individual_DatoBiografico_Simple_Add($nombre, $apellido, $datoid)
-SMDH_Personas_Individual_DatoBiografico_Simple_Borrar($nombre, $apellido, $datoid)
+Local $datoid = ""
+For $i = 1 To 10 Step 1
+	$datoid = $datoid & $base
+	SMDH_Personas_Individual_DatoBiografico_Simple_Add($nombre, $apellido, $datoid)
+	SMDH_Personas_Individual_DatoBiografico_Simple_Borrar($nombre, $apellido, $datoid)
+Next
 
 ; delete persona
 SMDH_ManejoDeCasos_Personas_Open()

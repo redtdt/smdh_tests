@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 2.5.4.1.1 Que guarde correctamente
+; 2.5.4.2.1 Que guarde correctamente
 
 Local $nombre = "Juan"
 Local $apellido = "Perez"
@@ -47,8 +47,8 @@ SMDH_Personas_Individual_Select($nombre, $apellido)
 
 ; what we are testing
 SMDH_ManejoDeCasos_Personas_DatosBiograficos_Open()
-SMDH_Personas_Individual_DatoBiografico_Simple_Add($nombre, $apellido, $datoid)
-SMDH_Personas_Individual_DatoBiografico_Simple_Borrar($nombre, $apellido, $datoid)
+SMDH_Personas_Individual_DatoBiografico_Relacionado_Add($nombre, $apellido, $tipo, $rel)
+SMDH_Personas_Individual_DatoBiografico_Relacionado_Borrar($nombre, $apellido, $tipo, $rel)
 
 ; delete persona
 SMDH_ManejoDeCasos_Personas_Open()

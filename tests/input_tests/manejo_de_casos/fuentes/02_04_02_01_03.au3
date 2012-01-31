@@ -10,7 +10,7 @@
 #include "../../../../lib/smdh_personas.au3"
 
 ; 2.4.2.1.3 Que guarde correctamente si es largo
-; prueba con 10, 20, 30, 400 hasta 120 caracteres
+; prueba con 10, 20, 30, 40 hasta 120 caracteres
 
 Local $caso = "Caso de pruebas para fuentes"
 Local $base = "1234567890"
