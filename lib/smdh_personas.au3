@@ -1671,6 +1671,26 @@ Func SMDH_Personas_Individual_DatoBiografico_Set_Comentarios($nombre, $apellido,
 	UTLogEndTestOK()
 EndFunc
 
+Func SMDH_Personas_Individual_DatoBiografico_Set_Puesto($nombre, $apellido, $n)
+	UTLogInitTest( "SMDH_Personas_Individual_DatoBiografico_Set_Puesto", $nombre & ", " & $apellido & ", " & $n );
+	UTAssert( WinActive($PersonaswTitle, $PersonasBiowText) )
+	UTAssert( ControlSetText($PersonaswTitle, $PersonasBiowText, "[CLASS:Edit; INSTANCE:64]", $n) )
+	UTAssert( ControlClick($PersonaswTitle, $PersonasBiowText, "[CLASS:Button; INSTANCE:129]") )
+	; verify
+	UTAssert( ControlGetText($PersonaswTitle, $PersonasBiowText, "[CLASS:Edit; INSTANCE:64]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Individual_DatoBiografico_Set_Rango($nombre, $apellido, $n)
+	UTLogInitTest( "SMDH_Personas_Individual_DatoBiografico_Set_Rango", $nombre & ", " & $apellido & ", " & $n );
+	UTAssert( WinActive($PersonaswTitle, $PersonasBiowText) )
+	UTAssert( ControlSetText($PersonaswTitle, $PersonasBiowText, "[CLASS:Edit; INSTANCE:63]", $n) )
+	UTAssert( ControlClick($PersonaswTitle, $PersonasBiowText, "[CLASS:Button; INSTANCE:129]") )
+	; verify
+	UTAssert( ControlGetText($PersonaswTitle, $PersonasBiowText, "[CLASS:Edit; INSTANCE:63]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
 Func SMDH_Personas_Individual_DatoBiografico_Set_ExportarDatoBiografico($nombre, $apellido, $val)
 	UTLogInitTest( "SMDH_Personas_Individual_DatoBiografico_Set_ExportarDatoBiografico", $nombre & ", " & $apellido & ", " & $val );
 	UTAssert( WinActive($PersonaswTitle, $PersonasBiowText) )
