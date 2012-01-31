@@ -1536,9 +1536,6 @@ Func SMDH_Personas_Colectiva_Set_ProyectoConjunto($nombre, $sigla, $n)
 EndFunc
 
 ; Datos Biograficos
-Local $PersonaswTitle = "Manejo de Casos"
-Local $PersonaswText = "NBPersonas"
-Local $PersonasBiowText = "NBPersonasBio"
 
 Func SMDH_Personas_Individual_DatoBiografico_Simple_Add($nombre, $apellido, $id)
 	UTLogInitTest( "SMDH_Personas_Individual_DatoBiografico_Simple_Add", $nombre & ", " & $apellido & ", " & $id );
@@ -1641,3 +1638,16 @@ Func SMDH_Personas_Individual_DatoBiografico_Relacionado_Borrar($nombre, $apelli
 	UTAssert( _GUICtrlListBox_FindString($hList, $str, True) < 0)
 	UTLogEndTestOK()
 EndFunc
+
+Func SMDH_Personas_Individual_DatoBiografico_Set_FechaInicial($nombre, $apellido, $tipo, $anio, $mes = 0, $dia = 0, $expect_failure_anio = False, $expect_failure_mes= False, $expect_failure_dia = False, $expect_failure_saving = False)
+	SMDH_SetFecha("SMDH_Personas_Individual_DatoBiografico_Set_FechaInicial", $nombre & ", " & $apellido & ", " &  $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, $PersonaswTitle , $PersonasBiowText,"[CLASS:ComboBox; INSTANCE:24]", "[CLASS:Edit; INSTANCE:68]", "[CLASS:Edit; INSTANCE:67]","[CLASS:Edit; INSTANCE:66]", "[CLASS:Button; INSTANCE:129]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
+EndFunc
+
+Func SMDH_Personas_Individual_DatoBiografico_Set_FechaFinal($nombre, $apellido, $tipo, $anio, $mes = 0, $dia = 0, $expect_failure_anio = False, $expect_failure_mes= False, $expect_failure_dia = False, $expect_failure_saving = False)
+	SMDH_SetFecha("SMDH_Personas_Individual_DatoBiografico_Set_FechaFinal", $nombre & ", " & $apellido & ", " &  $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, $PersonaswTitle , $PersonasBiowText,"[CLASS:ComboBox; INSTANCE:23]", "[CLASS:Edit; INSTANCE:71]", "[CLASS:Edit; INSTANCE:70]","[CLASS:Edit; INSTANCE:69]", "[CLASS:Button; INSTANCE:129]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
+EndFunc
+
+Func SMDH_Personas_Individual_DatoBiografico_Set_FechaVigencia($nombre, $apellido, $tipo, $anio, $mes = 0, $dia = 0, $expect_failure_anio = False, $expect_failure_mes= False, $expect_failure_dia = False, $expect_failure_saving = False)
+	SMDH_SetFecha("SMDH_Personas_Individual_DatoBiografico_Set_FechaVigencia", $nombre & ", " & $apellido & ", " &  $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, $PersonaswTitle , $PersonasBiowText,"[CLASS:ComboBox; INSTANCE:25]", "[CLASS:Edit; INSTANCE:74]", "[CLASS:Edit; INSTANCE:73]","[CLASS:Edit; INSTANCE:72]", "[CLASS:Button; INSTANCE:129]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
+EndFunc
+
