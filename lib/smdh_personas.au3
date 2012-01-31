@@ -11,6 +11,10 @@ Global Const $PERSONA_SEXO_VACIO = ""
 Global Const $PERSONA_SEXO_MUJER = "Mujer"
 Global Const $PERSONA_SEXO_HOMBRE = "Hombre"
 
+Local $PersonaswTitle = "Manejo de Casos"
+Local $PersonaswText = "NBPersonas"
+Local $PersonasBiowText = "NBPersonasBio"
+
 Func SMDH_ManejoDeCasos_Personas_DatosGenerales_Open()
 	UTLogInitTest( "SMDH_ManejoDeCasos_Personas_DatosGenerales_Open")
 	UTAssert( WinActive("Manejo de Casos", "NBPersonas") )
@@ -1531,3 +1535,109 @@ Func SMDH_Personas_Colectiva_Set_ProyectoConjunto($nombre, $sigla, $n)
 	UTLogEndTestOK()
 EndFunc
 
+; Datos Biograficos
+Local $PersonaswTitle = "Manejo de Casos"
+Local $PersonaswText = "NBPersonas"
+Local $PersonasBiowText = "NBPersonasBio"
+
+Func SMDH_Personas_Individual_DatoBiografico_Simple_Add($nombre, $apellido, $id)
+	UTLogInitTest( "SMDH_Personas_Individual_DatoBiografico_Simple_Add", $nombre & ", " & $apellido & ", " & $id );
+	UTAssert( WinActive($PersonaswTitle, $PersonasBiowText) )
+	UTAssert( ControlClick($PersonaswTitle, $PersonasBiowText, "[CLASS:Button; INSTANCE:128]") )
+	UTAssert( WinWaitActive("Dato biográfico", "", 10) )
+	UTAssert( ControlClick("Dato biográfico", "", "[CLASS:Button; INSTANCE:6]") )
+	UTAssert( ControlSetText("Dato biográfico", "", "[CLASS:Edit; INSTANCE:1]", $id) )
+	UTAssert( ControlClick("Dato biográfico", "", "[CLASS:Button; INSTANCE:2]") )
+	;verify
+	UTAssert( WinWaitActive($PersonaswTitle, $PersonasBiowText, 5) )
+ 	Local $hList = ControlGetHandle($PersonaswTitle, $PersonasBiowText,"[CLASS:ListBox; INSTANCE:19]")
+ 	UTAssert( _GUICtrlListBox_FindString($hList, $id, True) >= 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Individual_DatoBiografico_Relacionado_Add($nombre, $apellido, $tipo, $persona)
+	UTLogInitTest( "SMDH_Personas_Individual_DatoBiografico_Relacionado_Add", $nombre & ", " & $apellido & ", " & $tipo & ", " & $persona );
+	UTAssert( WinActive($PersonaswTitle, $PersonasBiowText) )
+	UTAssert( ControlClick($PersonaswTitle, $PersonasBiowText, "[CLASS:Button; INSTANCE:128]") )
+	UTAssert( WinWaitActive("Dato biográfico", "", 10) )
+	UTAssert( ControlClick("Dato biográfico", "", "[CLASS:Button; INSTANCE:7]") )
+	; select tipo
+	Local $hTree = ControlGetHandle("Dato biográfico", "", "[CLASS:SysTreeView32; INSTANCE:1]")
+	UTAssert( $hTree )
+	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $tipo)
+	UTAssert( $hItem )
+	_GUICtrlTreeView_EnsureVisible($hTree, $hItem)
+	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem, "primary", True, 2 ) )
+	; select persona
+	Local $hList = ControlGetHandle("Dato biográfico", "","[CLASS:ListBox; INSTANCE:1]")
+	Local $hItem = _GUICtrlListBox_SelectString($hList, $persona)
+	UTAssert($hItem>=0)
+	_GUICtrlListBox_ClickItem($hList, $hItem, "primary", True, 2 )
+	;verify
+	UTAssert( ControlClick("Dato biográfico","","[CLASS:Button; INSTANCE:2]") )
+	UTAssert( WinWaitActive($PersonaswTitle, $PersonasBiowText, 5) )
+ 	Local $hList = ControlGetHandle($PersonaswTitle, $PersonasBiowText,"[CLASS:ListBox; INSTANCE:19]")
+	Local $str = $persona & " [" & $tipo & "]"
+ 	UTAssert( _GUICtrlListBox_FindString($hList, $str, True) >= 0)
+	UTLogEndTestOK()
+EndFunc
+
+
+Func SMDH_Personas_Individual_DatoBiografico_Simple_Exists($nombre, $apellido, $id)
+	UTAssert( WinActive($PersonaswTitle, $PersonasBiowText) )
+	Local $str = $id
+	Local $hList = ControlGetHandle($PersonaswTitle, $PersonasBiowText, "[CLASS:ListBox; INSTANCE:19]")
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $str, True)
+	Return $item_idx >= 0
+EndFunc
+
+Func SMDH_Personas_Individual_DatoBiografico_Simple_Select($nombre, $apellido, $id)
+	UTAssert( WinActive($PersonaswTitle, $PersonasBiowText) )
+	Local $str = $id
+	Local $hList = ControlGetHandle($PersonaswTitle, $PersonasBiowText, "[CLASS:ListBox; INSTANCE:19]")
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $str, True)
+	UTAssert( $item_idx >= 0)
+	_GUICtrlListBox_ClickItem($hList, $item_idx, "left", False, 2)
+EndFunc
+
+Func SMDH_Personas_Individual_DatoBiografico_Simple_Borrar($nombre, $apellido, $id, $assert = True)
+	UTLogInitTest( "SMDH_Personas_Individual_DatoBiografico_Borrar", $nombre & ", " & $apellido & ", " & $id)
+	UTAssert( WinActive($PersonaswTitle, $PersonasBiowText) )
+	Local $str = $id
+	Local $hList = ControlGetHandle($PersonaswTitle, $PersonasBiowText, "[CLASS:ListBox; INSTANCE:19]")
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $str,  True)
+	If ($assert) Then
+		UTAssert( $item_idx >= 0)
+	ElseIf ($item_idx < 0) Then
+		UTLogEndTestOK()
+		Return
+	EndIf
+	_GUICtrlListBox_ClickItem($hList, $item_idx, "primary", False, 2)
+	UTAssert( ControlClick($PersonaswTitle, $PersonasBiowText, "[CLASS:Button; INSTANCE:134]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	UTAssert( WinActive($PersonaswTitle, $PersonasBiowText) )
+	UTAssert( _GUICtrlListBox_FindString($hList, $str, True) < 0)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_Personas_Individual_DatoBiografico_Relacionado_Borrar($nombre, $apellido, $tipo, $persona, $assert = True)
+	UTLogInitTest( "SMDH_Personas_Individual_DatoBiografico_Borrar", $nombre & ", " & $apellido & ", " & $tipo & ", " & $persona)
+	UTAssert( WinActive($PersonaswTitle, $PersonasBiowText) )
+	Local $str = $persona & " [" & $tipo & "]"
+	Local $hList = ControlGetHandle($PersonaswTitle, $PersonasBiowText, "[CLASS:ListBox; INSTANCE:19]")
+	Local $item_idx = _GUICtrlListBox_FindString($hList, $str,  True)
+	If ($assert) Then
+		UTAssert( $item_idx >= 0)
+	ElseIf ($item_idx < 0) Then
+		UTLogEndTestOK()
+		Return
+	EndIf
+	_GUICtrlListBox_ClickItem($hList, $item_idx, "primary", False, 2)
+	UTAssert( ControlClick($PersonaswTitle, $PersonasBiowText, "[CLASS:Button; INSTANCE:134]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	UTAssert( WinActive($PersonaswTitle, $PersonasBiowText) )
+	UTAssert( _GUICtrlListBox_FindString($hList, $str, True) < 0)
+	UTLogEndTestOK()
+EndFunc
