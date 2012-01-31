@@ -1671,3 +1671,13 @@ Func SMDH_Personas_Individual_DatoBiografico_Set_Comentarios($nombre, $apellido,
 	UTLogEndTestOK()
 EndFunc
 
+Func SMDH_Personas_Individual_DatoBiografico_Set_ExportarDatoBiografico($nombre, $apellido, $val)
+	UTLogInitTest( "SMDH_Personas_Individual_DatoBiografico_Set_ExportarDatoBiografico", $nombre & ", " & $apellido & ", " & $val );
+	UTAssert( WinActive($PersonaswTitle, $PersonasBiowText) )
+	If ( GUI_Is_CheckBox_Checked($PersonaswTitle, $PersonasBiowText,"[CLASS:Button; INSTANCE:130]") <> $val) Then
+		UTAssert( ControlClick($PersonaswTitle, $PersonasBiowText, "[CLASS:Button; INSTANCE:130]") )
+		UTAssert( ControlClick($PersonaswTitle, $PersonasBiowText, "[CLASS:Button; INSTANCE:129]") )
+	EndIf
+	UTAssert( GUI_Is_CheckBox_Checked($PersonaswTitle, $PersonasBiowText,"[CLASS:Button; INSTANCE:130]") = $val)
+	UTLogEndTestOK()
+EndFunc
