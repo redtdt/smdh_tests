@@ -365,3 +365,99 @@ EndFunc
 Func SMDH_ManejoDeCasos_Fuentes_Documental_Remove_Confiabilidad($caso, $id)
 	SMDH_RemoveFromTreeViewList_Single("SMDH_ManejoDeCasos_Fuentes_Documental_Remove_Confiabilidad", $caso & ", " & $id, $ConfiabilidadDocumentalwTitle, $ConfiabilidadDocumentalwText, $ConfiabilidadDocumentalbAdd, $ConfiabilidadDocumentalbRemove, $ConfiabilidadDocumentalstatic, $ConfiabilidadDocumentalsTitle, $ConfiabilidadDocumentalsOK, $ConfiabilidadDocumentalsCancel, $ConfiabilidadDocumentaltree)
 EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Set_NombreSitio($caso, $id, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Set_NombreSitio", $caso & ", " & $id & ", " & $n );
+	UTAssert( WinActive($FuenteswTitle, $FuentesDocumentalwText) )
+	UTAssert( ControlSetText($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Edit; INSTANCE:82]", $n) )
+	UTAssert( ControlClick($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Button; INSTANCE:153]") )
+	; verify
+	UTAssert( ControlGetText($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Edit; INSTANCE:82]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Set_LigaFuente($caso, $id, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Set_LigaFuente", $caso & ", " & $id & ", " & $n );
+	UTAssert( WinActive($FuenteswTitle, $FuentesDocumentalwText) )
+	UTAssert( ControlSetText($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Edit; INSTANCE:83]", $n) )
+	UTAssert( ControlClick($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Button; INSTANCE:153]") )
+	; verify
+	UTAssert( ControlGetText($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Edit; INSTANCE:83]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Documental_Set_Observaciones($caso, $id, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Documental_Set_Observaciones", $caso & ", " & $id & ", " & $n );
+	UTAssert( WinActive($FuenteswTitle, $FuentesDocumentalwText) )
+	UTAssert( ControlSetText($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Edit; INSTANCE:84]", $n) )
+	UTAssert( ControlClick($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Button; INSTANCE:153]") )
+	; verify
+	UTAssert( ControlGetText($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Edit; INSTANCE:84]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Documental_Set_Comentarios($caso, $id, $n)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Documental_Set_Comentarios", $caso & ", " & $id & ", " & $n );
+	UTAssert( WinActive($FuenteswTitle, $FuentesDocumentalwText) )
+	UTAssert( ControlSetText($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Edit; INSTANCE:85]", $n) )
+	UTAssert( ControlClick($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Button; INSTANCE:153]") )
+	; verify
+	UTAssert( ControlGetText($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Edit; INSTANCE:85]") == $n )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Set_FechaConsulta($caso, $id, $tipo, $anio, $mes = 0, $dia = 0, $expect_failure_anio = False, $expect_failure_mes= False, $expect_failure_dia = False, $expect_failure_saving = False)
+	SMDH_SetFecha("SMDH_ManejoDeCasos_Fuentes_Set_FechaConsulta", $caso & ", " & $id & ", " &  $tipo  & ", " & $anio  & ", " & $mes & ", " & $dia, $FuenteswTitle , $FuentesDocumentalwText,"[CLASS:ComboBox; INSTANCE:30]", "[CLASS:Edit; INSTANCE:88]", "[CLASS:Edit; INSTANCE:87]","[CLASS:Edit; INSTANCE:86]", "[CLASS:Button; INSTANCE:153]", $tipo, $anio, $mes, $dia, $expect_failure_anio, $expect_failure_mes, $expect_failure_dia, $expect_failure_saving)
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Documental_Get_Idiomas($caso, $id)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Documental_Get_Idiomas", $caso & ", " & $id);
+	UTAssert( WinActive($FuenteswTitle, $FuentesDocumentalwText) )
+	Local $hCombo = ControlGetHandle($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:ComboBox; INSTANCE:29]")
+	UTAssert( $hCombo )
+	Local $items = GetArrayFromComboBox($hCombo)
+	UTLogEndTestOK()
+	return $items
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Documental_Set_Idioma_Idx($caso, $id, $Idioma_idx)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Documental_Set_Idioma_Idx", $caso & ", " & $id & ", " & $Idioma_idx );
+	UTAssert( WinActive($FuenteswTitle, $FuentesDocumentalwText) )
+	If $Idioma_idx = 0 Then
+		$idx = -1
+	Else
+		$idx = $Idioma_idx
+	EndIf
+	Local $hCombo = ControlGetHandle($FuenteswTitle, $FuentesDocumentalwText,"[CLASS:ComboBox; INSTANCE:29]")
+	UTAssert( _GUICtrlComboBoxEx_SetCurSel($hCombo, $idx))
+	UTAssert( ControlClick($FuenteswTitle, $FuentesDocumentalwText, "Guardar") )
+	; verify
+	$hCombo = ControlGetHandle($FuenteswTitle, $FuentesDocumentalwText,"[CLASS:ComboBox; INSTANCE:29]")
+	UTAssert( _GUICtrlComboBoxEx_GetCurSel($hCombo) = $idx)
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Documental_Set_Sobre_Quien($caso, $id, $sobre)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Documental_Set_Sobre_Quien", $caso & ", " & $id & ", " & $sobre );
+	UTAssert( WinActive($FuenteswTitle, $FuentesDocumentalwText) )
+	UTAssert( ControlClick($FuenteswTitle,$FuentesDocumentalwText,"[CLASS:Button; INSTANCE:154]") )
+	UTAssert( WinWaitActive("Seleccionar una persona", "", 10) )
+	Local $hList = ControlGetHandle("Seleccionar una persona", "","[CLASS:ListBox; INSTANCE:1]")
+	UTAssert(_GUICtrlListBox_SelectString($hList, $sobre)>=0)
+	UTAssert( ControlClick("Seleccionar una persona","","[CLASS:Button; INSTANCE:7]") )
+	;verify
+	UTAssert( WinWaitActive($FuenteswTitle,$FuentesDocumentalwText, ""), 5 )
+	UTAssert( ControlGetText($FuenteswTitle,$FuentesDocumentalwText, "[CLASS:Static; INSTANCE:213]") == $sobre )
+	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_ManejoDeCasos_Fuentes_Documental_Remove_Sobre_Quien($caso, $id)
+	UTLogInitTest( "SMDH_ManejoDeCasos_Fuentes_Documental_Remove_Sobre_Quien", $caso & ", " & $id );
+	UTAssert( WinActive($FuenteswTitle, $FuentesDocumentalwText ) )
+	UTAssert( ControlClick($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Button; INSTANCE:157]") )
+	UTAssert( WinWaitActive("Alerta", "", 5) )
+	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	;verify
+	UTAssert( ControlGetText($FuenteswTitle, $FuentesDocumentalwText, "[CLASS:Static; INSTANCE:213]") == "" )
+	UTLogEndTestOK()
+EndFunc
