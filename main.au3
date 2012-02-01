@@ -7,6 +7,9 @@
 #include "lib/smdh_utils.au3"
 #include "lib/smdh_users.au3"
 
+Local $admin_user = "admin"
+Local $admin_passwd = "" ; set it to avoid the msgbox asking for it
+
 Func ArrayAddCreate(ByRef $avArray, $sValue)
     If IsArray($avArray) Then
         ReDim $avArray[UBound($avArray) + 1]
@@ -305,9 +308,17 @@ ArrayAddCreate($tests, "tests/input_tests/manejo_de_casos/personas/02_05_04_12_0
 ArrayAddCreate($tests, "tests/input_tests/manejo_de_casos/personas/02_05_04_12_04.au3")
 ArrayAddCreate($tests, "tests/input_tests/manejo_de_casos/personas/02_05_04_13_01.au3")
 
+While ($admin_passwd == "")
+	; ask for password
+	$admin_passwd = InputBox( "Contraseña", "Contraseña del usuario administrador")
+	If ($admin_passwd == "" and @error = 1) Then
+		Exit 1
+	EndIf
+WEnd
+
 SMDH_Run()
 SMDH_TerminateOnExit()
-SMDH_Login("admin", "gfh325gm", $ADMIN)
+SMDH_Login($admin_user, $admin_passwd, $ADMIN)
 Sleep(1000)
 
 If (SMDH_UserExists("userdefaultaccess") and _
