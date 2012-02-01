@@ -352,3 +352,5 @@ Else
 EndIf
 
 TestRunner($tests, $output_file)
+
+MsgBox(0, "Pruebas finalizadas", "El conjunto de pruebas se ha ejecutado completamente. Los resultados han sido escritos en ek archivo: " & $output_file)
