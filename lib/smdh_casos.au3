@@ -393,14 +393,17 @@ Func SMDH_ManejoDeCasos_Casos_Add_Relacion($caso, $caso_rel, $tipo)
 	Local $hItem = _GUICtrlTreeView_FindItem($hTree, $tipo)
 	UTAssert( $hItem )
 	_GUICtrlTreeView_EnsureVisible($hTree, $hItem)
+	Sleep(300)
 	UTAssert( _GUICtrlTreeView_ClickItem($hTree, $hItem) )
+	Sleep(300)
 	UTAssert( ControlClick("Tipo de relacion", "", "[CLASS:Button; INSTANCE:1]") )
+	Sleep(500)
 	; weird, there are 2 windows with same title, look for the one visible
 	Local  $a = WinList("Seleccionar caso", "")
 	For $i = 1 To $a[0][0]
 		If BitAND(WinGetState($a[$i][1]), 2) Then
 			UTAssert( WinActivate($a[$i][1]) )
-			Sleep(1000)
+			Sleep(500)
 			UTAssert( WinActive($a[$i][1]) )
 		EndIf
 	Next
