@@ -61,6 +61,18 @@ Func SMDH_UserCreate($user, $passwd)
 	UTLogEndTestOK()
 EndFunc
 
+; User Exists
+Func SMDH_UserExists($user)
+	UTAssert( WinActive("Menú general") )
+	UTAssert( ControlClick("Menú general", "Administración de usuari@s", "[CLASS:Button; INSTANCE:6]") )
+	UTAssert( WinWaitActive("Usuarias y usuarios", "", 5) )
+	Local $hUserList = ControlGetHandle("Usuarias y usuarios","","[CLASS:ListBox; INSTANCE:1]")
+	Local $user_idx = _GUICtrlListBox_FindString($hUserList, $user, True)
+	UTAssert( ControlClick("Usuarias y usuarios", "Cerrar", "[CLASS:Button; INSTANCE:3]") )
+	Sleep(1000);
+	return ( $user_idx >= 0 )
+EndFunc
+
 ; Delete user
 Func SMDH_UserDelete($user, $assert = True)
 	UTLogInitTest( "SMDH_UserDelete", $user & ", " & $assert );
@@ -124,4 +136,22 @@ Func SMDH_UserCheckAccessLevel($user, $level)
 	UTAssert( ControlClick("Usuarias y usuarios", "Cerrar", "[CLASS:Button; INSTANCE:3]") )
 	Sleep(1000);
 	UTLogEndTestOK()
+EndFunc
+
+Func SMDH_User_Has_AccessLevel($user, $level)
+	UTAssert( WinActive("Menú general") )
+	UTAssert( ControlClick("Menú general", "Administración de usuari@s", "[CLASS:Button; INSTANCE:6]") )
+	UTAssert( WinWaitActive("Usuarias y usuarios", "", 5) )
+	Local $hUserList = ControlGetHandle("Usuarias y usuarios","","[CLASS:ListBox; INSTANCE:1]")
+	Local $user_idx = _GUICtrlListBox_FindString($hUserList, $user, True)
+	UTAssert( $user_idx >= 0)
+	_GUICtrlListBox_ClickItem($hUserList, $user_idx, "left", False, 2)
+	Local $hLevelCombo = ControlGetHandle("Usuarias y usuarios","","[CLASS:ComboBox; INSTANCE:1]")
+	Local $level_idx = _GUICtrlComboBox_GetCurSel($hLevelCombo)
+	UTAssert( $level_idx >= 0)
+	Local $level_str
+	UTAssert( _GUICtrlComboBox_GetLBText($hLevelCombo, $level_idx, $level_str) >=0 )
+	UTAssert( ControlClick("Usuarias y usuarios", "Cerrar", "[CLASS:Button; INSTANCE:3]") )
+	Sleep(1000);
+	return ($level_str == $level)
 EndFunc
