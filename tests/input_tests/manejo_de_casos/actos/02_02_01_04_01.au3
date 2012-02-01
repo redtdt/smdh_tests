@@ -9,7 +9,7 @@
 #include "../../../../lib/smdh_actos.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 2.2.1.3.1 Que guarde correctamente
+; 2.2.1.4.1 Que guarde correctamente
 
 Local $caso = "Caso de pruebas para actos"
 Local $derechos = "Derechos de los pueblos"

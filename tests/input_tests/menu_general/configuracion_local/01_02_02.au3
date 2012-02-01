@@ -6,7 +6,7 @@
 #include "../../../../lib/smdh_utils.au3"
 #include "../../../../lib/smdh_configuracion_local.au3"
 
-; 1.2.1 Que guarde correctamente un host con caracteres especiales
+; 1.2.2 Que guarde correctamente un host con caracteres especiales
 
 Local $host = "á"
 Local $host2 = "áéíóúÁÉÍÓÚñ~`!@#$%^&*()_-+={}[]|\:;'<>,.?/¿¡"

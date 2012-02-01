@@ -6,7 +6,7 @@
 #include "../../../../lib/smdh_utils.au3"
 #include "../../../../lib/smdh_configuracion_local.au3"
 
-; 1.2.1 Que guarde correctamente un host pequeño
+; 1.2.4 Que guarde correctamente un host pequeño
 
 Local $host = "1"
 

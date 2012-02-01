@@ -9,7 +9,7 @@
 #include "../../../../lib/smdh_fuentes.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 2.4.1.8.1 Que guarde correctamente
+; 2.4.1.10.1 Que guarde correctamente
 
 Local $caso = "Caso de pruebas para fuentes"
 Local $fuente_nombre = "Cesar"

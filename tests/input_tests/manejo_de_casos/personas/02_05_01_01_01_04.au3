@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 2.5.1.1.4 Que guarde correctamente el nombre si es corto
+; 2.5.1.1.1.4 Que guarde correctamente el nombre si es corto
 
 Local $nombre = "1"
 Local $apellido = "Perez"

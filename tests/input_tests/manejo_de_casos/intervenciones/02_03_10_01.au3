@@ -9,7 +9,7 @@
 #include "../../../../lib/smdh_intervenciones.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 2.3.5.1 Que elimine correctamente
+; 2.3.10.1 Que guarde correctamente
 
 Local $caso = "Caso de pruebas para intervenciones"
 Local $quien_nombre = "Fulano"

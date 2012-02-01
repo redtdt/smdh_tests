@@ -9,7 +9,7 @@
 #include "../../../../lib/smdh_actos.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 2.2.3.3.3 Que guarde correctamente si es largo
+; 2.2.3.4.3 Que guarde correctamente si es largo
 ; prueba con 100, 200, 300, 400 hasta 50000 caracteres
 Local $base = "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
 

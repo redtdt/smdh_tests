@@ -9,7 +9,7 @@
 #include "../../../../lib/smdh_fuentes.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 2.4.1.7.1 Que guarde correctamente con caracteres especiales
+; 2.4.1.7.2 Que guarde correctamente con caracteres especiales
 
 Local $caso = "Caso de pruebas para fuentes"
 Local $fuente_nombre = "Cesar"

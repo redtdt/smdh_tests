@@ -6,7 +6,7 @@
 #include "../../../../lib/smdh_utils.au3"
 #include "../../../../lib/smdh_configuracion_local.au3"
 
-; 1.2.1 Que guarde correctamente un host largo
+; 1.2.3 Que guarde correctamente un host largo
 ; prueba con host de 100, 200, 300, 400 y 500
 
 Local $base = "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"

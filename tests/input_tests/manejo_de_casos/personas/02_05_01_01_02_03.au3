@@ -7,7 +7,7 @@
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 2.5.1.1.3 Que guarde correctamente el apellido/sigla si es largo
+; 2.5.1.1.2.3 Que guarde correctamente el apellido/sigla si es largo
 ; prueba con 100, 200, 300, 400 y 500 caracteres
 
 Local $base = "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
