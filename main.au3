@@ -4,6 +4,8 @@
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 
 #include "lib/test_runner.au3"
+#include "lib/smdh_utils.au3"
+#include "lib/smdh_users.au3"
 
 Func ArrayAddCreate(ByRef $avArray, $sValue)
     If IsArray($avArray) Then
@@ -302,5 +304,34 @@ ArrayAddCreate($tests, "tests/input_tests/manejo_de_casos/personas/02_05_04_12_0
 ArrayAddCreate($tests, "tests/input_tests/manejo_de_casos/personas/02_05_04_12_03.au3")
 ArrayAddCreate($tests, "tests/input_tests/manejo_de_casos/personas/02_05_04_12_04.au3")
 ArrayAddCreate($tests, "tests/input_tests/manejo_de_casos/personas/02_05_04_13_01.au3")
+
+SMDH_Run()
+SMDH_TerminateOnExit()
+SMDH_Login("admin", "gfh325gm", $ADMIN)
+Sleep(1000)
+
+If (SMDH_UserExists("userdefaultaccess") and _
+	SMDH_User_Has_AccessLevel("userdefaultaccess", $CAPTURA_CONSULTA_REPORTES) and _
+	SMDH_UserExists("usernorestrictions") and _
+	SMDH_User_Has_AccessLevel("usernorestrictions", $SIN_RESTRICCIONES) and _
+	SMDH_UserExists("usercapture") and _
+	SMDH_User_Has_AccessLevel("usercapture", $CAPTURA_CONSULTA_REPORTES) and _
+	SMDH_UserExists("userreports") and _
+	SMDH_User_Has_AccessLevel("userreports", $REPORTES_CONSULTA) and _
+	SMDH_UserExists("userreadonly") and _
+	SMDH_User_Has_AccessLevel("userreadonly", $SOLO_LECTURA) and _
+	SMDH_UserExists("usernoaccess") and _
+	SMDH_User_Has_AccessLevel("usernoaccess", $SIN_ACCESO)) Then
+	; setup executed, close and go
+	OnAutoItExitUnregister("SMDH_Terminate")
+	SMDH_Terminate_No_Asserts()
+Else
+	; setup not executed, run setup
+	OnAutoItExitUnregister("SMDH_Terminate")
+	SMDH_Terminate_No_Asserts()
+    _RunAU3("setup.au3")
+EndIf
+
+MsgBox(0, "Starting tests...", "")
 
 TestRunner($tests)
