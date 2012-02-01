@@ -34,11 +34,11 @@ Func StdoutReadAll($iPID)
   Return $output
 EndFunc
 
-Func TestRunner($tests)
-	Local $file = FileOpen("test_results.txt", 2)
+Func TestRunner($tests, $output = "test_results.txt")
+	Local $file = FileOpen($output, 2)
 	; Check if file opened for writing OK
 	If $file = -1 Then
-		MsgBox(0, "Error", "Error abriendo el archivo test_results.txt")
+		MsgBox(0, "Error", "Error abriendo el archivo " & $output)
 		Exit
 	EndIf
 

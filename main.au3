@@ -9,6 +9,7 @@
 
 Local $admin_user = "admin"
 Local $admin_passwd = "" ; set it to avoid the msgbox asking for it
+Local $output_file= "" ; set it to avoid the msgbox asking for it
 
 Func ArrayAddCreate(ByRef $avArray, $sValue)
     If IsArray($avArray) Then
@@ -315,6 +316,13 @@ While ($admin_passwd == "")
 		Exit 1
 	EndIf
 WEnd
+While ($output_file == "")
+	; ask for password
+	$output_file = InputBox( "Archivo de resultados", "Nombre del archivo de resultados")
+	If ($output_file == "" and @error = 1) Then
+		Exit 1
+	EndIf
+WEnd
 
 SMDH_Run()
 SMDH_TerminateOnExit()
@@ -343,6 +351,4 @@ Else
     _RunAU3("setup.au3")
 EndIf
 
-MsgBox(0, "Starting tests...", "")
-
-TestRunner($tests)
+TestRunner($tests, $output_file)
