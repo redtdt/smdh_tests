@@ -25,17 +25,17 @@ Func SMDH_Login($user, $passwd, $level)
 	UTAssert( ControlSetText("Menú general", "", "[CLASS:Edit; INSTANCE:2]", $passwd) )
 	UTAssert( ControlClick("Menú general", "", "[CLASS:Button; INSTANCE:5]") )
 	If ($level == $ADMIN) Then
-		UTAssert( WinWaitActive("Menú general", "Administración de usuari@s", 30) )
+		UTAssert( WinWaitActive("Menú general", "Administración de usuari@s", 20) )
 	ElseIf ($level == $SIN_RESTRICCIONES) Then
-		UTAssert( WinWaitActive("Menú general", "Manejo de Casos.", 30) ) ; TODO: Check
+		UTAssert( WinWaitActive("Menú general", "Manejo de Casos.", 10) ) ; TODO: Check
 	ElseIf ($level == $CAPTURA_CONSULTA_REPORTES) Then
-		UTAssert( WinWaitActive("Menú general", "Manejo de Casos.", 30) ) ; TODO: Check
+		UTAssert( WinWaitActive("Menú general", "Manejo de Casos.", 10) ) ; TODO: Check
 	ElseIf ($level == $REPORTES_CONSULTA) Then
-		UTAssert( WinWaitActive("Menú general", "Manejo de Casos.", 30) ) ; TODO: Check
+		UTAssert( WinWaitActive("Menú general", "Manejo de Casos.", 10) ) ; TODO: Check
 	ElseIf ($level == $SOLO_LECTURA) Then
-		UTAssert( WinWaitActive("Menú general", "Manejo de Casos.", 30) ) ; TODO: Check
+		UTAssert( WinWaitActive("Menú general", "Manejo de Casos.", 10) ) ; TODO: Check
 	ElseIf ($level == $SIN_ACCESO) Then
-		UTAssert( WinWaitActive("Menú general", "Manejo de Casos.", 30) ) ; TODO: Check
+		UTAssert( WinWaitActive("Menú general", "Manejo de Casos.", 10) ) ; TODO: Check
 	EndIf
 	UTLogEndTestOK()
 EndFunc
