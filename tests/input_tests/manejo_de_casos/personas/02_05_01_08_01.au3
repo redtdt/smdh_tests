@@ -3,6 +3,7 @@
 #AutoIt3Wrapper_UseX64=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 
+#include <Math.au3>
 #include "../../../../lib/smdh_utils.au3"
 #include "../../../../lib/smdh_users.au3"
 #include "../../../../lib/smdh_personas.au3"
@@ -44,7 +45,7 @@ Local $estados = SMDH_Personas_Individual_Get_Estados($nombre, $apellido)
 For $estado = 0 To UBound($estados) - 1
 	SMDH_Personas_Individual_Set_Estado_Idx($nombre, $apellido, $estado)
 	Local $mpos = SMDH_Personas_Individual_Get_Municipios($nombre, $apellido)
-	For $mpo = 0 To UBound($mpos) - 1
+	For $mpo = 0 To _Min( 5, UBound($mpos) - 1 )
 		SMDH_Personas_Individual_Set_Municipio_Idx($nombre, $apellido, $mpo)
 	Next
 Next
@@ -57,7 +58,7 @@ Local $estados = SMDH_Personas_Colectiva_Get_Estados($colectiva, $sigla)
 For $estado = 0 To UBound($estados) - 1
 	SMDH_Personas_Colectiva_Set_Estado_Idx($colectiva, $sigla, $estado)
 	Local $mpos = SMDH_Personas_Colectiva_Get_Municipios($colectiva, $sigla)
-	For $mpo = 0 To UBound($mpos) - 1
+	For $mpo = 0 To _Min( 5, UBound($mpos) - 1 )
 		SMDH_Personas_Colectiva_Set_Municipio_Idx($colectiva, $sigla, $mpo)
 	Next
 Next

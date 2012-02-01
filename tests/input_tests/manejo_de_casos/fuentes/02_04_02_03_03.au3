@@ -9,7 +9,7 @@
 #include "../../../../lib/smdh_fuentes.au3"
 #include "../../../../lib/smdh_personas.au3"
 
-; 2.4.2.3.3 Que elimine correctamente
+; 2.4.2.3.3 Que guarde correctamente si es largo
 
 Local $caso = "Caso de pruebas para fuentes"
 Local $fuente = "FuenteDocumental"
@@ -57,7 +57,7 @@ SMDH_ManejoDeCasos_Fuentes_Open()
 SMDH_ManejoDeCasos_Fuentes_Documental_Open()
 SMDH_ManejoDeCasos_Fuentes_Documental_Nueva($caso, $fuente)
 Local $datos = ""
-For $i = 1 To 50 Step 1
+For $i = 1 To 5 Step 1
 	$datos = $datos & $base
 	SMDH_ManejoDeCasos_Fuentes_Set_DatosFuente($caso, $fuente, $datos)
 Next
