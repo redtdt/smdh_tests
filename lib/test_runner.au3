@@ -6,12 +6,12 @@
 #include <Constants.au3>
 #include <Array.au3>
 
-Func _RunAU3($sFilePath, $sWorkingDir = "", $iShowFlag = @SW_SHOW, $iOptFlag = 0)
-    Return RunWait('"' & @AutoItExe & '" /AutoIt3ExecuteScript "' & $sFilePath & '"', $sWorkingDir, $iShowFlag, $iOptFlag)
+Func _RunAU3($sFilePath, $params="", $sWorkingDir = "", $iShowFlag = @SW_SHOW, $iOptFlag = 0)
+    Return RunWait('"' & @AutoItExe & '" /AutoIt3ExecuteScript "' & $sFilePath & '" ' & $params, $sWorkingDir, $iShowFlag, $iOptFlag)
 EndFunc
 
 Func RunTest($sFilePath, $sWorkingDir = "")
-    Return _RunAU3($sFilePath, $sWorkingDir, @SW_SHOW, 0x10) ; STDIO_INHERIT_PARENT
+    Return _RunAU3($sFilePath, "", $sWorkingDir, @SW_SHOW, 0x10) ; STDIO_INHERIT_PARENT
 EndFunc
 
 ; It does not detect when child finish with error. TODO. Use RunTest meanwhile.

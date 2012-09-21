@@ -348,7 +348,7 @@ Else
 	; setup not executed, run setup
 	OnAutoItExitUnregister("SMDH_Terminate")
 	SMDH_Terminate_No_Asserts()
-    _RunAU3("setup.au3")
+    _RunAU3("setup.au3", $admin_passwd)
 EndIf
 
 TestRunner($tests, $output_file)
