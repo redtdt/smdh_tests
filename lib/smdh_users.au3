@@ -91,7 +91,7 @@ Func SMDH_UserDelete($user, $assert = True)
 	_GUICtrlListBox_ClickItem($hUserList, $user_idx, "left", False, 2)
 	UTAssert( ControlClick("Usuarias y usuarios", "Baja de usuari@", "[CLASS:Button; INSTANCE:2]") )
 	UTAssert( WinWaitActive("Alerta", "", 5) )
-	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	UTAssert( ControlClick("Alerta", "", "[CLASS:Button; INSTANCE:1]") )
 	UTAssert( _GUICtrlListBox_FindString($hUserList, $user, True) < 0)
 	UTAssert( Winclose("Usuarias y usuarios", "") )
 	Sleep(1000);

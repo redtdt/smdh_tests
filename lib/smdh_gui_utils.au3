@@ -214,7 +214,7 @@ Func SMDH_RemoveFromTreeViewList_Single($test, $prefix, $window, $text, $addId, 
 	UTAssert( WinActive($window, $text) )
 	UTAssert( ControlClick($window, $text, $removeId) )
 	UTAssert( WinWaitActive("Alerta", "", 5) )
-	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	UTAssert( ControlClick("Alerta", "", "[CLASS:Button; INSTANCE:1]") )
 	;verify
 	UTAssert( ControlGetText($window, $text, $staticId) == "" )
 	UTLogEndTestOK()
@@ -269,7 +269,7 @@ Func SMDH_RemoveFromTreeViewList_Multi($test, $prefix, $window, $text, $addId, $
 	_GUICtrlListBox_ClickItem($hList, $hItem, "primary", True, 2)
 	UTAssert( ControlClick($window, $text, $removeId) )
 	UTAssert( WinWaitActive("Alerta", "", 5) )
-	UTAssert( ControlClick("Alerta", "Yes", "[CLASS:Button; INSTANCE:1]") )
+	UTAssert( ControlClick("Alerta", "", "[CLASS:Button; INSTANCE:1]") )
 	;verify
 	UTAssert( WinWaitActive($window, $text, 10) )
 	UTAssert( _GUICtrlListBox_FindString($hList, $item, True) < 0)
