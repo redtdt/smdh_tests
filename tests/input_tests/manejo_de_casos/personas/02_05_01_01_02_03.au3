@@ -51,6 +51,7 @@ For $i = 1 To 5 Step 1
 	$sigla = $sigla & $base
 	SMDH_Personas_Individual_Nueva($nombre, $apellido)
 	SMDH_Personas_Individual_Borrar($nombre, $apellido)
+	SMDH_ManejoDeCasos_Personas_Open()
 	SMDH_Personas_Colectiva_Nueva($colectiva, $sigla)
 	SMDH_Personas_Colectiva_Borrar($colectiva, $sigla)
 Next
