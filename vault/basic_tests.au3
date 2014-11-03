@@ -8,7 +8,7 @@
 SMDH_Run()
 SMDH_TerminateOnExit()
 
-SMDH_Login("admin", "gfh325gm", $ADMIN)
+SMDH_Login("admin", "password", $ADMIN)
 
 SMDH_UserCreate("userdefaultaccesstest", "password001")
 SMDH_UserCheckAccessLevel("userdefaultaccesstest", $CAPTURA_CONSULTA_REPORTES)

@@ -7,4 +7,4 @@
 #include "../lib/smdh_users.au3"
 
 SMDH_Run()
-SMDH_Login("admin", "gfh325gm", $ADMIN)
+SMDH_Login("admin", "password", $ADMIN)

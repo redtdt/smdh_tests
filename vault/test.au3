@@ -14,7 +14,7 @@ ConsoleWrite( "OK" & @CRLF )
 ; Login as admin
 ConsoleWrite( "[TEST:LOGIN_ADMIN] " );
 UTAssert( ControlSetText("Menú general", "", "[CLASS:Edit; INSTANCE:1]", "admin") )
-UTAssert( ControlSetText("Menú general", "", "[CLASS:Edit; INSTANCE:2]", "gfh325gm") )
+UTAssert( ControlSetText("Menú general", "", "[CLASS:Edit; INSTANCE:2]", "password") )
 UTAssert( ControlClick("Menú general", "", "[CLASS:Button; INSTANCE:5]") )
 UTAssert( WinWaitActive("Menú general", "Administración de usuari@s", 5) )
 ConsoleWrite( "OK" & @CRLF )
