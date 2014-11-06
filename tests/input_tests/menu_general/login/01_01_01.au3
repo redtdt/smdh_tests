@@ -9,7 +9,7 @@
 ; 1.1.1 nombre de usuario que contenga caracteres especiales
 
 Local $adminuser= "admin"
-Local $adminspasswd= "gfh325gm"
+Local $adminspasswd= "password"
 Local $username = "áéíóúÁÉÍÓÚñ~`!@#$%^&*()_-+={}[]|\:;'<>,.?/¿¡"
 Local $passwd= "1234"
 
